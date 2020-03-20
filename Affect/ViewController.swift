@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont(name: "American Typewriter", size: 18)
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -50,66 +51,16 @@ class ViewController: UIViewController {
     }
     
     // MARK:- Date Time Picker
-    //    fileprivate func dateTimePicker() {
-    //        let datePicker: UIDatePicker = UIDatePicker()
-    //        datePicker.frame = CGRect(x: 10, y: 50, width: self.view.frame.width, height: 200)
-    //
-    //        // Set some of UIDatePicker properties
-    //        datePicker.timeZone = NSTimeZone.local
-    //        datePicker.backgroundColor = UIColor.white
-    //
-    //        // Add an event to call onDidChangeDate function when value is changed.
-    //        datePicker.addTarget(self, action: #selector(ViewController.datePickerValueChanged(_:)), for: .valueChanged)
-    //        //datePicker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-    //        // Add DataPicker to the view
-    //        self.view.addSubview(datePicker)
-    //
-    //        let toolBar = UIToolbar()
-    //        toolBar.barStyle = .default
-    //        toolBar.isTranslucent = true
-    //        toolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
-    //        toolBar.sizeToFit()
-    //        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ViewController.doneClick))
-    //        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    //        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(ViewController.cancelClick))
-    //        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
-    //        toolBar.isUserInteractionEnabled = true
-    //
-    //        view.addSubview(toolBar)
-    //        toolBar.isHidden = false
-    //
-    //        func doneClick() {
-    //             let dateFormatter1 = DateFormatter()
-    //             dateFormatter1.dateStyle = .medium
-    //             dateFormatter1.timeStyle = .none
-    //             //setNotification()
-    //             //self.datePicker.resignFirstResponder()
-    //             datePicker.isHidden = true
-    //             toolBar.isHidden = true
-    //         }
-    //
-    //         func cancelClick() {
-    //             datePicker.isHidden = true
-    //             toolBar.isHidden = true
-    //
-    //         }
-    //
-    //    }
-    //
-    //    @objc func datePickerValueChanged(_ sender: UIDatePicker){
-    //
-    //        // Create date formatter
-    //        let dateFormatter: DateFormatter = DateFormatter()
-    //
-    //        // Set date format
-    //        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
-    //
-    //        // Apply date format
-    //        let selectedDate: String = dateFormatter.string(from: sender.date)
-    //
-    //        print("Selected value \(selectedDate)")
-    //    }
-    
+    let dateTimePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+            //picker.frame = CGRect(x: 10, y: 50, width: view.frame.width, height: 200)
+        picker.datePickerMode = .dateAndTime
+        picker.timeZone = NSTimeZone.local
+        picker.backgroundColor = UIColor.white
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
+        
 // MARK:- UI View
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,7 +68,7 @@ class ViewController: UIViewController {
         view.addSubview(moodQuestionTextView)
         view.addSubview(dateTimeLabel)
         setupLayout()
-        //dateTimePicker()
+        view.addSubview(dateTimePicker)
         
         let stackView = UIStackView(arrangedSubviews: setIconButton())
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -127,9 +78,13 @@ class ViewController: UIViewController {
         view.addSubview(stackView)
         
         stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300).isActive = true
         stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        stackView.heightAnchor.constraint(equalToConstant: view.frame.height).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: view.frame.height/2).isActive = true
+        
+        //Set DateTime Picker
+        dateTimePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        dateTimePicker.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
     }
 
 // MARK:- Setup View Layout
@@ -139,10 +94,9 @@ class ViewController: UIViewController {
         moodQuestionTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         moodQuestionTextView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         moodQuestionTextView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-
+    
     //Set DateTime label
         dateTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         dateTimeLabel.topAnchor.constraint(equalTo: moodQuestionTextView.bottomAnchor, constant: 12).isActive = true
     }
-
 }
