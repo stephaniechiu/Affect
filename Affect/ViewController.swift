@@ -55,43 +55,99 @@ class ViewController: UIViewController {
         return label
     }()
     
-    let dateTimePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-            picker.datePickerMode = .dateAndTime
-            picker.timeZone = NSTimeZone.local
-            picker.backgroundColor = UIColor.white
-            picker.translatesAutoresizingMaskIntoConstraints = false
-            picker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
-        return picker
-    }()
+    var customView: UIView!
     
-    @objc func dateChanged(dateTimePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "en_US")
-            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
-            dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
+    private func loadCustomViewIntoController() {
+        let customViewFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 200)
+        customView = UIView(frame: customViewFrame)
+        customView.backgroundColor = .red
+        customView.alpha = 0.5
+
+        view.addSubview(customView)
+
+        customView.isHidden = false
+        
+        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        button.backgroundColor = .green
+        button.setTitle("Test Button", for: .normal)
+        button.addTarget(self, action: #selector(didPressButtonFromCustomView), for:.touchUpInside)
+
+        customView.addSubview(button)
     }
+
+    @objc func didPressButtonFromCustomView(sender:UIButton) {
+        customView.isHidden = true
+    }
+    
+//    let dateTimePicker: UIDatePicker = {
+//        let picker = UIDatePicker()
+//            picker.datePickerMode = .dateAndTime
+//            picker.timeZone = NSTimeZone.local
+//            picker.backgroundColor = UIColor.white
+//            picker.translatesAutoresizingMaskIntoConstraints = false
+//            picker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
+//        return picker
+//    }()
+//
+//    @objc func dateChanged(dateTimePicker: UIDatePicker) {
+//        let dateFormatter = DateFormatter()
+//            dateFormatter.locale = Locale(identifier: "en_US")
+//            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
+//            dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
+//    }
     @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
-        view.addSubview(dateTimePicker)
-        dateTimePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        dateTimePicker.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        //view.addSubview(dateTimePicker)
+        //dateTimePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        //dateTimePicker.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        loadCustomViewIntoController()
     }
-
-    var toolBar = UIToolbar()
-    func createToolbar() {
-        let toolbar = UIToolbar()
-        toolbar.barStyle = .default
-        toolbar.sizeToFit()
-        toolbar.frame = CGRect(x: 0, y: 0, width: dateTimePicker.frame.size.width, height: 44)
-        toolbar.isTranslucent = false
-
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(sender:)))
-        toolBar.setItems([doneButton], animated: true)
-        toolBar.isUserInteractionEnabled = true
-    }
-    @objc func doneButtonPressed(sender: UIBarButtonItem) {
-        dateTimePicker.resignFirstResponder()
-    }
+//
+//    var toolBar = UIToolbar()
+//    func createToolbar() {
+//        let toolbar = UIToolbar()
+//        toolbar.barStyle = .default
+//        toolbar.sizeToFit()
+//        toolbar.frame = CGRect(x: 0, y: 0, width: dateTimePicker.frame.size.width, height: 44)
+//        toolbar.isTranslucent = false
+//
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(sender:)))
+//        toolBar.setItems([doneButton], animated: true)
+//        toolBar.isUserInteractionEnabled = true
+//
+//    }
+//    @objc func doneButtonPressed(sender: UIBarButtonItem) {
+//        dateTimePicker.resignFirstResponder()
+//    }
+//
+//    @objc func saveBtnClicked(_ button: UIBarButtonItem) {
+//        dateTimePicker.resignFirstResponder()
+//    }
+            //input accessory view
+//            let inputAccessoryView: UIView?
+            
+            //bar button
+//            let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneClick))
+//            toolbar.setItems([doneBtn], animated: true)
+            
+            //assign toolbar
+            //dateTimeLabel.inputAccessoryView = toolbar
+            
+            
+//            label.addGestureRecognizer(guestureRecognizer)
+//
+//            //assign date picker to label
+            
+            //dateTimeLabel.inputView = datePicker
+//        }
+       // @objc func doneClick() {
+//            let dateFormatter1 = DateFormatter()
+//            dateFormatter1.dateStyle = .medium
+//            dateFormatter1.timeStyle = .none
+            //setNotification()
+            //self.datePicker.resignFirstResponder()
+//            datetime.isHidden = true
+//            toolBar.isHidden = true
+//        }
         
 // MARK:- UI View
     override func viewDidLoad() {
@@ -116,7 +172,6 @@ class ViewController: UIViewController {
         
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
         dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
-        createToolbar()
     }
 
 // MARK:- Setup View Layout
