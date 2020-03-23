@@ -9,7 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
+// MARK:- Mood Question
     let moodQuestionTextView: UITextView = {
         let textView = UITextView()
             textView.text = "How are you?"
@@ -20,7 +21,8 @@ class ViewController: UIViewController {
             textView.isScrollEnabled = false
         return textView
     }()
-    
+
+    // MARK:- Mood Icons
     private func setIconButton() -> [UIButton] {
         let iconBtnAwful:UIButton = UIButton(type: .custom)
             iconBtnAwful.setImage(#imageLiteral(resourceName: "Awful"), for: .normal)
@@ -40,114 +42,92 @@ class ViewController: UIViewController {
         return [iconBtnAwesome, iconBtnGreat, iconBtnMeh, iconBtnOk, iconBtnAwful]
     }
     
-    // MARK:- Date Time Picker
+    // MARK:- Date and Time Label, Picker
+    
+//Date and Time label
     let dateTimeLabel: UILabel = {
         let now = Date()
         let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "en_US")
-            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
+            dateFormatter.setLocalizedDateFormatFromTemplate("h:mm")
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-            label.text = dateFormatter.string(from: now)
+            label.attributedText = NSAttributedString(string: "Today, " + dateFormatter.string(from: now), attributes:[.underlineStyle: NSUnderlineStyle.single.rawValue])
             label.translatesAutoresizingMaskIntoConstraints = false
             label.textAlignment = .center
             label.font = UIFont(name: "American Typewriter", size: 18)
             label.isUserInteractionEnabled = true
         return label
     }()
-    
-    var customView: UIView!
-    
-    private func loadCustomViewIntoController() {
-        let customViewFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 200)
-        customView = UIView(frame: customViewFrame)
-        customView.backgroundColor = .red
-        customView.alpha = 0.5
 
-        view.addSubview(customView)
 
-        customView.isHidden = false
+//Creates Date and Time picker view
+    let dateTimePickerView: UIView = {
+        let customView = UIView()
+        customView.translatesAutoresizingMaskIntoConstraints = false
+        return customView
+    }()
+    
+    let dateTimePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+            picker.datePickerMode = .dateAndTime
+            picker.timeZone = NSTimeZone.local
+            picker.backgroundColor = UIColor.white
+            picker.translatesAutoresizingMaskIntoConstraints = false
+            picker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
+        return picker
+    }()
+
+//Date and Time label changes to what user chooses
+    @objc func dateChanged(dateTimePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US")
+            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
+            dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
+    }
+
+//Date and Time picker UI
+    private func loadDateTimePicker() {
+    //Constraints for Date Time Picker view
+        view.addSubview(dateTimePickerView)
+            dateTimePickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            dateTimePickerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+            dateTimePickerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+            dateTimePickerView.heightAnchor.constraint(equalToConstant: 240).isActive = true
+            dateTimePickerView.isHidden = false
+    
+    //Save button in the dateTimePicker view
+        let saveButton = UIButton()
+        saveButton.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1.0)
+            saveButton.setTitle("Save", for: .normal)
+            saveButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 18)
+            saveButton.setTitleColor(.black, for: .normal)
+            saveButton.addTarget(self, action: #selector(didPressButtonFromCustomView), for:.touchUpInside)
+        dateTimePickerView.addSubview(saveButton)
         
-        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-        button.backgroundColor = .green
-        button.setTitle("Test Button", for: .normal)
-        button.addTarget(self, action: #selector(didPressButtonFromCustomView), for:.touchUpInside)
-
-        customView.addSubview(button)
+            saveButton.translatesAutoresizingMaskIntoConstraints = false
+            saveButton.topAnchor.constraint(equalTo: dateTimePickerView.topAnchor).isActive = true
+            saveButton.centerXAnchor.constraint(equalTo: dateTimePickerView.centerXAnchor).isActive = true
+            saveButton.leftAnchor.constraint(equalTo: dateTimePickerView.leftAnchor).isActive = true
+            saveButton.rightAnchor.constraint(equalTo: dateTimePickerView.rightAnchor).isActive = true
+        
+    //Constraints for dateTimePicker subview in the dateTimePicker view
+        dateTimePickerView.addSubview(dateTimePicker)
+            dateTimePicker.centerXAnchor.constraint(equalTo: dateTimePickerView.centerXAnchor).isActive = true
+            dateTimePicker.bottomAnchor.constraint(equalTo: dateTimePickerView.bottomAnchor).isActive = true
+            dateTimePicker.leftAnchor.constraint(equalTo: dateTimePickerView.leftAnchor).isActive = true
+            dateTimePicker.rightAnchor.constraint(equalTo: dateTimePickerView.rightAnchor).isActive = true
+            dateTimePicker.topAnchor.constraint(equalTo: saveButton.bottomAnchor).isActive = true
     }
 
-    @objc func didPressButtonFromCustomView(sender:UIButton) {
-        customView.isHidden = true
-    }
-    
-//    let dateTimePicker: UIDatePicker = {
-//        let picker = UIDatePicker()
-//            picker.datePickerMode = .dateAndTime
-//            picker.timeZone = NSTimeZone.local
-//            picker.backgroundColor = UIColor.white
-//            picker.translatesAutoresizingMaskIntoConstraints = false
-//            picker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
-//        return picker
-//    }()
-//
-//    @objc func dateChanged(dateTimePicker: UIDatePicker) {
-//        let dateFormatter = DateFormatter()
-//            dateFormatter.locale = Locale(identifier: "en_US")
-//            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
-//            dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
-//    }
+//Loads dateTimePicker when user clicks on dateTimeLabel
     @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
-        //view.addSubview(dateTimePicker)
-        //dateTimePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        //dateTimePicker.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        loadCustomViewIntoController()
+        loadDateTimePicker()
     }
-//
-//    var toolBar = UIToolbar()
-//    func createToolbar() {
-//        let toolbar = UIToolbar()
-//        toolbar.barStyle = .default
-//        toolbar.sizeToFit()
-//        toolbar.frame = CGRect(x: 0, y: 0, width: dateTimePicker.frame.size.width, height: 44)
-//        toolbar.isTranslucent = false
-//
-//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(sender:)))
-//        toolBar.setItems([doneButton], animated: true)
-//        toolBar.isUserInteractionEnabled = true
-//
-//    }
-//    @objc func doneButtonPressed(sender: UIBarButtonItem) {
-//        dateTimePicker.resignFirstResponder()
-//    }
-//
-//    @objc func saveBtnClicked(_ button: UIBarButtonItem) {
-//        dateTimePicker.resignFirstResponder()
-//    }
-            //input accessory view
-//            let inputAccessoryView: UIView?
-            
-            //bar button
-//            let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneClick))
-//            toolbar.setItems([doneBtn], animated: true)
-            
-            //assign toolbar
-            //dateTimeLabel.inputAccessoryView = toolbar
-            
-            
-//            label.addGestureRecognizer(guestureRecognizer)
-//
-//            //assign date picker to label
-            
-            //dateTimeLabel.inputView = datePicker
-//        }
-       // @objc func doneClick() {
-//            let dateFormatter1 = DateFormatter()
-//            dateFormatter1.dateStyle = .medium
-//            dateFormatter1.timeStyle = .none
-            //setNotification()
-            //self.datePicker.resignFirstResponder()
-//            datetime.isHidden = true
-//            toolBar.isHidden = true
-//        }
+
+//Hides dateTimePicker when user clicks on "Save" button
+    @objc func didPressButtonFromCustomView(sender:UIButton) {
+        dateTimePickerView.isHidden = true
+    }
         
 // MARK:- UI View
     override func viewDidLoad() {
@@ -155,23 +135,25 @@ class ViewController: UIViewController {
     
         view.addSubview(moodQuestionTextView)
         view.addSubview(dateTimeLabel)
+        
         setupLayout()
-        //view.addSubview(dateTimePicker)
-        
-        let stackView = UIStackView(arrangedSubviews: setIconButton())
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 20
-        stackView.distribution = .fillEqually
-        
-        view.addSubview(stackView)
-        
-        stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300).isActive = true
-        stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
-        
+
+    //User tap gesture recognizer on dateTimeLabel
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
         dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+    
+    //Create stack view for mood icons
+        let moodStackView = UIStackView(arrangedSubviews: setIconButton())
+        moodStackView.translatesAutoresizingMaskIntoConstraints = false
+        moodStackView.spacing = 20
+        moodStackView.distribution = .fillEqually
+        
+        view.addSubview(moodStackView)
+        
+        moodStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        moodStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300).isActive = true
+        moodStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        moodStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
     }
 
 // MARK:- Setup View Layout
@@ -179,10 +161,8 @@ class ViewController: UIViewController {
     //Set mood question view
         moodQuestionTextView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         moodQuestionTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        //moodQuestionTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         moodQuestionTextView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         moodQuestionTextView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        //moodQuestionTextView.bottomAnchor.constraint(equalTo: iconImageView_Meh.topAnchor, constant: 150).isActive = true
     
     //Set DateTime label
         dateTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
