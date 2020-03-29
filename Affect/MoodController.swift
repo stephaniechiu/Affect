@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MoodController: UIViewController {
 
 // MARK:- Properties
     let moodQuestionTextView: UITextView = {
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         let iconBtnAwesome:UIButton = UIButton(type: .custom)
             iconBtnAwesome.setImage(#imageLiteral(resourceName: "Awesome"), for: .normal)
             iconBtnAwesome.imageView?.contentMode = .scaleAspectFit
-        return [iconBtnAwesome, iconBtnGreat, iconBtnMeh, iconBtnOk, iconBtnAwful]
+        return [iconBtnAwful, iconBtnOk, iconBtnMeh, iconBtnGreat, iconBtnAwesome]
     }
     
 //Date and Time label
@@ -86,10 +86,7 @@ class ViewController: UIViewController {
     private func loadDateTimePicker() {
     //Constraints for Date Time Picker view
         view.addSubview(dateTimePickerView)
-            dateTimePickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-            dateTimePickerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-            dateTimePickerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-            dateTimePickerView.heightAnchor.constraint(equalToConstant: 240).isActive = true
+        dateTimePickerView.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, height: 240)
             dateTimePickerView.isHidden = false
     
     //Save button in the dateTimePicker view
@@ -100,20 +97,14 @@ class ViewController: UIViewController {
             saveButton.setTitleColor(.black, for: .normal)
             saveButton.addTarget(self, action: #selector(didPressButtonFromCustomView), for:.touchUpInside)
         dateTimePickerView.addSubview(saveButton)
-        
             saveButton.translatesAutoresizingMaskIntoConstraints = false
-            saveButton.topAnchor.constraint(equalTo: dateTimePickerView.topAnchor).isActive = true
-            saveButton.centerXAnchor.constraint(equalTo: dateTimePickerView.centerXAnchor).isActive = true
-            saveButton.leftAnchor.constraint(equalTo: dateTimePickerView.leftAnchor).isActive = true
-            saveButton.rightAnchor.constraint(equalTo: dateTimePickerView.rightAnchor).isActive = true
+            saveButton.anchor(top: dateTimePickerView.topAnchor, left: dateTimePickerView.leftAnchor, right: dateTimePickerView.rightAnchor)
+            saveButton.centerX(inView: dateTimePickerView)
         
     //Constraints for dateTimePicker subview in the dateTimePicker view
         dateTimePickerView.addSubview(dateTimePicker)
-            dateTimePicker.centerXAnchor.constraint(equalTo: dateTimePickerView.centerXAnchor).isActive = true
-            dateTimePicker.bottomAnchor.constraint(equalTo: dateTimePickerView.bottomAnchor).isActive = true
-            dateTimePicker.leftAnchor.constraint(equalTo: dateTimePickerView.leftAnchor).isActive = true
-            dateTimePicker.rightAnchor.constraint(equalTo: dateTimePickerView.rightAnchor).isActive = true
-            dateTimePicker.topAnchor.constraint(equalTo: saveButton.bottomAnchor).isActive = true
+        dateTimePicker.anchor(top: saveButton.bottomAnchor, left: dateTimePickerView.leftAnchor, bottom: dateTimePickerView.bottomAnchor, right: dateTimePickerView.rightAnchor)
+        dateTimePicker.centerX(inView: dateTimePickerView)
     }
 
 //Loads dateTimePicker when user clicks on dateTimeLabel
@@ -131,9 +122,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     
         view.backgroundColor = .white
-        view.addSubview(moodQuestionTextView)
-        view.addSubview(dateTimeLabel)
-        
         setupLayout()
 
     //User tap gesture recognizer on dateTimeLabel
@@ -147,22 +135,21 @@ class ViewController: UIViewController {
         moodStackView.distribution = .fillEqually
         
         view.addSubview(moodStackView)
-        
-        moodStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        moodStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300).isActive = true
-        moodStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        moodStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
+
+        moodStackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 300, paddingLeft: 20, paddingBottom: 350, paddingRight: 20)
     }
 
 // MARK:- Setup View Layout
     fileprivate func setupLayout() {
-    //Set mood question vi
+    //Set mood question
+        view.addSubview(moodQuestionTextView)
         moodQuestionTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 150)
         moodQuestionTextView.centerX(inView: view)
     
     //Set DateTime label
-        dateTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        dateTimeLabel.topAnchor.constraint(equalTo: moodQuestionTextView.bottomAnchor, constant: 12).isActive = true
+        view.addSubview(dateTimeLabel)
+        dateTimeLabel.centerX(inView: view)
+        dateTimeLabel.anchor(top: moodQuestionTextView.safeAreaLayoutGuide.bottomAnchor, paddingTop: 12)
     }
 }
 
