@@ -43,7 +43,11 @@ private let moodEntryContainerView: UIView = {
     return view
 }()
 
-class EntryTableView: UIViewController {
+class MainTableView: UIViewController {
+    
+    struct Cells {
+        static let entryCell = "MoodEntryCell"
+    }
     
     let moodEntryTableView: UITableView = {
         let tableView = UITableView()
@@ -55,6 +59,7 @@ class EntryTableView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        title = "Hello"
         view.backgroundColor = .white
         
         view.addSubview(moodEntryContainerView)
@@ -65,6 +70,9 @@ class EntryTableView: UIViewController {
         moodEntryTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         view.addSubview(moodEntryTableView)
+//        setupTableViewDelegate()
+        moodEntryTableView.rowHeight = 100
+        moodEntryTableView.register(MoodEntryCell.self, forCellReuseIdentifier: Cells.entryCell)
         
         NSLayoutConstraint.activate([
             moodEntryTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -74,5 +82,37 @@ class EntryTableView: UIViewController {
         ])
         moodEntryTableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
     }
-    
+//
+//    func setupTableViewDelegate() {
+//        moodEntryTableView.delegate = self as UITableViewDelegate
+//        moodEntryTableView.dataSource = self as UITableViewDataSource
+//    }
 }
+
+//extension MainTableView: UITableViewDelegate,  UITableViewDataSource {
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // 1
+//        return 10
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.entryCell), for: indexPath) as! MoodEntryCell
+//        //let entry =
+//        cell.set()
+//
+//        return UITableViewCell()
+//    }
+//}
+//
+//extension EntryList {
+//    func fetchData() -> [Entry] {
+//        let entry1 = Entry(image: #imageLiteral(resourceName: "Movies_b"), dateLabel: "JAN07")
+//        let entry2 = Entry(image: #imageLiteral(resourceName: "Hobby_b"), dateLabel: "FEB05")
+//        let entry3 = Entry(image: #imageLiteral(resourceName: "GoodMeal_b"), dateLabel: "MAR01")
+//
+//        return [entry1, entry2, entry3]
+//    }
+//}
+
+

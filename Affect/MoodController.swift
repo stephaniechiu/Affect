@@ -10,51 +10,6 @@ import UIKit
 
 class MoodController: UIViewController {
 
-// MARK:- Properties
-    let moodQuestionTextView: UITextView = {
-        let textView = UITextView()
-            textView.text = "How are you?"
-//            textView.translatesAutoresizingMaskIntoConstraints = false
-            textView.font = UIFont(name: "American Typewriter", size: 35)
-            textView.textAlignment = .center
-            textView.isEditable = false
-            textView.isScrollEnabled = false
-        return textView
-    }()
-
-    private func setIconButton() -> [UIButton] {
-        let iconBtnAwful:UIButton = UIButton(type: .custom)
-            iconBtnAwful.setImage(#imageLiteral(resourceName: "Awful"), for: .normal)
-            iconBtnAwful.imageView?.contentMode = .scaleAspectFit
-        let iconBtnOk:UIButton = UIButton(type: .custom)
-            iconBtnOk.setImage(#imageLiteral(resourceName: "Ok"), for: .normal)
-            iconBtnOk.imageView?.contentMode = .scaleAspectFit
-        let iconBtnMeh:UIButton = UIButton(type: .custom)
-            iconBtnMeh.setImage(#imageLiteral(resourceName: "Meh"), for: .normal)
-            iconBtnMeh.imageView?.contentMode = .scaleAspectFit
-        let iconBtnGreat:UIButton = UIButton(type: .custom)
-            iconBtnGreat.setImage(#imageLiteral(resourceName: "Great"), for: .normal)
-            iconBtnGreat.imageView?.contentMode = .scaleAspectFit
-        let iconBtnAwesome:UIButton = UIButton(type: .custom)
-            iconBtnAwesome.setImage(#imageLiteral(resourceName: "Awesome"), for: .normal)
-            iconBtnAwesome.imageView?.contentMode = .scaleAspectFit
-        return [iconBtnAwful, iconBtnOk, iconBtnMeh, iconBtnGreat, iconBtnAwesome]
-    }
-    
-//Date and Time label
-    let dateTimeLabel: UILabel = {
-        let now = Date()
-        let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "en_US")
-            dateFormatter.setLocalizedDateFormatFromTemplate("h:mm")
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-            label.attributedText = NSAttributedString(string: "Today, " + dateFormatter.string(from: now), attributes:[.underlineStyle: NSUnderlineStyle.single.rawValue])
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.textAlignment = .center
-            label.font = UIFont(name: "American Typewriter", size: 18)
-            label.isUserInteractionEnabled = true
-        return label
-    }()
 
 
 //Creates Date and Time picker view
@@ -136,14 +91,14 @@ class MoodController: UIViewController {
         
         view.addSubview(moodStackView)
 
-        moodStackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 300, paddingLeft: 20, paddingBottom: 350, paddingRight: 20)
+        moodStackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 350, paddingLeft: 20, paddingBottom: 350, paddingRight: 20)
     }
 
 // MARK:- Setup View Layout
     fileprivate func setupLayout() {
     //Set mood question
         view.addSubview(moodQuestionTextView)
-        moodQuestionTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 150)
+        moodQuestionTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 100)
         moodQuestionTextView.centerX(inView: view)
     
     //Set DateTime label

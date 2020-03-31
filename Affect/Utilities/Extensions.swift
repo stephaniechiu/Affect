@@ -9,6 +9,13 @@
 import UIKit
 
 extension UIView {
+    func iconBtn(image: UIImage) -> UIButton {
+        let iconBtnImage = UIButton(type: .custom)
+        iconBtnImage.setImage(image, for: .normal)
+        iconBtnImage.imageView?.contentMode = .scaleAspectFit
+        return iconBtnImage
+    }
+    
     func anchor(top: NSLayoutYAxisAnchor? = nil,
                 left: NSLayoutXAxisAnchor? = nil,
                 bottom: NSLayoutYAxisAnchor? = nil,
@@ -53,5 +60,7 @@ extension UIView {
         centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }
+
+
 
 
