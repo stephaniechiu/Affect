@@ -8,6 +8,10 @@
 
 import UIKit
 
-class ActivitiesNotesController {
+class ActivitiesNotesController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
 }

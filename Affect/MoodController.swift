@@ -10,7 +10,32 @@ import UIKit
 
 class MoodController: UIViewController {
 
-
+    let moodQuestionTextView: UITextView = {
+        return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
+    }()
+    
+    //Date and Time label
+    let dateTimeLabel: UILabel = {
+        let now = Date()
+        let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US")
+            dateFormatter.setLocalizedDateFormatFromTemplate("h:mm")
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+            label.attributedText = NSAttributedString(string: "Today, " + dateFormatter.string(from: now), attributes:[.underlineStyle: NSUnderlineStyle.single.rawValue])
+            label.textAlignment = .center
+            label.font = UIFont(name: "American Typewriter", size: 18)
+            label.isUserInteractionEnabled = true
+        return label
+    }()
+    
+    private func setIconButton() -> [UIButton] {
+        let btnAwful: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awful"))
+        let btnOk: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Ok"))
+        let btnMeh: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Meh"))
+        let btnGreat: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Great"))
+        let btnAwesome: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awesome"))
+        return [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
+    }
 
 //Creates Date and Time picker view
     let dateTimePickerView: UIView = {

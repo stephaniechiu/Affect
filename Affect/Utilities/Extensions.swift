@@ -9,6 +9,17 @@
 import UIKit
 
 extension UIView {
+    func titleTextView(placeholderText: String, textSize: CGFloat) -> UITextView {
+        let textView = UITextView()
+        textView.text = placeholderText
+        textView.font = UIFont(name: "American Typewriter", size: textSize)
+        textView.textAlignment = .center
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.textContainer.lineBreakMode = .byWordWrapping
+        return textView
+    }
+    
     func iconBtn(image: UIImage) -> UIButton {
         let iconBtnImage = UIButton(type: .custom)
         iconBtnImage.setImage(image, for: .normal)
