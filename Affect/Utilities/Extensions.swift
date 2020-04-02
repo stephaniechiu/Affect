@@ -27,6 +27,11 @@ extension UIView {
         return iconBtnImage
     }
     
+    func inputContainerView(textField: String) -> UIView {
+        let view = UIView()
+        return view
+    }
+    
     func anchor(top: NSLayoutYAxisAnchor? = nil,
                 left: NSLayoutXAxisAnchor? = nil,
                 bottom: NSLayoutYAxisAnchor? = nil,
@@ -71,7 +76,5 @@ extension UIView {
         centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }
-
-
 
 
