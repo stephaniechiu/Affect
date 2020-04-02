@@ -16,6 +16,7 @@ class FeelingsController: UICollectionViewController {
 // MARK:- Properties
 
     let images: [UIImage] = [#imageLiteral(resourceName: "Gardening_w"), #imageLiteral(resourceName: "Shopping_w"), #imageLiteral(resourceName: "Friends_w"), #imageLiteral(resourceName: "GoodMeal_w")]
+    var feelingsLabel: [String] = ["Excited", "Thankful", "Hopeful"]
     
     let positiveFeelingsTextView: UITextView = {
         return UIView().titleTextView(placeholderText: "Positive", textSize: 20)
@@ -68,12 +69,13 @@ extension FeelingsController {
         return header
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return feelingsLabel.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! FeelingsCell
         cell.backgroundColor = .orange
-        cell.image = images[indexPath.row]
+        cell.cellLabel.text = feelingsLabel[indexPath.row]
+        //cell.image = images[indexPath.row]
         return cell
     }
 }

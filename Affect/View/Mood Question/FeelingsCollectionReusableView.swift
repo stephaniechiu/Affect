@@ -17,7 +17,7 @@ class FeelingsCollectionReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .blue
+        //backgroundColor = .blue
         addSubview(describeFeelingsTextView)
         describeFeelingsTextView.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 100, paddingLeft: 25, paddingRight: 25)
         describeFeelingsTextView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

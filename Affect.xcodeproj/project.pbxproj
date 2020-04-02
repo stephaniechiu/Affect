@@ -20,7 +20,7 @@
 		9041C0B6242118BA00225999 /* MoodController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0B5242118BA00225999 /* MoodController.swift */; };
 		9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0BA242118BA00225999 /* Affect.xcdatamodeld */; };
 		9041C0BE242118BC00225999 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9041C0BD242118BC00225999 /* Assets.xcassets */; };
-		9046DF712434300400DACEEA /* FeelingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9046DF702434300400DACEEA /* FeelingsCollectionViewCell.swift */; };
+		9046DF712434300400DACEEA /* FeelingsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9046DF702434300400DACEEA /* FeelingsCollectionReusableView.swift */; };
 		9049E7CD242D735C00F7CBED /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049E7CC242D735C00F7CBED /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,7 @@
 		9041C0BB242118BA00225999 /* Affect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Affect.xcdatamodel; sourceTree = "<group>"; };
 		9041C0BD242118BC00225999 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9041C0C2242118BC00225999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9046DF702434300400DACEEA /* FeelingsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsCollectionViewCell.swift; sourceTree = "<group>"; };
+		9046DF702434300400DACEEA /* FeelingsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsCollectionReusableView.swift; sourceTree = "<group>"; };
 		9049E7CC242D735C00F7CBED /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				903B556024359EE60099237D /* FeelingsCell.swift */,
-				9046DF702434300400DACEEA /* FeelingsCollectionViewCell.swift */,
+				9046DF702434300400DACEEA /* FeelingsCollectionReusableView.swift */,
 				90390092242934A4002C4697 /* MoodView.swift */,
 			);
 			path = "Mood Question";
@@ -223,7 +223,7 @@
 				903B556124359EE60099237D /* FeelingsCell.swift in Sources */,
 				9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */,
 				9014BE992432EC45008F7155 /* FeelingsController.swift in Sources */,
-				9046DF712434300400DACEEA /* FeelingsCollectionViewCell.swift in Sources */,
+				9046DF712434300400DACEEA /* FeelingsCollectionReusableView.swift in Sources */,
 				9041C0B6242118BA00225999 /* MoodController.swift in Sources */,
 				9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */,
 				9041C0B4242118BA00225999 /* SceneDelegate.swift in Sources */,
