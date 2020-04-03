@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeelingsCollectionReusableView: UICollectionReusableView {
+class FeelingsHeader: UICollectionReusableView {
 
     let describeFeelingsTextView: UITextView = {
         return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 30)

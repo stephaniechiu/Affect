@@ -20,8 +20,9 @@
 		9041C0B6242118BA00225999 /* MoodController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0B5242118BA00225999 /* MoodController.swift */; };
 		9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0BA242118BA00225999 /* Affect.xcdatamodeld */; };
 		9041C0BE242118BC00225999 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9041C0BD242118BC00225999 /* Assets.xcassets */; };
-		9046DF712434300400DACEEA /* FeelingsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9046DF702434300400DACEEA /* FeelingsCollectionReusableView.swift */; };
+		9046DF712434300400DACEEA /* FeelingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9046DF702434300400DACEEA /* FeelingsHeader.swift */; };
 		9049E7CD242D735C00F7CBED /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049E7CC242D735C00F7CBED /* Extensions.swift */; };
+		90F30460243681EF00DDA2FC /* FeelingsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3045F243681EF00DDA2FC /* FeelingsFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +41,9 @@
 		9041C0BB242118BA00225999 /* Affect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Affect.xcdatamodel; sourceTree = "<group>"; };
 		9041C0BD242118BC00225999 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9041C0C2242118BC00225999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9046DF702434300400DACEEA /* FeelingsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsCollectionReusableView.swift; sourceTree = "<group>"; };
+		9046DF702434300400DACEEA /* FeelingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsHeader.swift; sourceTree = "<group>"; };
 		9049E7CC242D735C00F7CBED /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		90F3045F243681EF00DDA2FC /* FeelingsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,31 +57,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9014BE92243131BC008F7155 /* Mood Entries */ = {
+		9014BE92243131BC008F7155 /* Entries */ = {
 			isa = PBXGroup;
 			children = (
 				9014BE8E242FD483008F7155 /* MainTableView.swift */,
 				9014BE942432D4F9008F7155 /* MoodEntryCell.swift */,
 				9014BE9024305A58008F7155 /* MainTableViewDelegate.swift */,
 			);
-			path = "Mood Entries";
+			path = Entries;
 			sourceTree = "<group>";
 		};
-		9014BE932431BC3A008F7155 /* Mood Question */ = {
+		9014BE932431BC3A008F7155 /* Mood */ = {
 			isa = PBXGroup;
 			children = (
-				903B556024359EE60099237D /* FeelingsCell.swift */,
-				9046DF702434300400DACEEA /* FeelingsCollectionReusableView.swift */,
 				90390092242934A4002C4697 /* MoodView.swift */,
 			);
-			path = "Mood Question";
+			path = Mood;
 			sourceTree = "<group>";
 		};
 		9039008F24286974002C4697 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9014BE932431BC3A008F7155 /* Mood Question */,
-				9014BE92243131BC008F7155 /* Mood Entries */,
+				9014BE932431BC3A008F7155 /* Mood */,
+				90F304612436F57F00DDA2FC /* Feelings */,
+				9014BE92243131BC008F7155 /* Entries */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -95,7 +96,6 @@
 		9039009124293471002C4697 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9049E7C8242D717A00F7CBED /* MoodInputs */,
 				9041C0B5242118BA00225999 /* MoodController.swift */,
 				9014BE982432EC45008F7155 /* FeelingsController.swift */,
 				9014BE9A2432EC78008F7155 /* ActivitiesNotesController.swift */,
@@ -135,19 +135,22 @@
 			path = Affect;
 			sourceTree = "<group>";
 		};
-		9049E7C8242D717A00F7CBED /* MoodInputs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MoodInputs;
-			sourceTree = "<group>";
-		};
 		9049E7C9242D71BC00F7CBED /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				9049E7CC242D735C00F7CBED /* Extensions.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		90F304612436F57F00DDA2FC /* Feelings */ = {
+			isa = PBXGroup;
+			children = (
+				903B556024359EE60099237D /* FeelingsCell.swift */,
+				90F3045F243681EF00DDA2FC /* FeelingsFlowLayout.swift */,
+				9046DF702434300400DACEEA /* FeelingsHeader.swift */,
+			);
+			path = Feelings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,7 +226,7 @@
 				903B556124359EE60099237D /* FeelingsCell.swift in Sources */,
 				9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */,
 				9014BE992432EC45008F7155 /* FeelingsController.swift in Sources */,
-				9046DF712434300400DACEEA /* FeelingsCollectionReusableView.swift in Sources */,
+				9046DF712434300400DACEEA /* FeelingsHeader.swift in Sources */,
 				9041C0B6242118BA00225999 /* MoodController.swift in Sources */,
 				9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */,
 				9041C0B4242118BA00225999 /* SceneDelegate.swift in Sources */,
@@ -232,6 +235,7 @@
 				9014BE9B2432EC78008F7155 /* ActivitiesNotesController.swift in Sources */,
 				9014BE952432D4F9008F7155 /* MoodEntryCell.swift in Sources */,
 				9049E7CD242D735C00F7CBED /* Extensions.swift in Sources */,
+				90F30460243681EF00DDA2FC /* FeelingsFlowLayout.swift in Sources */,
 				9014BE9124305A58008F7155 /* MainTableViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

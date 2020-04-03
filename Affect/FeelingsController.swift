@@ -9,29 +9,28 @@
 import UIKit
 
 private let headerIdentifier = "Header"
-private let cellIdentifier = "Feelings Cell"
+private let cellIdentifier = "FeelingsCell"
 
 class FeelingsController: UICollectionViewController {
 
 // MARK:- Properties
 
-    let images: [UIImage] = [#imageLiteral(resourceName: "Gardening_w"), #imageLiteral(resourceName: "Shopping_w"), #imageLiteral(resourceName: "Friends_w"), #imageLiteral(resourceName: "GoodMeal_w")]
-    var feelingsLabel: [String] = ["Excited", "Thankful", "Hopeful"]
+    var positiveFeelingsLabel: [String] = ["understanding", "confident", "sympathetic", "satisfied", "kind", "great", "lucky", "fortunate", "important", "elated", "playful", "energetic", "optimistic", "free", "wonderful", "pleased", "comfortable", "calm", "relaxed", "blessed"]
+    var negativeFeelingsLabel: [String] = []
     
-    let positiveFeelingsTextView: UITextView = {
-        return UIView().titleTextView(placeholderText: "Positive", textSize: 20)
+    let columnLayout = ColumnFlowLayout(
+           cellsPerRow: 5,
+           minimumInteritemSpacing: 2,
+           minimumLineSpacing: 2,
+           sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+       )
+    
+    var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        let height = UIScreen.main.bounds.size.height
+        layout.estimatedItemSize = CGSize(width: 20, height: height)
+        return layout
     }()
-    let negativeFeelingsTextView: UITextView = {
-        return UIView().titleTextView(placeholderText: "Negative", textSize: 20)
-    }()
-
-//    let feelingsCollectionViewLayout: UICollectionViewFlowLayout = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
-//        layout.itemSize = CGSize(width: 250, height: 150)
-//
-//        return layout
-//    }()
 
 // MARK:- Lifecycle
     override func viewDidLoad() {
@@ -39,43 +38,31 @@ class FeelingsController: UICollectionViewController {
         collectionView.backgroundColor = .white
 
         //Register Header
-        collectionView!.register(FeelingsCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+        collectionView!.register(FeelingsHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+        collectionView?.collectionViewLayout = layout
+
         collectionView.contentInsetAdjustmentBehavior = .never //for iPhone 11 models and up
         
         //Register Cell
         collectionView.register(FeelingsCell.self, forCellWithReuseIdentifier: cellIdentifier)
-//        loadSubview()
     }
-    
-//        fileprivate func loadSubview() {
-//
-//
-//            view.addSubview(positiveFeelingsTextView)
-//            positiveFeelingsTextView.anchor(top: describeFeelingsTextView.bottomAnchor, paddingTop: 20)
-//            describeFeelingsTextView.centerX(inView: view)
-//
-//            view.addSubview(negativeFeelingsTextView)
-//            negativeFeelingsTextView.anchor(top: positiveFeelingsTextView.bottomAnchor, paddingTop: 20)
-//            describeFeelingsTextView.centerX(inView: view)
-//        }
-    }
+}
 
 // MARK:- UICollectionViewDelegate/Datasource
 extension FeelingsController {
     
     //for header
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! FeelingsCollectionReusableView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! FeelingsHeader
         return header
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return feelingsLabel.count
+        return positiveFeelingsLabel.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! FeelingsCell
-        cell.backgroundColor = .orange
-        cell.cellLabel.text = feelingsLabel[indexPath.row]
-        //cell.image = images[indexPath.row]
+        positiveFeelingsLabel.sort()
+        cell.cellLabel.text = positiveFeelingsLabel[indexPath.row]
         return cell
     }
 }
@@ -85,16 +72,16 @@ extension FeelingsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 300)
     }
-    //pixel spacing between cells
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 20.0
     }
-    //pixel spacing between rows
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - 2) / 3
-        return CGSize(width: width, height: width)
+
+    func collectionView(_ collectionView: UICollectionView, layout
+        collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20.0
     }
 }

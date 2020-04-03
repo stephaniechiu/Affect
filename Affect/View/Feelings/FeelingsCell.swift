@@ -15,30 +15,28 @@ class FeelingsCell: UICollectionViewCell {
         let label = UILabel()
         //label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
-        label.font = UIFont(name: "American Typewriter", size: 16)
+        label.font = UIFont(name: "American Typewriter", size: 12)
+        
         return label
     }()
-    
-//    var image: UIImage? {
-//        didSet {
-//            guard let image = image else { return }
-//            imageTest.image = image
-//        }
-//    }
-//    let imageTest: UIImageView = {
-//        let iv = UIImageView()
-//        iv.image = #imageLiteral(resourceName: "HealthyEating_w")
-//        iv.contentMode = .scaleAspectFill
-//        return iv
-//    }()
     
     // MARK:- Lifecycles
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(cellLabel)
-        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 40)
     }
+    
+//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//        setNeedsLayout()
+//        layoutIfNeeded()
+//        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+//        var frame = layoutAttributes.frame
+//        frame.size.width = ceil(size.width)
+//        layoutAttributes.frame = frame
+//        return layoutAttributes
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
