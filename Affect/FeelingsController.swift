@@ -40,7 +40,6 @@ class FeelingsController: UICollectionViewController {
         //Register Header
         collectionView!.register(FeelingsHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         collectionView?.collectionViewLayout = layout
-
         collectionView.contentInsetAdjustmentBehavior = .never //for iPhone 11 models and up
         
         //Register Cell
@@ -70,7 +69,7 @@ extension FeelingsController {
 // MARK:- UICollectionViewDelegateFlowLayout
 extension FeelingsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300)
+        return CGSize(width: view.frame.width, height: 150)
     }
 
     func collectionView(_ collectionView: UICollectionView,

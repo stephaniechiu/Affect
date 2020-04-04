@@ -25,18 +25,8 @@ class FeelingsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(cellLabel)
-        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 40)
+        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 25)
     }
-    
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        setNeedsLayout()
-//        layoutIfNeeded()
-//        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
-//        var frame = layoutAttributes.frame
-//        frame.size.width = ceil(size.width)
-//        layoutAttributes.frame = frame
-//        return layoutAttributes
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -19,7 +19,7 @@ class FeelingsHeader: UICollectionReusableView {
         
         //backgroundColor = .blue
         addSubview(describeFeelingsTextView)
-        describeFeelingsTextView.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 100, paddingLeft: 25, paddingRight: 25)
+        describeFeelingsTextView.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 10, paddingLeft: 25, paddingRight: 25)
         describeFeelingsTextView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     

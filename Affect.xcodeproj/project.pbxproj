@@ -23,6 +23,7 @@
 		9046DF712434300400DACEEA /* FeelingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9046DF702434300400DACEEA /* FeelingsHeader.swift */; };
 		9049E7CD242D735C00F7CBED /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049E7CC242D735C00F7CBED /* Extensions.swift */; };
 		90F30460243681EF00DDA2FC /* FeelingsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3045F243681EF00DDA2FC /* FeelingsFlowLayout.swift */; };
+		90F304642436FF8800DDA2FC /* FeelingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F304632436FF8800DDA2FC /* FeelingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		9046DF702434300400DACEEA /* FeelingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsHeader.swift; sourceTree = "<group>"; };
 		9049E7CC242D735C00F7CBED /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		90F3045F243681EF00DDA2FC /* FeelingsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsFlowLayout.swift; sourceTree = "<group>"; };
+		90F304632436FF8800DDA2FC /* FeelingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,11 +148,20 @@
 		90F304612436F57F00DDA2FC /* Feelings */ = {
 			isa = PBXGroup;
 			children = (
+				90F304632436FF8800DDA2FC /* FeelingsView.swift */,
+				90F304622436FEF000DDA2FC /* CollectionView */,
 				903B556024359EE60099237D /* FeelingsCell.swift */,
 				90F3045F243681EF00DDA2FC /* FeelingsFlowLayout.swift */,
 				9046DF702434300400DACEEA /* FeelingsHeader.swift */,
 			);
 			path = Feelings;
+			sourceTree = "<group>";
+		};
+		90F304622436FEF000DDA2FC /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +238,7 @@
 				9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */,
 				9014BE992432EC45008F7155 /* FeelingsController.swift in Sources */,
 				9046DF712434300400DACEEA /* FeelingsHeader.swift in Sources */,
+				90F304642436FF8800DDA2FC /* FeelingsView.swift in Sources */,
 				9041C0B6242118BA00225999 /* MoodController.swift in Sources */,
 				9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */,
 				9041C0B4242118BA00225999 /* SceneDelegate.swift in Sources */,
