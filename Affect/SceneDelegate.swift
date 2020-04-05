@@ -22,9 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        //let layout = UICollectionViewFlowLayout()
-        //window?.rootViewController = FeelingsController(collectionViewLayout: layout)
-        window?.rootViewController = MoodController()
+        let layout = UICollectionViewFlowLayout()
+        window?.rootViewController = FeelingsController(collectionViewLayout: layout)
+        //window?.rootViewController = MoodController()
         window?.makeKeyAndVisible()
     }
 

@@ -27,6 +27,14 @@ extension UIView {
         return iconBtnImage
     }
     
+    func navigationBtn(text: String) -> UIButton {
+        let navBtn = UIButton(type: .custom)
+        navBtn.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.5)
+        navBtn.setTitle(text, for: .normal)
+        navBtn.setTitleColor(.white, for: .normal)
+        return navBtn
+    }
+    
     func inputContainerView(textField: String) -> UIView {
         let view = UIView()
         return view

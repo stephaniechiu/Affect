@@ -82,6 +82,7 @@
 			children = (
 				9014BE932431BC3A008F7155 /* Mood */,
 				90F304612436F57F00DDA2FC /* Feelings */,
+				90F3046524386AB900DDA2FC /* Activities */,
 				9014BE92243131BC008F7155 /* Entries */,
 			);
 			path = View;
@@ -162,6 +163,13 @@
 			children = (
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		90F3046524386AB900DDA2FC /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Activities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

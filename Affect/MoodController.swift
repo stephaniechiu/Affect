@@ -11,14 +11,40 @@ import UIKit
 class MoodController: UIViewController {
 
     let moodView = MoodView()
-
-    @objc func dateChanged(dateTimePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "en_US")
-            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
-            dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
+      
+// MARK: - Lifecycle
+    override func loadView() {
+        view = moodView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+
+    //User tap gesture recognizer on dateTimeLabel
+        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
+        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+        dateTimePicker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
+    }
+        
+// MARK: - Selectors
+    //Loads dateTimePicker when user clicks on dateTimeLabel
+        @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
+            loadDateTimePicker()
+        }
+
+    //Hides dateTimePicker when user clicks on "Save" button
+        @objc func didPressButtonFromCustomView(sender:UIButton) {
+            dateTimePickerView.isHidden = true
+        }
+      @objc func dateChanged(dateTimePicker: UIDatePicker) {
+          let dateFormatter = DateFormatter()
+              dateFormatter.locale = Locale(identifier: "en_US")
+              dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
+              dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
+      }
+    
+// MARK: - Helper Functions
     func loadDateTimePicker() {
         dateTimePickerView.isHidden = false
         
@@ -38,32 +64,6 @@ class MoodController: UIViewController {
         dateTimePickerView.addSubview(dateTimePicker)
         dateTimePicker.anchor(top: saveButton.bottomAnchor, left: dateTimePickerView.leftAnchor, bottom: dateTimePickerView.bottomAnchor, right: dateTimePickerView.rightAnchor)
         dateTimePicker.centerX(inView: dateTimePickerView)
-    }
-    
-//Loads dateTimePicker when user clicks on dateTimeLabel
-    @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
-        loadDateTimePicker()
-    }
-
-//Hides dateTimePicker when user clicks on "Save" button
-    @objc func didPressButtonFromCustomView(sender:UIButton) {
-        dateTimePickerView.isHidden = true
-    }
-        
-// MARK:- UI View
-    override func loadView() {
-        view = moodView
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-
-    //User tap gesture recognizer on dateTimeLabel
-        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
-        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
-    
-
     }
 }
 

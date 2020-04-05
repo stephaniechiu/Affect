@@ -11,7 +11,7 @@ import UIKit
 class FeelingsHeader: UICollectionReusableView {
 
     let describeFeelingsTextView: UITextView = {
-        return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 30)
+        return UIView().titleTextView(placeholderText: "Positive", textSize: 30)
     }()
     
     override init(frame: CGRect) {

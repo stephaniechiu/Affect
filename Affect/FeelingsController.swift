@@ -15,8 +15,8 @@ class FeelingsController: UICollectionViewController {
 
 // MARK:- Properties
 
-    var positiveFeelingsLabel: [String] = ["understanding", "confident", "sympathetic", "satisfied", "kind", "great", "lucky", "fortunate", "important", "elated", "playful", "energetic", "optimistic", "free", "wonderful", "pleased", "comfortable", "calm", "relaxed", "blessed"]
-    var negativeFeelingsLabel: [String] = []
+    var positiveFeelingsLabel: [String] = ["understanding", "confident", "sympathetic", "satisfied", "kind", "great", "lucky", "fortunate", "important", "bold", "playful", "energetic", "optimistic", "free", "wonderful", "pleased", "comfortable", "calm", "relaxed", "blessed", "loving", "eager"]
+    var negativeFeelingsLabel: [String] = ["irritated", "disappointed", "ashamed", "miserable", "upset", "indecisive", "embarrassed", "shy", "alone", "fatigued", "stressed", "tense", "resentful", "nervous", "suspicious", "offended", "nonchalant", "bored", "wronged", "dismayed", "threatened", "terrified"]
     
     let columnLayout = ColumnFlowLayout(
            cellsPerRow: 5,
@@ -61,6 +61,7 @@ extension FeelingsController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! FeelingsCell
         positiveFeelingsLabel.sort()
+        cell.backgroundColor = .orange
         cell.cellLabel.text = positiveFeelingsLabel[indexPath.row]
         return cell
     }
@@ -75,7 +76,7 @@ extension FeelingsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20.0
+        return 10.0
     }
 
     func collectionView(_ collectionView: UICollectionView, layout
