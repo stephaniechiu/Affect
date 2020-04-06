@@ -1,14 +1,14 @@
 //
-//  Feelings Cell.swift
+//  NegativeCell.swift
 //  Affect
 //
-//  Created by Stephanie on 4/1/20.
+//  Created by Stephanie on 4/6/20.
 //  Copyright © 2020 Stephanie Chiu. All rights reserved.
 //
 
 import UIKit
 
-class FeelingsCell: UICollectionViewCell {
+class NegativeCell: UICollectionViewCell {
     // MARK:- Properties
     
     let cellLabel: UILabel! = {

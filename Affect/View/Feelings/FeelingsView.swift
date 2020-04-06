@@ -9,13 +9,13 @@
 import UIKit
 
 // MARK: - Properties
-let feelingsTextView: UITextView = {
-    return UIView().titleTextView(placeholderText: "How do you feel?", textSize: 28)
-}()
-
-let nextBtn: UIButton = {
-    return UIView().navigationBtn(text: "Next")
-}()
+//let feelingsTextView: UITextView = {
+//    return UIView().titleTextView(placeholderText: "How do you feel?", textSize: 28)
+//}()
+//
+//let nextBtn: UIButton = {
+//    return UIView().navigationBtn(text: "Next")
+//}()
 
 // MARK: - Lifecycles
 class FeelingsView: UIView {
