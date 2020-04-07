@@ -11,7 +11,7 @@ import UIKit
 private let cellIdentifier = "Cell"
 
 let feelingsTextView: UITextView = {
-    return UIView().titleTextView(placeholderText: "How do you feel?", textSize: 28)
+    return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 35)
 }()
 
 let nextBtn: UIButton = {
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         self.positiveCollectionView = positiveCollectionView
         
         self.view.addSubview(nextBtn)
-        nextBtn.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 25, width: 140, height: 40)
+        nextBtn.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 25)
         nextBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
@@ -88,7 +88,7 @@ extension ViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! PositiveCell
         positiveFeelingsLabel.sort()
         cell.cellLabel.text = positiveFeelingsLabel[indexPath.row]
-        cell.backgroundColor = .orange
+        //cell.backgroundColor = .orange
         return cell
     }
 }

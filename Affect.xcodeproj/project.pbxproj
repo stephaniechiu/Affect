@@ -15,9 +15,9 @@
 		9014BE9B2432EC78008F7155 /* ActivitiesNotesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014BE9A2432EC78008F7155 /* ActivitiesNotesController.swift */; };
 		90390093242934A4002C4697 /* MoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90390092242934A4002C4697 /* MoodView.swift */; };
 		903B556124359EE60099237D /* PositiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903B556024359EE60099237D /* PositiveCell.swift */; };
-		904139252439AD320029DBCD /* CollectionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904139242439AD320029DBCD /* CollectionViews.swift */; };
 		90413927243A808C0029DBCD /* FeelingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90413926243A808C0029DBCD /* FeelingsController.swift */; };
 		9041392A243BD4F40029DBCD /* NegativeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90413929243BD4F40029DBCD /* NegativeCell.swift */; };
+		9041392D243BF7610029DBCD /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041392C243BF7610029DBCD /* ActivitiesCell.swift */; };
 		9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0B1242118BA00225999 /* AppDelegate.swift */; };
 		9041C0B4242118BA00225999 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0B3242118BA00225999 /* SceneDelegate.swift */; };
 		9041C0B6242118BA00225999 /* MoodController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0B5242118BA00225999 /* MoodController.swift */; };
@@ -38,9 +38,9 @@
 		9014BE9A2432EC78008F7155 /* ActivitiesNotesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesNotesController.swift; sourceTree = "<group>"; };
 		90390092242934A4002C4697 /* MoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodView.swift; sourceTree = "<group>"; };
 		903B556024359EE60099237D /* PositiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveCell.swift; sourceTree = "<group>"; };
-		904139242439AD320029DBCD /* CollectionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViews.swift; sourceTree = "<group>"; };
 		90413926243A808C0029DBCD /* FeelingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsController.swift; sourceTree = "<group>"; };
 		90413929243BD4F40029DBCD /* NegativeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeCell.swift; sourceTree = "<group>"; };
+		9041392C243BF7610029DBCD /* ActivitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCell.swift; sourceTree = "<group>"; };
 		9041C0AE242118BA00225999 /* Affect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Affect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9041C0B1242118BA00225999 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9041C0B3242118BA00225999 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,8 +105,8 @@
 		9039009124293471002C4697 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9041C0B5242118BA00225999 /* MoodController.swift */,
-				9014BE9A2432EC78008F7155 /* ActivitiesNotesController.swift */,
+				9041392E243C19E70029DBCD /* Mood */,
+				9041392F243C19F40029DBCD /* Activities */,
 				904139232439ACE50029DBCD /* Feelings */,
 			);
 			name = Controller;
@@ -116,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				9014BE982432EC45008F7155 /* CollectionViewController.swift */,
-				904139242439AD320029DBCD /* CollectionViews.swift */,
 				90413926243A808C0029DBCD /* FeelingsController.swift */,
 			);
 			name = Feelings;
@@ -129,6 +128,30 @@
 				90413929243BD4F40029DBCD /* NegativeCell.swift */,
 			);
 			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		9041392B243BF7230029DBCD /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				9041392C243BF7610029DBCD /* ActivitiesCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		9041392E243C19E70029DBCD /* Mood */ = {
+			isa = PBXGroup;
+			children = (
+				9041C0B5242118BA00225999 /* MoodController.swift */,
+			);
+			name = Mood;
+			sourceTree = "<group>";
+		};
+		9041392F243C19F40029DBCD /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				9014BE9A2432EC78008F7155 /* ActivitiesNotesController.swift */,
+			);
+			name = Activities;
 			sourceTree = "<group>";
 		};
 		9041C0A5242118B900225999 = {
@@ -193,6 +216,7 @@
 		90F3046524386AB900DDA2FC /* Activities */ = {
 			isa = PBXGroup;
 			children = (
+				9041392B243BF7230029DBCD /* CollectionViewCell */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -273,11 +297,11 @@
 				9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */,
 				9014BE992432EC45008F7155 /* CollectionViewController.swift in Sources */,
 				9046DF712434300400DACEEA /* FeelingsHeader.swift in Sources */,
-				904139252439AD320029DBCD /* CollectionViews.swift in Sources */,
 				90F304642436FF8800DDA2FC /* FeelingsView.swift in Sources */,
 				9041C0B6242118BA00225999 /* MoodController.swift in Sources */,
 				9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */,
 				9041C0B4242118BA00225999 /* SceneDelegate.swift in Sources */,
+				9041392D243BF7610029DBCD /* ActivitiesCell.swift in Sources */,
 				9014BE972432DE06008F7155 /* Entry.swift in Sources */,
 				90390093242934A4002C4697 /* MoodView.swift in Sources */,
 				9014BE9B2432EC78008F7155 /* ActivitiesNotesController.swift in Sources */,

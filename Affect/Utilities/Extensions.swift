@@ -31,7 +31,9 @@ extension UIView {
         let navBtn = UIButton(type: .custom)
         navBtn.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.5)
         navBtn.setTitle(text, for: .normal)
-        navBtn.setTitleColor(.white, for: .normal)
+        navBtn.titleLabel?.font = UIFont(name: "Gill Sans", size: 18)
+        navBtn.setTitleColor(.darkGray, for: .normal)
+        
         return navBtn
     }
     

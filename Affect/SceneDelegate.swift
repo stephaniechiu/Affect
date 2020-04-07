@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
 //        let layout = UICollectionViewFlowLayout()
 //        window?.rootViewController = FeelingsController(collectionViewLayout: layout)
-        window?.rootViewController = ViewController()
+        window?.rootViewController = ActivitiesNotesController()
         window?.makeKeyAndVisible()
     }
 
