@@ -26,7 +26,7 @@ let notesThoughtsTextView: UITextView = {
 }()
 
 var userInputNotesContainerView: UIView = {
-    return UIView().inputContainerView(placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
+    return UIView().inputContainerView(placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", height: 140)
 }()
 
 //Gratitude - User Input
@@ -35,7 +35,7 @@ let gratitudeTextView: UITextView = {
 }()
 
 var userInputGratitudeContainerView: UIView = {
-    return UIView().inputContainerView(placeholder: "Gratituity is important!")
+    return UIView().inputContainerView(placeholder: "Gratituity is important!", height: 100)
 }()
 
 //Navigation Buttons: Cancel, Save
@@ -68,6 +68,23 @@ class ActivitiesNotesController: UIViewController {
         self.activitiesCollectionView.delegate = self
         self.activitiesCollectionView.register(ActivitiesCell.self, forCellWithReuseIdentifier: activitiesCellIdentifier)
         self.activitiesCollectionView.backgroundColor = .white
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 
 // MARK: - Layout Setup
@@ -83,19 +100,19 @@ class ActivitiesNotesController: UIViewController {
         self.activitiesCollectionView = activitiesCollectionView
         
         self.view.addSubview(notesThoughtsTextView)
-        notesThoughtsTextView.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 30)
+        notesThoughtsTextView.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10, height: 30)
         
         self.view.addSubview(userInputNotesContainerView)
         userInputNotesContainerView.anchor(top: notesThoughtsTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
         
         self.view.addSubview(gratitudeTextView)
-        gratitudeTextView.anchor(top: userInputNotesContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 30)
+        gratitudeTextView.anchor(top: userInputNotesContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10, height: 30)
         
         self.view.addSubview(userInputGratitudeContainerView)
         userInputGratitudeContainerView.anchor(top: gratitudeTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingBottom: 20)
         
         self.view.addSubview(activitiesStackView)
-        activitiesStackView.anchor(top: userInputGratitudeContainerView.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 10, paddingBottom: 10, height: 40)
+        activitiesStackView.anchor(top: userInputGratitudeContainerView.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10, height: 40)
         activitiesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     

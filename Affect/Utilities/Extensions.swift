@@ -38,7 +38,7 @@ extension UIView {
         return navBtn
     }
     
-    func inputContainerView(placeholder: String) -> UIView {
+    func inputContainerView(placeholder: String, height: CGFloat) -> UIView {
         let view = UIView()
         view.layer.cornerRadius = 12
         view.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.3)
@@ -55,7 +55,7 @@ extension UIView {
         inputTextView.isScrollEnabled = false
         
         view.addSubview(inputTextView)
-        inputTextView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 15, paddingRight: 15, height: 130)
+        inputTextView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 15, paddingRight: 15, height: height)
         
         inputTextView.addDoneButton(title: "Done", target: self, selector: #selector(ActivitiesNotesController.tapDone(sender:)))
 
