@@ -38,8 +38,27 @@ extension UIView {
         return navBtn
     }
     
-    func inputContainerView(textField: String) -> UIView {
+    func inputContainerView(placeholder: String) -> UIView {
         let view = UIView()
+        view.layer.cornerRadius = 12
+        view.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.3)
+        
+        let inputTextView = UITextView()
+        inputTextView.font = UIFont(name: "Gill Sans", size: 14)
+        inputTextView.keyboardAppearance = .default
+        inputTextView.textAlignment = .left
+        inputTextView.isScrollEnabled = true
+        inputTextView.textContainer.lineBreakMode = .byWordWrapping
+        inputTextView.text = placeholder
+        inputTextView.textColor = .darkGray
+        inputTextView.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.0)
+        inputTextView.isScrollEnabled = false
+        
+        view.addSubview(inputTextView)
+        inputTextView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 15, paddingRight: 15, height: 130)
+        
+        inputTextView.addDoneButton(title: "Done", target: self, selector: #selector(ActivitiesNotesController.tapDone(sender:)))
+
         return view
     }
     
@@ -88,4 +107,30 @@ extension UIView {
     }
 }
 
+extension UITextView {
+    func addDoneButton(title: String, target: Any, selector: Selector) {
+        
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0,
+                                              y: 0.0,
+                                              width: UIScreen.main.bounds.size.width,
+                                              height: 44.0))//1
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
+        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
+        toolBar.setItems([flexible, barButton], animated: false)//4
+        self.inputAccessoryView = toolBar//5
+    }
+}
+
+//extension UILabel {
+//    func addDoneButton(title: String, target: Any, selector: Selector) {
+//        
+//        let toolBar = UIToolbar(frame: CGRect(x: 0.0,
+//                                              y: 0.0,
+//                                              width: UIScreen.main.bounds.size.width,
+//                                              height: 44.0))//1
+//        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
+//        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
+//        toolBar.setItems([flexible, barButton], animated: false)//4
+//        self.inputAccessoryView = toolBar//5
+//    }
 
