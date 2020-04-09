@@ -38,7 +38,7 @@ extension UIView {
         return navBtn
     }
     
-    func inputContainerView(placeholder: String, height: CGFloat) -> UIView {
+    func inputContainerView(placeholder: String) -> UIView {
         let view = UIView()
         view.layer.cornerRadius = 12
         view.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.3)
@@ -55,7 +55,7 @@ extension UIView {
         inputTextView.isScrollEnabled = false
         
         view.addSubview(inputTextView)
-        inputTextView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 15, paddingRight: 15, height: height)
+        inputTextView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 15, paddingRight: 15)
         
         inputTextView.addDoneButton(title: "Done", target: self, selector: #selector(ActivitiesNotesController.tapDone(sender:)))
 
@@ -120,17 +120,3 @@ extension UITextView {
         self.inputAccessoryView = toolBar//5
     }
 }
-
-//extension UILabel {
-//    func addDoneButton(title: String, target: Any, selector: Selector) {
-//        
-//        let toolBar = UIToolbar(frame: CGRect(x: 0.0,
-//                                              y: 0.0,
-//                                              width: UIScreen.main.bounds.size.width,
-//                                              height: 44.0))//1
-//        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
-//        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
-//        toolBar.setItems([flexible, barButton], animated: false)//4
-//        self.inputAccessoryView = toolBar//5
-//    }
-

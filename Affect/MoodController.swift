@@ -21,13 +21,14 @@ class MoodController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
+        setupNavigationBarItems()
     //User tap gesture recognizer on dateTimeLabel
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
         dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
         dateTimePicker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
     }
-        
-// MARK: - Selectors
+
+    // MARK: - Selectors
     //Loads dateTimePicker when user clicks on dateTimeLabel
         @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
             loadDateTimePicker()
@@ -42,9 +43,28 @@ class MoodController: UIViewController {
               dateFormatter.locale = Locale(identifier: "en_US")
               dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
               dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
-      }
+        }
     
+    //Exits from view
+      @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
+         print("clicked")
+        }
+ 
 // MARK: - Helper Functions
+    private func setupNavigationBarItems() {
+        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
+        let closeImageView = UIButton(type: .custom)
+        closeImageView.setImage(#imageLiteral(resourceName: "btn_close_b").withRenderingMode(.alwaysOriginal), for: .normal)
+        closeImageView.anchor(width: 12, height: 12)
+        closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
+        
+        let logoutBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
+        self.navigationItem.leftBarButtonItem  = logoutBarButtonItem
+    }
+    
     func loadDateTimePicker() {
         dateTimePickerView.isHidden = false
         

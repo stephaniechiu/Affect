@@ -22,26 +22,35 @@ let activitiesStackView: UIStackView = {
 
 //Notes & Thoughts - User Input
 let notesThoughtsTextView: UITextView = {
-    return UIView().titleTextView(placeholderText: "notes & thoughts", textSize: 20)
+    let view = UIView().titleTextView(placeholderText: "notes & thoughts", textSize: 20)
+    view.backgroundColor = .orange
+    //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    return view
 }()
 
 var userInputNotesContainerView: UIView = {
-    return UIView().inputContainerView(placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", height: 140)
+    let view = UIView().inputContainerView(placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+    view.heightAnchor.constraint(equalToConstant: 140).isActive = true
+    return view
 }()
 
 //Gratitude - User Input
 let gratitudeTextView: UITextView = {
-    return UIView().titleTextView(placeholderText: "3 things I'm grateful for", textSize: 20)
+    let view = UIView().titleTextView(placeholderText: "3 things I'm grateful for", textSize: 20)
+    //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    return view
 }()
 
 var userInputGratitudeContainerView: UIView = {
-    return UIView().inputContainerView(placeholder: "Gratituity is important!", height: 100)
+    let view = UIView().inputContainerView(placeholder: "Gratituity is important!")
+    view.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    return view
 }()
 
 //Navigation Buttons: Cancel, Save
 func setNavButtons() -> [UIButton]{
     let nextBtn = UIView().navigationBtn(text: "Next")
-    let saveBtn = UIView().navigationBtn(text: "Save & Go")
+    let saveBtn = UIView().navigationBtn(text: "Done")
     return [nextBtn, saveBtn]
 }
 
@@ -90,29 +99,26 @@ class ActivitiesNotesController: UIViewController {
 // MARK: - Layout Setup
     fileprivate func setupActivitiesLayout() {
         self.view.addSubview(activitiesTextView)
-        activitiesTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 80, paddingLeft: 20, paddingRight: 20)
+        activitiesTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         activitiesTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         let activitiesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: columnLayout)
         activitiesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(activitiesCollectionView)
-        activitiesCollectionView.anchor(top: activitiesTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 40, paddingRight: 40, height: 180)
+        activitiesCollectionView.anchor(top: activitiesTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 40, paddingRight: 40)
         self.activitiesCollectionView = activitiesCollectionView
         
-        self.view.addSubview(notesThoughtsTextView)
-        notesThoughtsTextView.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10, height: 30)
+        let stack = UIStackView(arrangedSubviews: [notesThoughtsTextView, userInputNotesContainerView, gratitudeTextView, userInputGratitudeContainerView])
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        //stack.spacing = 15
         
-        self.view.addSubview(userInputNotesContainerView)
-        userInputNotesContainerView.anchor(top: notesThoughtsTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
-        
-        self.view.addSubview(gratitudeTextView)
-        gratitudeTextView.anchor(top: userInputNotesContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10, height: 30)
-        
-        self.view.addSubview(userInputGratitudeContainerView)
-        userInputGratitudeContainerView.anchor(top: gratitudeTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingBottom: 20)
+        view.addSubview(stack)
+        stack.backgroundColor = .blue
+        stack.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
         
         self.view.addSubview(activitiesStackView)
-        activitiesStackView.anchor(top: userInputGratitudeContainerView.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10, height: 40)
+        activitiesStackView.anchor(top: stack.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10)
         activitiesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
