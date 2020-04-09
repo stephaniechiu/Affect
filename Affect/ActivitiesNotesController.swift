@@ -43,7 +43,7 @@ let gratitudeTextView: UITextView = {
 
 var userInputGratitudeContainerView: UIView = {
     let view = UIView().inputContainerView(placeholder: "Gratituity is important!")
-    view.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    //view.heightAnchor.constraint(equalToConstant: 100).isActive = true
     return view
 }()
 

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9014BE8F242FD483008F7155 /* EntryLogsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014BE8E242FD483008F7155 /* EntryLogsController.swift */; };
+		9014BE8F242FD483008F7155 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014BE8E242FD483008F7155 /* HomeController.swift */; };
 		9014BE9124305A58008F7155 /* MainTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014BE9024305A58008F7155 /* MainTableViewDelegate.swift */; };
 		9014BE952432D4F9008F7155 /* MoodEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014BE942432D4F9008F7155 /* MoodEntryCell.swift */; };
 		9014BE972432DE06008F7155 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014BE962432DE06008F7155 /* Entry.swift */; };
@@ -30,7 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9014BE8E242FD483008F7155 /* EntryLogsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryLogsController.swift; sourceTree = "<group>"; };
+		9014BE8E242FD483008F7155 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		9014BE9024305A58008F7155 /* MainTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewDelegate.swift; sourceTree = "<group>"; };
 		9014BE942432D4F9008F7155 /* MoodEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodEntryCell.swift; sourceTree = "<group>"; };
 		9014BE962432DE06008F7155 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 		9039009124293471002C4697 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				90442414243EAB3B0029C040 /* EntryLogs */,
+				90442414243EAB3B0029C040 /* Home */,
 				9041392E243C19E70029DBCD /* Mood */,
 				9041392F243C19F40029DBCD /* Activities */,
 				904139232439ACE50029DBCD /* Feelings */,
@@ -186,12 +186,12 @@
 			path = Affect;
 			sourceTree = "<group>";
 		};
-		90442414243EAB3B0029C040 /* EntryLogs */ = {
+		90442414243EAB3B0029C040 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				9014BE8E242FD483008F7155 /* EntryLogsController.swift */,
+				9014BE8E242FD483008F7155 /* HomeController.swift */,
 			);
-			name = EntryLogs;
+			name = Home;
 			sourceTree = "<group>";
 		};
 		9049E7C9242D71BC00F7CBED /* Utilities */ = {
@@ -300,7 +300,7 @@
 			files = (
 				9041392A243BD4F40029DBCD /* NegativeCell.swift in Sources */,
 				90413927243A808C0029DBCD /* FeelingsController.swift in Sources */,
-				9014BE8F242FD483008F7155 /* EntryLogsController.swift in Sources */,
+				9014BE8F242FD483008F7155 /* HomeController.swift in Sources */,
 				903B556124359EE60099237D /* PositiveCell.swift in Sources */,
 				9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */,
 				9014BE992432EC45008F7155 /* CollectionViewController.swift in Sources */,

@@ -22,23 +22,20 @@ class MoodController: UIViewController {
         view.backgroundColor = .white
 
         setupNavigationBarItems()
-    //User tap gesture recognizer on dateTimeLabel
-        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
-        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
-        dateTimePicker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
+        dateTimeLabelTapped()
     }
 
     // MARK: - Selectors
     //Loads dateTimePicker when user clicks on dateTimeLabel
-        @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
+    @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
             loadDateTimePicker()
         }
 
     //Hides dateTimePicker when user clicks on "Save" button
-        @objc func didPressButtonFromCustomView(sender:UIButton) {
+    @objc func didPressButtonFromCustomView(sender:UIButton) {
             dateTimePickerView.isHidden = true
         }
-      @objc func dateChanged(dateTimePicker: UIDatePicker) {
+    @objc func dateChanged(dateTimePicker: UIDatePicker) {
           let dateFormatter = DateFormatter()
               dateFormatter.locale = Locale(identifier: "en_US")
               dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
@@ -46,9 +43,10 @@ class MoodController: UIViewController {
         }
     
     //Exits from view
-      @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
-         print("clicked")
-        }
+    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
+        let homeController = HomeController()
+        navigationController?.pushViewControllerFromLeft(controller: homeController)
+    }
  
 // MARK: - Helper Functions
     private func setupNavigationBarItems() {
@@ -62,7 +60,14 @@ class MoodController: UIViewController {
         closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
         
         let logoutBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
-        self.navigationItem.leftBarButtonItem  = logoutBarButtonItem
+        self.navigationItem.leftBarButtonItem = logoutBarButtonItem
+    }
+    
+    fileprivate func dateTimeLabelTapped() {
+        //User tap gesture recognizer on dateTimeLabel
+        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
+        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+        dateTimePicker.addTarget(self, action: #selector(dateChanged(dateTimePicker:)), for: .valueChanged)
     }
     
     func loadDateTimePicker() {

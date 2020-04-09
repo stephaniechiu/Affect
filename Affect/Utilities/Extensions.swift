@@ -120,3 +120,15 @@ extension UITextView {
         self.inputAccessoryView = toolBar//5
     }
 }
+
+extension UINavigationController {
+    func pushViewControllerFromLeft(controller: UIViewController) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromBottom
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        pushViewController(controller, animated: false)
+    }
+}

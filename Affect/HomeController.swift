@@ -43,7 +43,7 @@ private let moodEntryContainerView: UIView = {
     return view
 }()
 
-class EntryLogsController: UIViewController {
+class HomeController: UIViewController {
     
     struct Cells {
         static let entryCell = "MoodEntryCell"
