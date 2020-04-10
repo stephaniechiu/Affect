@@ -1,5 +1,5 @@
 //
-//  FeelingsCollectionViewCell.swift
+//  FeelingsHeader.swift
 //  Affect
 //
 //  Created by Stephanie on 3/31/20.
@@ -29,7 +29,7 @@ class FeelingsHeader: UICollectionReusableView {
     
     func setupHeaderPositive() {
         addSubview(positiveFeelingsHeader)
-        positiveFeelingsHeader.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 10, paddingLeft: 25, paddingRight: 25)
+        positiveFeelingsHeader.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 10)
         positiveFeelingsHeader.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
 //        addSubview(negativeFeelingsHeader)

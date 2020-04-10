@@ -1,19 +1,16 @@
 //
-//  NegativeCell.swift
+//  NegativeFeelingsCell.swift
 //  Affect
 //
-//  Created by Stephanie on 4/6/20.
+//  Created by Stephanie on 4/9/20.
 //  Copyright © 2020 Stephanie Chiu. All rights reserved.
 //
 
 import UIKit
 
-class NegativeCell: UICollectionViewCell {
-    // MARK:- Properties
-    
+class NegativeFeelingsCell: UICollectionViewCell {
     let cellLabel: UILabel! = {
         let label = UILabel()
-        //label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         label.font = UIFont(name: "American Typewriter", size: 12)
         
@@ -21,10 +18,10 @@ class NegativeCell: UICollectionViewCell {
     }()
     
     // MARK:- Lifecycles
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(cellLabel)
+        //cellLabel.backgroundColor = .yellow
         cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 25)
     }
     

@@ -8,7 +8,8 @@
 
 import UIKit
 
-private let cellIdentifier = "Cell"
+private let positiveCellID = "PositiveCell"
+private let negativeCellID = "NegativeCell"
 
 let feelingsTextView: UITextView = {
     return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 35)
@@ -25,15 +26,15 @@ var negativeFeelingsLabel: [String] = ["irritated", "disappointed", "ashamed", "
 class FeelingsController: UIViewController {
 
 // MARK: - Properties
-    weak var positiveCollectionView: UICollectionView!
-    weak var negativeCollectionView: UICollectionView!
-
-    var layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            let height = UIScreen.main.bounds.size.height
-            layout.estimatedItemSize = CGSize(width: 20, height: height)
-            return layout
-        }()
+    let collectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        let height = UIScreen.main.bounds.size.height
+        flowLayout.estimatedItemSize = CGSize(width: 20, height: height)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        cv.backgroundColor = .clear
+        return cv
+    }()
 
 // MARK: - Lifecycle
     override func loadView() {
@@ -78,18 +79,10 @@ class FeelingsController: UIViewController {
     
     fileprivate func setupCollectionViews() {
         self.view.addSubview(feelingsTextView)
-        feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 40)
-        feelingsTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 20, paddingRight: 20)
         
-        let positiveCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        positiveCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(positiveCollectionView)
-        positiveCollectionView.topAnchor.constraint(equalTo: feelingsTextView.bottomAnchor, constant: 20).isActive = true
-        positiveCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        positiveCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        positiveCollectionView.heightAnchor.constraint(equalToConstant: 250).isActive = true
-        
-        self.positiveCollectionView = positiveCollectionView
+        self.view.addSubview(collectionView)
+        collectionView.anchor(top: feelingsTextView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
         
         self.view.addSubview(nextBtn)
         nextBtn.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 25)
@@ -98,24 +91,39 @@ class FeelingsController: UIViewController {
     }
     
     fileprivate func setupRe() {
-        self.positiveCollectionView.dataSource = self
-        self.positiveCollectionView.delegate = self
-        self.positiveCollectionView.register(PositiveCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        self.positiveCollectionView.backgroundColor = .darkGray
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.register(PositiveFeelingsCell.self, forCellWithReuseIdentifier: positiveCellID)
+        self.collectionView.register(NegativeFeelingsCell.self, forCellWithReuseIdentifier: negativeCellID)
     }
 }
 
 // MARK: - UICollectionView Data Source
 extension FeelingsController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 1 {
+            return negativeFeelingsLabel.count
+        }
         return positiveFeelingsLabel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! PositiveCell
-        positiveFeelingsLabel.sort()
-        cell.cellLabel.text = positiveFeelingsLabel[indexPath.row]
-        //cell.backgroundColor = .orange
+        
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: negativeCellID, for: indexPath) as! NegativeFeelingsCell
+                negativeFeelingsLabel.sort()
+                cell.cellLabel.text = negativeFeelingsLabel[indexPath.row]
+
+            return cell
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: positiveCellID, for: indexPath) as! PositiveFeelingsCell
+            positiveFeelingsLabel.sort()
+            cell.cellLabel.text = positiveFeelingsLabel[indexPath.row]
+
         return cell
     }
 }
@@ -124,11 +132,11 @@ extension FeelingsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 50)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
 
     func collectionView(_ collectionView: UICollectionView,

@@ -1,19 +1,16 @@
 //
-//  Feelings Cell.swift
+//  PositiveFeelingsCell.swift
 //  Affect
 //
-//  Created by Stephanie on 4/1/20.
+//  Created by Stephanie on 4/9/20.
 //  Copyright © 2020 Stephanie Chiu. All rights reserved.
 //
 
 import UIKit
 
-class PositiveCell: UICollectionViewCell {
-    // MARK:- Properties
-    
+class PositiveFeelingsCell: UICollectionViewCell {
     let cellLabel: UILabel! = {
         let label = UILabel()
-        //label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         label.font = UIFont(name: "American Typewriter", size: 12)
         
@@ -25,6 +22,7 @@ class PositiveCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(cellLabel)
+        //cellLabel.backgroundColor = .orange
         cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 25)
     }
     

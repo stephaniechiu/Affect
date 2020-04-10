@@ -75,17 +75,18 @@ class ActivitiesNotesController: UIViewController {
         setupNavigationBarItems()
     }
     
+    fileprivate func pushViewUpKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        self.activitiesCollectionView.dataSource = self
-        self.activitiesCollectionView.delegate = self
-        self.activitiesCollectionView.register(ActivitiesCell.self, forCellWithReuseIdentifier: activitiesCellIdentifier)
-        self.activitiesCollectionView.backgroundColor = .white
+        setupCollectionViewRegister()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        pushViewUpKeyboard()
     }
     
     // MARK: - Selectors
@@ -146,10 +147,18 @@ class ActivitiesNotesController: UIViewController {
         view.addSubview(stack)
         stack.backgroundColor = .blue
         stack.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
+        stack.setCustomSpacing(10, after: userInputNotesContainerView)
         
         self.view.addSubview(activitiesStackView)
         activitiesStackView.anchor(top: stack.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10)
         activitiesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    fileprivate func setupCollectionViewRegister() {
+        self.activitiesCollectionView.dataSource = self
+        self.activitiesCollectionView.delegate = self
+        self.activitiesCollectionView.register(ActivitiesCell.self, forCellWithReuseIdentifier: activitiesCellIdentifier)
+        self.activitiesCollectionView.backgroundColor = .white
     }
 }
 
