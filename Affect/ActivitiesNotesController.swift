@@ -63,10 +63,16 @@ class ActivitiesNotesController: UIViewController {
     let activitiesImage: [UIImage] = [#imageLiteral(resourceName: "Family_b"), #imageLiteral(resourceName: "GoodMeal_b"), #imageLiteral(resourceName: "HealthyEating_b"), #imageLiteral(resourceName: "Sports_b"), #imageLiteral(resourceName: "Games_b"), #imageLiteral(resourceName: "Movies_b"), #imageLiteral(resourceName: "Travel_b"), #imageLiteral(resourceName: "Shopping_b"), #imageLiteral(resourceName: "Friends_b"), #imageLiteral(resourceName: "Gardening_b"), #imageLiteral(resourceName: "Hobby_b"), #imageLiteral(resourceName: "Exercise_b"), #imageLiteral(resourceName: "SocialMedia_b"), #imageLiteral(resourceName: "Reading_b"), #imageLiteral(resourceName: "Work_b"), #imageLiteral(resourceName: "GoodSleep_b"), #imageLiteral(resourceName: "Date_b")]
 
 // MARK: - Lifecycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     override func loadView() {
         super.loadView()
         
         setupActivitiesLayout()
+        setupNavigationBarItems()
     }
     
     override func viewDidLoad() {
@@ -80,6 +86,12 @@ class ActivitiesNotesController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // MARK: - Selectors
+    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
+        let homeController = HomeController()
+        navigationController?.pushViewControllerFromTop(controller: homeController)
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -96,7 +108,25 @@ class ActivitiesNotesController: UIViewController {
         }
     }
 
-// MARK: - Layout Setup
+    @objc func tapDone(sender: Any) {
+        self.view.endEditing(true)
+    }
+
+// MARK: - Helper Functions
+    private func setupNavigationBarItems() {
+        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
+        let closeImageView: UIButton = {
+                return UIView().navigationBarItemImage(image: #imageLiteral(resourceName: "btn_close_b"))
+        }()
+        closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
+
+        let closeBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
+        self.navigationItem.leftBarButtonItem = closeBarButtonItem
+    }
+    
     fileprivate func setupActivitiesLayout() {
         self.view.addSubview(activitiesTextView)
         activitiesTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
@@ -120,10 +150,6 @@ class ActivitiesNotesController: UIViewController {
         self.view.addSubview(activitiesStackView)
         activitiesStackView.anchor(top: stack.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10)
         activitiesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-    
-    @objc func tapDone(sender: Any) {
-        self.view.endEditing(true)
     }
 }
 

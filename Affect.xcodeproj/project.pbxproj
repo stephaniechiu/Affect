@@ -106,8 +106,8 @@
 			children = (
 				90442414243EAB3B0029C040 /* Home */,
 				9041392E243C19E70029DBCD /* Mood */,
-				9041392F243C19F40029DBCD /* Activities */,
 				904139232439ACE50029DBCD /* Feelings */,
+				9041392F243C19F40029DBCD /* Activities */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

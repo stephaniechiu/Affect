@@ -22,7 +22,7 @@ var positiveFeelingsLabel: [String] = ["understanding", "confident", "sympatheti
 
 var negativeFeelingsLabel: [String] = ["irritated", "disappointed", "ashamed", "miserable", "upset", "indecisive", "embarrassed", "shy", "alone", "fatigued", "stressed", "tense", "resentful", "nervous", "suspicious", "offended", "nonchalant", "bored", "wronged", "dismayed", "threatened", "terrified"]
 
-class ViewController: UIViewController {
+class FeelingsController: UIViewController {
 
 // MARK: - Properties
     weak var positiveCollectionView: UICollectionView!
@@ -41,6 +41,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
     
         setupCollectionViews()
+        setupNavigationBarItems()
     }
     
     override func viewDidLoad() {
@@ -49,7 +50,32 @@ class ViewController: UIViewController {
         setupRe()
     }
 
+// MARK: - Selectors
+    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
+            let homeController = HomeController()
+            navigationController?.pushViewControllerFromTop(controller: homeController)
+    }
+     
+    @objc func nextViewActivities() {
+        let activitiesController = ActivitiesNotesController()
+        navigationController?.pushViewController(activitiesController, animated: true)
+    }
+    
 // MARK: - Helper Functions
+    private func setupNavigationBarItems() {
+        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
+        let closeImageView: UIButton = {
+                return UIView().navigationBarItemImage(image: #imageLiteral(resourceName: "btn_close_b"))
+        }()
+        closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
+
+        let closeBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
+        self.navigationItem.leftBarButtonItem = closeBarButtonItem
+    }
+    
     fileprivate func setupCollectionViews() {
         self.view.addSubview(feelingsTextView)
         feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 40)
@@ -68,6 +94,7 @@ class ViewController: UIViewController {
         self.view.addSubview(nextBtn)
         nextBtn.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 25)
         nextBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        nextBtn.addTarget(self, action: #selector(nextViewActivities), for: .touchUpInside)
     }
     
     fileprivate func setupRe() {
@@ -79,7 +106,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - UICollectionView Data Source
-extension ViewController: UICollectionViewDataSource {
+extension FeelingsController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return positiveFeelingsLabel.count
     }
@@ -93,7 +120,7 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension FeelingsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 50)
     }

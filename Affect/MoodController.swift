@@ -25,7 +25,14 @@ class MoodController: UIViewController {
         dateTimeLabelTapped()
     }
 
-    // MARK: - Selectors
+// MARK: - Selectors
+    
+    //Exits from view
+    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
+        let homeController = HomeController()
+        navigationController?.pushViewControllerFromTop(controller: homeController)
+    }
+    
     //Loads dateTimePicker when user clicks on dateTimeLabel
     @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
             loadDateTimePicker()
@@ -42,23 +49,25 @@ class MoodController: UIViewController {
               dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
         }
     
-    //Exits from view
-    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
-        let homeController = HomeController()
-        navigationController?.pushViewControllerFromLeft(controller: homeController)
+    //Show Feelings view controller
+    @objc func nextViewFeelings() {
+        let feelingsController = FeelingsController()
+        navigationController?.pushViewController(feelingsController, animated: true)
     }
+
  
 // MARK: - Helper Functions
+    
     private func setupNavigationBarItems() {
         navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
-        let closeImageView = UIButton(type: .custom)
-        closeImageView.setImage(#imageLiteral(resourceName: "btn_close_b").withRenderingMode(.alwaysOriginal), for: .normal)
-        closeImageView.anchor(width: 12, height: 12)
+        let closeImageView: UIButton = {
+            return UIView().navigationBarItemImage(image: #imageLiteral(resourceName: "btn_close_b"))
+        }()
         closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
-        
+
         let logoutBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
         self.navigationItem.leftBarButtonItem = logoutBarButtonItem
     }

@@ -24,6 +24,7 @@ extension UIView {
         let iconBtnImage = UIButton(type: .custom)
         iconBtnImage.setImage(image, for: .normal)
         iconBtnImage.imageView?.contentMode = .scaleAspectFit
+        iconBtnImage.addTarget(self, action: #selector(MoodController.nextViewFeelings), for: .touchUpInside)
         return iconBtnImage
     }
     
@@ -36,6 +37,13 @@ extension UIView {
         navBtn.layer.cornerRadius = 5
         
         return navBtn
+    }
+    
+    func navigationBarItemImage(image: UIImage) -> UIButton {
+        let navBarImage = UIButton(type: .custom)
+        navBarImage.setImage(#imageLiteral(resourceName: "btn_close_b").withRenderingMode(.alwaysOriginal), for: .normal)
+        navBarImage.anchor(width: 12, height: 12)
+        return navBarImage
     }
     
     func inputContainerView(placeholder: String) -> UIView {
@@ -122,7 +130,7 @@ extension UITextView {
 }
 
 extension UINavigationController {
-    func pushViewControllerFromLeft(controller: UIViewController) {
+    func pushViewControllerFromTop(controller: UIViewController) {
         let transition = CATransition()
         transition.duration = 0.5
         transition.type = CATransitionType.push
