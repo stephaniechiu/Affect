@@ -16,16 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         //Initialize window
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-//        let navController = UINavigationController(rootViewController: DescribeFeelingsController())
-//        navController.navigationBar.prefersLargeTitles = true
-        
+    
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-//        let layout = UICollectionViewFlowLayout()
-//        window?.rootViewController = FeelingsController(collectionViewLayout: layout)
-//        window?.rootViewController = UINavigationController(rootViewController: MoodController())
-        window?.rootViewController = FeelingsController()
+        window?.rootViewController = UINavigationController(rootViewController: MoodController())
+//        window?.rootViewController = FeelingsController()
         window?.makeKeyAndVisible()
     }
 

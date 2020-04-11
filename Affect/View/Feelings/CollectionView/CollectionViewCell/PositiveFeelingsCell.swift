@@ -12,7 +12,7 @@ class PositiveFeelingsCell: UICollectionViewCell {
     let cellLabel: UILabel! = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "American Typewriter", size: 12)
+        label.font = UIFont(name: "Gill Sans", size: 12)
         
         return label
     }()
@@ -22,10 +22,8 @@ class PositiveFeelingsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(cellLabel)
-        //cellLabel.backgroundColor = .orange
-        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 25)
+        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, height: 25)
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -50,7 +50,7 @@ class FeelingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupRe()
+        setupCollectionViewRegisters()
     }
 
 // MARK: - Selectors
@@ -92,9 +92,10 @@ class FeelingsController: UIViewController {
         nextBtn.addTarget(self, action: #selector(nextViewActivities), for: .touchUpInside)
     }
     
-    fileprivate func setupRe() {
+    fileprivate func setupCollectionViewRegisters() {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        self.collectionView.allowsMultipleSelection = true
         
         //Register collection headers
         self.collectionView.register(PositiveFeelingsHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: positiveHeaderID)
@@ -136,12 +137,13 @@ extension FeelingsController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: negativeCellID, for: indexPath) as! NegativeFeelingsCell
                 negativeFeelingsLabel.sort()
                 cell.cellLabel.text = negativeFeelingsLabel[indexPath.row]
-
+                
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: positiveCellID, for: indexPath) as! PositiveFeelingsCell
             positiveFeelingsLabel.sort()
             cell.cellLabel.text = positiveFeelingsLabel[indexPath.row]
+            
 
         return cell
     }
@@ -161,13 +163,29 @@ extension FeelingsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20.0
+        return 15.0
     }
 
     func collectionView(_ collectionView: UICollectionView, layout
         collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20.0
+        return 10.0
     }
 }
 
+extension FeelingsController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            
+            cell.backgroundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+            if let cell = collectionView.cellForItem(at: indexPath) {
+                cell.backgroundColor = .white
+            }
+        }
+    }
+    
+    
