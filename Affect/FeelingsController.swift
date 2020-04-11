@@ -10,6 +10,8 @@ import UIKit
 
 private let positiveCellID = "PositiveCell"
 private let negativeCellID = "NegativeCell"
+private let positiveHeaderID = "PositiveHeader"
+private let negativeHeaderID = "NegativeHeader"
 
 let feelingsTextView: UITextView = {
     return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 35)
@@ -79,7 +81,7 @@ class FeelingsController: UIViewController {
     
     fileprivate func setupCollectionViews() {
         self.view.addSubview(feelingsTextView)
-        feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 20, paddingRight: 20)
+        feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 100, paddingLeft: 20, paddingRight: 20)
         
         self.view.addSubview(collectionView)
         collectionView.anchor(top: feelingsTextView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
@@ -93,6 +95,12 @@ class FeelingsController: UIViewController {
     fileprivate func setupRe() {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        
+        //Register collection headers
+        self.collectionView.register(PositiveFeelingsHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: positiveHeaderID)
+        self.collectionView.register(NegativeFeelingsHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: negativeHeaderID)
+        
+        //Register cells
         self.collectionView.register(PositiveFeelingsCell.self, forCellWithReuseIdentifier: positiveCellID)
         self.collectionView.register(NegativeFeelingsCell.self, forCellWithReuseIdentifier: negativeCellID)
     }
@@ -102,6 +110,17 @@ class FeelingsController: UIViewController {
 extension FeelingsController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if indexPath.section == 1 {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: negativeHeaderID, for: indexPath) as! NegativeFeelingsHeader
+            
+            return header
+        }
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: positiveHeaderID, for: indexPath) as! PositiveFeelingsHeader
+        
+        return header
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -136,13 +155,13 @@ extension FeelingsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        return UIEdgeInsets(top: 15, left: 20, bottom: 10, right: 20)
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return 20.0
     }
 
     func collectionView(_ collectionView: UICollectionView, layout
