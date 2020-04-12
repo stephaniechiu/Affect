@@ -8,111 +8,74 @@
 
 import UIKit
 
-
-private var dateLabel: UILabel = {
-    var date = UILabel()
-    date.text = "MMM DD"
-    date.font = UIFont(name: "American Typewriter", size: 16)
-    date.textColor = .black
-    
-    return date
-}()
-
-private var timeLabel: UILabel = {
-    var time = UILabel()
-    time.text = "hh:mm"
-    time.font = UIFont(name: "American Typewriter", size: 10)
-    time.textColor = .lightGray
-    return time
-}()
-
-private let moodEntryContainerView: UIView = {
-    let view = UIView()
-    //view.backgroundColor = .lightGray
-    
-    view.addSubview(dateLabel)
-    dateLabel.centerY(inView: view)
-    dateLabel.anchor(left: view.leftAnchor, paddingLeft: 8)
-    
-    let moodIconView = UIImageView()
-    moodIconView.image = #imageLiteral(resourceName: "Awesome")
-    view.addSubview(moodIconView)
-    moodIconView.centerY(inView: view)
-    moodIconView.anchor(left: dateLabel.rightAnchor, paddingLeft: 8, width: 30, height: 30)
-    
-    return view
-}()
+private let reuseIdentifier = "HomeCell"
 
 class HomeController: UIViewController {
-    
-    struct Cells {
-        static let entryCell = "MoodEntryCell"
-    }
-    
-    let moodEntryTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    private let tableView = UITableView()
+    //private final let titleHeaderHeight: CGFloat = 150
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        title = "Hello"
-        view.backgroundColor = .white
         
-        view.addSubview(moodEntryContainerView)
-        moodEntryContainerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 80, paddingLeft: 16, paddingRight: 16, height: 50)
+        setupNavigationBarItems()
+        setupLayout()
+    }
+    
+    func setupLayout() {
+        
+        setupTableView()
     }
     
     func setupTableView() {
-        moodEntryTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        view.addSubview(moodEntryTableView)
-//        setupTableViewDelegate()
-        moodEntryTableView.rowHeight = 100
-        moodEntryTableView.register(MoodEntryCell.self, forCellReuseIdentifier: Cells.entryCell)
+    //Register tableView
+        tableView.register(HomeCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.rowHeight = 80
         
-        NSLayoutConstraint.activate([
-            moodEntryTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            moodEntryTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            moodEntryTableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moodEntryTableView.leftAnchor.constraint(equalTo: self.view.leftAnchor)
-        ])
-        moodEntryTableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+    //Removes separator lines
+        tableView.tableFooterView = UIView()
+        
+        let height = view.frame.height
+        tableView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
+        
+        tableView.backgroundColor = .white
+        
+        view.addSubview(tableView)
     }
-//
-//    func setupTableViewDelegate() {
-//        moodEntryTableView.delegate = self as UITableViewDelegate
-//        moodEntryTableView.dataSource = self as UITableViewDataSource
-//    }
 }
 
-//extension MainTableView: UITableViewDelegate,  UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // 1
-//        return 10
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.entryCell), for: indexPath) as! MoodEntryCell
-//        //let entry =
-//        cell.set()
-//
-//        return UITableViewCell()
-//    }
-//}
-//
-//extension EntryList {
-//    func fetchData() -> [Entry] {
-//        let entry1 = Entry(image: #imageLiteral(resourceName: "Movies_b"), dateLabel: "JAN07")
-//        let entry2 = Entry(image: #imageLiteral(resourceName: "Hobby_b"), dateLabel: "FEB05")
-//        let entry3 = Entry(image: #imageLiteral(resourceName: "GoodMeal_b"), dateLabel: "MAR01")
-//
-//        return [entry1, entry2, entry3]
-//    }
-//}
-
-
+// MARK: - UITableViewDelegate/DataSource
+extension HomeController: UITableViewDelegate, UITableViewDataSource {
+    internal func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let monthSectionHeader = UIView().titleTextView(placeholderText: "January", textSize: 20)
+        return monthSectionHeader
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 2 : 5
+//        if section == 0 {
+//            return 2
+//        }
+//        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HomeCell
+        return cell
+    }
+    // MARK: - Selectors
+    
+    // MARK: - Helper Functions
+    private func setupNavigationBarItems() {
+        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.title = "Affect"
+        
+    }
+}

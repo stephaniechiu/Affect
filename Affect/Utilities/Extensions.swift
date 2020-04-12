@@ -107,14 +107,22 @@ extension UIView {
     }
     
     func centerX(inView view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
-    func centerY(inView view: UIView) {
-        centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    }
-}
+    func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil,
+                 paddingLeft: CGFloat = 0, constant: CGFloat = 0) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+        
+        if let left = leftAnchor {
+            anchor(left: left, paddingLeft: paddingLeft)
+        }
+    }}
 
+//Adds Done button to dismiss keyboard from view
 extension UITextView {
     func addDoneButton(title: String, target: Any, selector: Selector) {
         
@@ -129,6 +137,7 @@ extension UITextView {
     }
 }
 
+//Dismisses Mood, Feelings, and Activities views to Home view, sliding from top to bottom
 extension UINavigationController {
     func pushViewControllerFromTop(controller: UIViewController) {
         let transition = CATransition()

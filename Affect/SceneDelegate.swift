@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: MoodController())
-//        window?.rootViewController = FeelingsController()
+        window?.rootViewController = UINavigationController(rootViewController: HomeController())
+//        window?.rootViewController = HomeController()
         window?.makeKeyAndVisible()
     }
 

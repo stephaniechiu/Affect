@@ -23,7 +23,7 @@ let activitiesStackView: UIStackView = {
 //Notes & Thoughts - User Input
 let notesThoughtsTextView: UITextView = {
     let view = UIView().titleTextView(placeholderText: "notes & thoughts", textSize: 20)
-    view.backgroundColor = .orange
+    //view.backgroundColor = .orange
     //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
     return view
 }()
