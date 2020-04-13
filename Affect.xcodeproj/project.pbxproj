@@ -17,6 +17,7 @@
 		903FC99024413FA3005D9DF4 /* NegativeFeelingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC98F24413FA3005D9DF4 /* NegativeFeelingsHeader.swift */; };
 		903FC99224429790005D9DF4 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC9912442978F005D9DF4 /* EntryView.swift */; };
 		903FC99624429869005D9DF4 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC99524429869005D9DF4 /* EntryController.swift */; };
+		903FC99924443CCC005D9DF4 /* DateTimePopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC99824443CCC005D9DF4 /* DateTimePopoverController.swift */; };
 		90413927243A808C0029DBCD /* FeelingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90413926243A808C0029DBCD /* FeelingsController.swift */; };
 		9041392D243BF7610029DBCD /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041392C243BF7610029DBCD /* ActivitiesCell.swift */; };
 		9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0B1242118BA00225999 /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 		903FC98F24413FA3005D9DF4 /* NegativeFeelingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeFeelingsHeader.swift; sourceTree = "<group>"; };
 		903FC9912442978F005D9DF4 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		903FC99524429869005D9DF4 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
+		903FC99824443CCC005D9DF4 /* DateTimePopoverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePopoverController.swift; sourceTree = "<group>"; };
 		90413926243A808C0029DBCD /* FeelingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsController.swift; sourceTree = "<group>"; };
 		9041392C243BF7610029DBCD /* ActivitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCell.swift; sourceTree = "<group>"; };
 		9041C0AE242118BA00225999 /* Affect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Affect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +133,14 @@
 			name = Entry;
 			sourceTree = "<group>";
 		};
+		903FC997244439CE005D9DF4 /* Date Time Controller */ = {
+			isa = PBXGroup;
+			children = (
+				903FC99824443CCC005D9DF4 /* DateTimePopoverController.swift */,
+			);
+			name = "Date Time Controller";
+			sourceTree = "<group>";
+		};
 		904139232439ACE50029DBCD /* Feelings */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				9041C0B5242118BA00225999 /* MoodController.swift */,
+				903FC997244439CE005D9DF4 /* Date Time Controller */,
 			);
 			name = Mood;
 			sourceTree = "<group>";
@@ -317,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				903FC99924443CCC005D9DF4 /* DateTimePopoverController.swift in Sources */,
 				90413927243A808C0029DBCD /* FeelingsController.swift in Sources */,
 				9014BE8F242FD483008F7155 /* HomeController.swift in Sources */,
 				9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */,

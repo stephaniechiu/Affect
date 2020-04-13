@@ -26,6 +26,13 @@ let dateTimeLabel: UILabel = {
     return label
 }()
 
+let editButton: UIButton = {
+    let button = UIButton(type: .custom)
+    button.setImage(#imageLiteral(resourceName: "down-arrow"), for: .normal)
+    button.imageView?.contentMode = .scaleAspectFit
+    return button
+}()
+
 func setIconButton() -> [UIButton] {
     let btnAwful: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awful"))
     let btnOk: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Ok"))
@@ -48,14 +55,14 @@ let dateTimePickerView: UIView = {
     return customView
 }()
     
-let dateTimePicker: UIDatePicker = {
-    let picker = UIDatePicker()
-        picker.datePickerMode = .dateAndTime
-        picker.timeZone = NSTimeZone.local
-        picker.backgroundColor = UIColor.white
-        picker.translatesAutoresizingMaskIntoConstraints = false
-    return picker
-}()
+//let dateTimePicker: UIDatePicker = {
+//    let picker = UIDatePicker()
+//        picker.datePickerMode = .dateAndTime
+//        picker.timeZone = NSTimeZone.local
+//        picker.backgroundColor = UIColor.white
+//        picker.translatesAutoresizingMaskIntoConstraints = false
+//    return picker
+//}()
 
 // MARK: - Lifecycles
 class MoodView: UIView {
@@ -74,13 +81,17 @@ fileprivate func setupLayout() {
         
     addSubview(dateTimeLabel)
     dateTimeLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-    dateTimeLabel.anchor(top: moodQuestionTextView.safeAreaLayoutGuide.bottomAnchor, paddingTop: 12)
+    dateTimeLabel.anchor(top: moodQuestionTextView.bottomAnchor, paddingTop: 12)
+    
+    addSubview(editButton)
+    editButton.anchor(top: moodQuestionTextView.bottomAnchor, left: dateTimeLabel.rightAnchor, paddingTop: 11, paddingLeft: 5, width: 20, height: 20)
+
         
     addSubview(moodStackView)
     moodStackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 350, paddingLeft: 20, paddingBottom: 350, paddingRight: 20)
     
-    addSubview(dateTimePickerView)
-    dateTimePickerView.anchor(left: leftAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, right: rightAnchor, height: 240)
+//    addSubview(dateTimePickerView)
+//    dateTimePickerView.anchor(left: leftAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, right: rightAnchor, height: 240)
 }
 
     required init?(coder aDecoder: NSCoder) {
