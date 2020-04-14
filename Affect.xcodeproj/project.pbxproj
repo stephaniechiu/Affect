@@ -18,6 +18,7 @@
 		903FC99224429790005D9DF4 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC9912442978F005D9DF4 /* EntryView.swift */; };
 		903FC99624429869005D9DF4 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC99524429869005D9DF4 /* EntryController.swift */; };
 		903FC99924443CCC005D9DF4 /* DateTimePopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC99824443CCC005D9DF4 /* DateTimePopoverController.swift */; };
+		903FC99C24451982005D9DF4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC99B24451982005D9DF4 /* TabBarController.swift */; };
 		90413927243A808C0029DBCD /* FeelingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90413926243A808C0029DBCD /* FeelingsController.swift */; };
 		9041392D243BF7610029DBCD /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041392C243BF7610029DBCD /* ActivitiesCell.swift */; };
 		9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C0B1242118BA00225999 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 		903FC9912442978F005D9DF4 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		903FC99524429869005D9DF4 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
 		903FC99824443CCC005D9DF4 /* DateTimePopoverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePopoverController.swift; sourceTree = "<group>"; };
+		903FC99B24451982005D9DF4 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		90413926243A808C0029DBCD /* FeelingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsController.swift; sourceTree = "<group>"; };
 		9041392C243BF7610029DBCD /* ActivitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCell.swift; sourceTree = "<group>"; };
 		9041C0AE242118BA00225999 /* Affect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Affect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,14 @@
 			name = "Date Time Controller";
 			sourceTree = "<group>";
 		};
+		903FC99A2445192B005D9DF4 /* Tab Bar Controller */ = {
+			isa = PBXGroup;
+			children = (
+				903FC99B24451982005D9DF4 /* TabBarController.swift */,
+			);
+			name = "Tab Bar Controller";
+			sourceTree = "<group>";
+		};
 		904139232439ACE50029DBCD /* Feelings */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				9014BE8E242FD483008F7155 /* HomeController.swift */,
+				903FC99A2445192B005D9DF4 /* Tab Bar Controller */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -341,6 +352,7 @@
 				9041C0B4242118BA00225999 /* SceneDelegate.swift in Sources */,
 				903FC99224429790005D9DF4 /* EntryView.swift in Sources */,
 				903FC99624429869005D9DF4 /* EntryController.swift in Sources */,
+				903FC99C24451982005D9DF4 /* TabBarController.swift in Sources */,
 				9041392D243BF7610029DBCD /* ActivitiesCell.swift in Sources */,
 				9014BE972432DE06008F7155 /* Entry.swift in Sources */,
 				90390093242934A4002C4697 /* MoodView.swift in Sources */,

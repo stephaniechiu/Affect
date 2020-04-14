@@ -13,13 +13,6 @@ let activitiesTextView: UITextView = {
     return UIView().titleTextView(placeholderText: "What have you been up to?", textSize: 35)
 }()
 
-let activitiesStackView: UIStackView = {
-    let stackView = UIStackView(arrangedSubviews: setNavButtons())
-    stackView.spacing = 180
-    stackView.distribution = .fillEqually
-    return stackView
-}()
-
 //Notes & Thoughts - User Input
 let notesThoughtsTextView: UITextView = {
     let view = UIView().titleTextView(placeholderText: "notes & thoughts", textSize: 20)
@@ -45,6 +38,13 @@ var userInputGratitudeContainerView: UIView = {
     let view = UIView().inputContainerView(placeholder: "Gratituity is important!")
     //view.heightAnchor.constraint(equalToConstant: 100).isActive = true
     return view
+}()
+
+let navBtnStackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: setNavButtons())
+    stackView.spacing = 180
+    stackView.distribution = .fillEqually
+    return stackView
 }()
 
 //Navigation Buttons: Cancel, Save
@@ -136,22 +136,36 @@ class ActivitiesNotesController: UIViewController {
         let activitiesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: columnLayout)
         activitiesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(activitiesCollectionView)
-        activitiesCollectionView.anchor(top: activitiesTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 40, paddingRight: 40)
+        activitiesCollectionView.anchor(top: activitiesTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingRight: 40, height: 180)
         self.activitiesCollectionView = activitiesCollectionView
         
-        let stack = UIStackView(arrangedSubviews: [notesThoughtsTextView, userInputNotesContainerView, gratitudeTextView, userInputGratitudeContainerView])
-        stack.axis = .vertical
-        stack.distribution = .fillEqually
-        //stack.spacing = 15
+        self.view.addSubview(notesThoughtsTextView)
+        notesThoughtsTextView.anchor(top: activitiesCollectionView.bottomAnchor, paddingTop: 10, height: 30)
+        notesThoughtsTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        view.addSubview(stack)
-        stack.backgroundColor = .blue
-        stack.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
-        stack.setCustomSpacing(10, after: userInputNotesContainerView)
+        self.view.addSubview(userInputNotesContainerView)
+        userInputNotesContainerView.anchor(top: notesThoughtsTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 40, paddingRight: 40)
         
-        self.view.addSubview(activitiesStackView)
-        activitiesStackView.anchor(top: stack.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10)
-        activitiesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.view.addSubview(gratitudeTextView)
+        gratitudeTextView.anchor(top: userInputNotesContainerView.bottomAnchor, paddingTop: 10, height: 30)
+        gratitudeTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        self.view.addSubview(userInputGratitudeContainerView)
+        userInputGratitudeContainerView.anchor(top: gratitudeTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 40, paddingBottom: 20, paddingRight: 40)
+
+//        let stack = UIStackView(arrangedSubviews: [notesThoughtsTextView, userInputNotesContainerView, gratitudeTextView, userInputGratitudeContainerView])
+//        stack.axis = .vertical
+//        stack.distribution = .fillEqually
+//        //stack.spacing = 15
+//
+//        view.addSubview(stack)
+//        stack.backgroundColor = .blue
+//        stack.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
+//        stack.setCustomSpacing(10, after: userInputNotesContainerView)
+        
+        self.view.addSubview(navBtnStackView)
+        navBtnStackView.anchor(top: userInputGratitudeContainerView.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10)
+        navBtnStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     fileprivate func setupCollectionViewRegister() {
@@ -176,9 +190,9 @@ extension ActivitiesNotesController: UICollectionViewDataSource {
 
 // MARK: - UICollectionView FlowLayout
 extension ActivitiesNotesController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 20)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: collectionView.bounds.width, height: 20)
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {

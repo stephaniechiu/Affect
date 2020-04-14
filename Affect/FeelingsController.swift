@@ -81,7 +81,7 @@ class FeelingsController: UIViewController {
     
     fileprivate func setupCollectionViews() {
         self.view.addSubview(feelingsTextView)
-        feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 100, paddingLeft: 20, paddingRight: 20)
+        feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 60, paddingLeft: 20, paddingRight: 20)
         
         self.view.addSubview(collectionView)
         collectionView.anchor(top: feelingsTextView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
