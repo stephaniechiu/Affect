@@ -13,21 +13,24 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
-        let settingsController = HomeController()
-        settingsController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 0 )
+        
+        let homeController = HomeController()
+        homeController.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "home").withRenderingMode(.alwaysOriginal), tag: 0)
         
         let newEntryController = MoodController()
-        newEntryController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-        
+        newEntryController.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "addEntry").withRenderingMode(.alwaysOriginal), tag: 1)
+
         let dataController = ActivitiesNotesController()
-        dataController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 2)
+        dataController.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "chart-1").withRenderingMode(.alwaysOriginal), tag: 2)
         
-        let tabBarController = [settingsController, newEntryController, dataController]
+        let tabBarController = [homeController, newEntryController, dataController]
+        UITabBar.appearance().barTintColor = .white
         viewControllers = tabBarController
         }
     
-
+//    navigationController?.navigationBar.isTranslucent = false
+//    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//    self.navigationController?.navigationBar.shadowImage = UIImage()
     /*
     // MARK: - Navigation
 
