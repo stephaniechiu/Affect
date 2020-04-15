@@ -14,6 +14,7 @@
 		901B32F72440187500F1BFA0 /* PositiveFeelingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901B32F62440187500F1BFA0 /* PositiveFeelingsCell.swift */; };
 		901B32F92440190A00F1BFA0 /* NegativeFeelingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901B32F82440190A00F1BFA0 /* NegativeFeelingsCell.swift */; };
 		90390093242934A4002C4697 /* MoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90390092242934A4002C4697 /* MoodView.swift */; };
+		903F84032446B8180051C81C /* StatisticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903F84022446B8180051C81C /* StatisticsController.swift */; };
 		903FC99024413FA3005D9DF4 /* NegativeFeelingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC98F24413FA3005D9DF4 /* NegativeFeelingsHeader.swift */; };
 		903FC99224429790005D9DF4 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC9912442978F005D9DF4 /* EntryView.swift */; };
 		903FC99624429869005D9DF4 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FC99524429869005D9DF4 /* EntryController.swift */; };
@@ -40,6 +41,7 @@
 		901B32F62440187500F1BFA0 /* PositiveFeelingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveFeelingsCell.swift; sourceTree = "<group>"; };
 		901B32F82440190A00F1BFA0 /* NegativeFeelingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeFeelingsCell.swift; sourceTree = "<group>"; };
 		90390092242934A4002C4697 /* MoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodView.swift; sourceTree = "<group>"; };
+		903F84022446B8180051C81C /* StatisticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsController.swift; sourceTree = "<group>"; };
 		903FC98F24413FA3005D9DF4 /* NegativeFeelingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeFeelingsHeader.swift; sourceTree = "<group>"; };
 		903FC9912442978F005D9DF4 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		903FC99524429869005D9DF4 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
@@ -115,8 +117,17 @@
 				9041392E243C19E70029DBCD /* Mood */,
 				904139232439ACE50029DBCD /* Feelings */,
 				9041392F243C19F40029DBCD /* Activities */,
+				903F84012446B7C10051C81C /* Statistics */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		903F84012446B7C10051C81C /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				903F84022446B8180051C81C /* StatisticsController.swift */,
+			);
+			name = Statistics;
 			sourceTree = "<group>";
 		};
 		903FC993244297A8005D9DF4 /* Entry */ = {
@@ -356,6 +367,7 @@
 				9041C0B6242118BA00225999 /* MoodController.swift in Sources */,
 				9041C0B2242118BA00225999 /* AppDelegate.swift in Sources */,
 				901B32F92440190A00F1BFA0 /* NegativeFeelingsCell.swift in Sources */,
+				903F84032446B8180051C81C /* StatisticsController.swift in Sources */,
 				901B32F72440187500F1BFA0 /* PositiveFeelingsCell.swift in Sources */,
 				9041C0B4242118BA00225999 /* SceneDelegate.swift in Sources */,
 				903FC99224429790005D9DF4 /* EntryView.swift in Sources */,
