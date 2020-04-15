@@ -11,6 +11,7 @@ import UIKit
 class MoodController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     let moodView = MoodView()
+    let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
       
 // MARK: - Lifecycle
     override func loadView() {
@@ -21,7 +22,10 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        setupNavigationBarItems()
+        view.addSubview(btnClose)
+        btnClose.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, paddingTop: 10, paddingLeft: 10, width: 15, height: 15)
+        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
+//        setupNavigationBarItems()
         editButton.addTarget(self, action: #selector(self.loadPopover), for: .touchUpInside)
 //        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadPopover(_:)))
 //        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
@@ -31,9 +35,8 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
 // MARK: - Selectors
     
     //Exits from view
-    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
-        let homeController = HomeController()
-        navigationController?.pushViewControllerFromTop(controller: homeController)
+    @objc func closeView(sender: UIButton){
+        dismiss(animated: true, completion: nil)
     }
     
     //Loads dateTimePicker when user clicks on dateTimeLabel
@@ -61,19 +64,19 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
  
 // MARK: - Helper Functions
     
-    private func setupNavigationBarItems() {
-        navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-
-        let closeImageView: UIButton = {
-            return UIView().navigationBarItemImage(image: #imageLiteral(resourceName: "btn_close_b"))
-        }()
-        closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
-
-        let logoutBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
-        self.navigationItem.leftBarButtonItem = logoutBarButtonItem
-    }
+//    private func setupNavigationBarItems() {
+//        navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//
+//        let closeImageView: UIButton = {
+//            return UIView().navigationBarItemImage(image: #imageLiteral(resourceName: "btn_close_b"))
+//        }()
+//        closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
+//
+//        let logoutBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
+//        self.navigationItem.leftBarButtonItem = logoutBarButtonItem
+//    }
     
 //    fileprivate func dateTimeLabelTapped() {
 //        //User tap gesture recognizer on dateTimeLabel
