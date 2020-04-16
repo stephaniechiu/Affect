@@ -24,7 +24,7 @@ extension UIView {
         let iconBtnImage = UIButton(type: .custom)
         iconBtnImage.setImage(image, for: .normal)
         iconBtnImage.imageView?.contentMode = .scaleAspectFit
-        iconBtnImage.addTarget(self, action: #selector(MoodController.nextViewFeelings), for: .touchUpInside)
+        iconBtnImage.addTarget(self, action: #selector(MoodController.nextViewFeelings(sender:)), for: .touchUpInside)
         return iconBtnImage
     }
     

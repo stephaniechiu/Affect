@@ -20,8 +20,11 @@ class NegativeFeelingsCell: UICollectionViewCell {
     // MARK:- Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+         self.layer.cornerRadius = 13
+        
         addSubview(cellLabel)
-        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, height: 25)
+        cellLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, height: 25)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

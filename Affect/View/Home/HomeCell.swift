@@ -1,5 +1,5 @@
 //
-//  MoodEntryCell.swift
+//  HomeCell.swift
 //  Affect
 //
 //  Created by Stephanie on 3/30/20.

@@ -24,26 +24,26 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     fileprivate func setupTabBarItems() {
 
-        homeController.tabBarItem.image = #imageLiteral(resourceName: "home").withRenderingMode(.alwaysOriginal)
-        newEntryController.tabBarItem.image = #imageLiteral(resourceName: "addEntry").withRenderingMode(.alwaysOriginal)
-        dataController.tabBarItem.image = #imageLiteral(resourceName: "chart-1").withRenderingMode(.alwaysOriginal)
-        
-        for tabBarItem in tabBar.items! {
-            tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-        }
+        homeController.tabBarItem.image = #imageLiteral(resourceName: "home")
+        newEntryController.tabBarItem.image = #imageLiteral(resourceName: "addEntry")
+        dataController.tabBarItem.image = #imageLiteral(resourceName: "chart-1")
         
         let tabBarController = [homeController, newEntryController, dataController]
         UITabBar.appearance().barTintColor = .white
         viewControllers = tabBarController
+        
+        for tabBarItem in tabBar.items! {
+            tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        }
     }
     
 // MARK: - UITabBarDelegate
-    //When the 2nd tabBarItem is selected, MoodController is presented modally over the current view, allowing user to record an entry
     
+    //When the 2nd tabBarItem is selected, MoodController is presented modally over the current view, allowing user to record an entry
     internal func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController.isKind(of: EntryController.self) {
            let vc =  MoodController()
-           vc.modalPresentationStyle = .overFullScreen
+            vc.modalPresentationStyle = .automatic
            self.present(vc, animated: true, completion: nil)
            return false
         }

@@ -9,6 +9,8 @@
 import UIKit
 
 // MARK: - Properties
+//let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
+
 let moodQuestionTextView: UITextView = {
     return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
 }()
@@ -54,15 +56,6 @@ let dateTimePickerView: UIView = {
     customView.translatesAutoresizingMaskIntoConstraints = false
     return customView
 }()
-    
-//let dateTimePicker: UIDatePicker = {
-//    let picker = UIDatePicker()
-//        picker.datePickerMode = .dateAndTime
-//        picker.timeZone = NSTimeZone.local
-//        picker.backgroundColor = UIColor.white
-//        picker.translatesAutoresizingMaskIntoConstraints = false
-//    return picker
-//}()
 
 // MARK: - Lifecycles
 class MoodView: UIView {
@@ -75,6 +68,9 @@ class MoodView: UIView {
     
 // MARK:- Setup View Layout
 fileprivate func setupLayout() {
+    addSubview(btnClose)
+    btnClose.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
+    
     addSubview(moodQuestionTextView)
     moodQuestionTextView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 100)
     moodQuestionTextView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -85,13 +81,9 @@ fileprivate func setupLayout() {
     
     addSubview(editButton)
     editButton.anchor(top: moodQuestionTextView.bottomAnchor, left: dateTimeLabel.rightAnchor, paddingTop: 11, paddingLeft: 5, width: 20, height: 20)
-
         
     addSubview(moodStackView)
     moodStackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 350, paddingLeft: 20, paddingBottom: 350, paddingRight: 20)
-    
-//    addSubview(dateTimePickerView)
-//    dateTimePickerView.anchor(left: leftAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, right: rightAnchor, height: 240)
 }
 
     required init?(coder aDecoder: NSCoder) {

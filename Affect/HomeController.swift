@@ -1,5 +1,5 @@
 //
-//  MainController.swift
+//  HomeController.swift
 //  Affect
 //
 //  Created by Stephanie on 3/28/20.

@@ -162,13 +162,6 @@
 			name = "Tab Bar Controller";
 			sourceTree = "<group>";
 		};
-		903FC99E24466D85005D9DF4 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		904139232439ACE50029DBCD /* Feelings */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,7 +231,6 @@
 				9039008F24286974002C4697 /* View */,
 				9049E7C9242D71BC00F7CBED /* Utilities */,
 				9041C0BD242118BC00225999 /* Assets.xcassets */,
-				903FC99E24466D85005D9DF4 /* New Group */,
 				9041C0C2242118BC00225999 /* Info.plist */,
 				9041C0BA242118BA00225999 /* Affect.xcdatamodeld */,
 			);

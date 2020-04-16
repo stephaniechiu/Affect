@@ -27,6 +27,6 @@ class DateTimeController: UIViewController {
     
     func setupLayout() {
         view.addSubview(dateTimePicker)
-        dateTimePicker.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 0, paddingRight: 5)
+        dateTimePicker.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10)
     }
 }
