@@ -72,7 +72,6 @@ class ActivitiesNotesController: UIViewController {
         super.loadView()
         
         setupActivitiesLayout()
-        setupNavigationBarItems()
     }
     
     fileprivate func pushViewUpKeyboard() {
@@ -85,16 +84,14 @@ class ActivitiesNotesController: UIViewController {
         view.backgroundColor = .white
         
         setupCollectionViewRegister()
-        
         pushViewUpKeyboard()
     }
     
     // MARK: - Selectors
-    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
-        let homeController = HomeController()
-        navigationController?.pushViewControllerFromTop(controller: homeController)
-    }
-
+//    @objc func closeView(sender: UIButton){
+//        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//    }
+//    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
@@ -110,25 +107,13 @@ class ActivitiesNotesController: UIViewController {
     }
 
     @objc func tapDone(sender: Any) {
-        self.view.endEditing(true)
+        dismiss(animated: true, completion: nil)
     }
 
 // MARK: - Helper Functions
-    private func setupNavigationBarItems() {
-        navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-
-        let closeImageView: UIButton = {
-                return UIView().navigationBarItemImage(image: #imageLiteral(resourceName: "btn_close_b"))
-        }()
-        closeImageView.addTarget(self, action: #selector(closeView), for: .touchUpInside)
-
-        let closeBarButtonItem = UIBarButtonItem.init(customView: closeImageView)
-        self.navigationItem.leftBarButtonItem = closeBarButtonItem
-    }
-    
     fileprivate func setupActivitiesLayout() {
+//        self.navigationController?.setupNavigationBar()
+        
         self.view.addSubview(activitiesTextView)
         activitiesTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         activitiesTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

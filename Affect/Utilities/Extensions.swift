@@ -39,13 +39,6 @@ extension UIView {
         return navBtn
     }
     
-    func navigationBarItemImage(image: UIImage) -> UIButton {
-        let navBarImage = UIButton(type: .custom)
-        navBarImage.setImage(#imageLiteral(resourceName: "btn_close_b").withRenderingMode(.alwaysOriginal), for: .normal)
-        navBarImage.anchor(width: 12, height: 12)
-        return navBarImage
-    }
-    
     func inputContainerView(placeholder: String) -> UIView {
         let view = UIView()
         view.layer.cornerRadius = 12
@@ -139,6 +132,24 @@ extension UITextView {
 
 //Dismisses Mood, Feelings, and Activities views to Home view, sliding from top to bottom
 extension UINavigationController {
+    func setupNavigationBar() {
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "btn_close_b").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        
+        let closebtn = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = closebtn
+    }
+    
+    @objc func closeView(sender: UIButton){
+        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     func pushViewControllerFromTop(controller: UIViewController) {
         let transition = CATransition()
         transition.duration = 0.5

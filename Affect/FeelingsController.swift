@@ -21,7 +21,7 @@ let nextBtn: UIButton = {
     return UIView().navigationBtn(text: "Next")
 }()
 
-let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
+//private let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
 
 var positiveFeelingsLabel: [String] = ["understanding", "confident", "sympathetic", "satisfied", "kind", "great", "lucky", "fortunate", "important", "bold", "playful", "energetic", "optimistic", "free", "wonderful", "pleased", "comfortable", "calm", "relaxed", "blessed", "loving", "eager"]
 
@@ -46,18 +46,19 @@ class FeelingsController: UIViewController {
         view.backgroundColor = .white
     
         setupCollectionViews()
-//        setupNavigationBarItems()
+        setupNavigationBar()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCollectionViewRegisters()
+        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
     }
 
 // MARK: - Selectors
     @objc func closeView(sender: UIButton){
-        dismiss(animated: true, completion: nil)
+        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 //    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
 //            let homeController = HomeController()
@@ -70,16 +71,24 @@ class FeelingsController: UIViewController {
     }
     
 // MARK: - Helper Functions
-    private func setupNavigationBarItems() {
-        navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+
+//        let button = UIButton(type: .custom)
+//        button.setImage(#imageLiteral(resourceName: "btn_close_b").withRenderingMode(.alwaysOriginal), for: .normal)
+//        button.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
+//        button.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+//
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
     }
     
     fileprivate func setupCollectionViews() {
         self.view.addSubview(btnClose)
         btnClose.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
-        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
+        
+//        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
         
         self.view.addSubview(feelingsTextView)
         feelingsTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 60, paddingLeft: 20, paddingRight: 20)

@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - Properties
-//let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
+let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
 
 let moodQuestionTextView: UITextView = {
     return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
@@ -26,6 +26,14 @@ let dateTimeLabel: UILabel = {
         label.font = UIFont(name: "American Typewriter", size: 18)
         label.isUserInteractionEnabled = true
     return label
+}()
+
+let dateTimePicker: UIDatePicker = {
+    let picker = UIDatePicker()
+        picker.datePickerMode = .dateAndTime
+        picker.timeZone = NSTimeZone.local
+        picker.backgroundColor = UIColor.white
+    return picker
 }()
 
 let editButton: UIButton = {
@@ -49,12 +57,6 @@ let moodStackView: UIStackView = {
     stackView.spacing = 20
     stackView.distribution = .fillEqually
     return stackView
-}()
-
-let dateTimePickerView: UIView = {
-    let customView = UIView()
-    customView.translatesAutoresizingMaskIntoConstraints = false
-    return customView
 }()
 
 // MARK: - Lifecycles

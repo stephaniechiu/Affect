@@ -11,7 +11,6 @@ import UIKit
 class MoodController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     let moodView = MoodView()
-    let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
       
 // MARK: - Lifecycle
     override func loadView() {
@@ -23,36 +22,42 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
         view.backgroundColor = .white
 
         actionButtons()
+        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
+        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
     }
     
 // MARK: - Selectors
     
     //Exits from view
+    @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
+        print("432")
+    }
+    
     @objc func closeView(sender: UIButton){
         dismiss(animated: true, completion: nil)
     }
     
     @objc func loadPopover(sender: UIButton) {
         let presentingViewController = DateTimeController()
-        let navigationController = UINavigationController(rootViewController: presentingViewController)
-        navigationController.modalPresentationStyle = .popover
-        let popover = navigationController.popoverPresentationController!
+        let popoverNavigationController = UINavigationController(rootViewController: presentingViewController)
+        popoverNavigationController.modalPresentationStyle = .popover
+        let popover = popoverNavigationController.popoverPresentationController!
             popover.sourceRect = sender.bounds
             popover.delegate = self
             popover.permittedArrowDirections = .up
             popover.sourceView = sender
-        
+
         presentingViewController.preferredContentSize = CGSize(width: 300, height: 200)
         presentingViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTapped))
         presentingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(dateChanged))
-        
-        self.present(navigationController, animated: true, completion: nil)
+
+        self.present(popoverNavigationController, animated: true, completion: nil)
     }
     
     @objc func cancelTapped(sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func dateChanged() {
         let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "en_US")
@@ -71,9 +76,7 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
 
  
 // MARK: - Helper Functions
-    fileprivate func actionButtons() {
-        view.addSubview(btnClose)
-        btnClose.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
+    func actionButtons() {
         btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(self.loadPopover), for: .touchUpInside)
     }
