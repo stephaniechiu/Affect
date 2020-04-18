@@ -28,14 +28,6 @@ let dateTimeLabel: UILabel = {
     return label
 }()
 
-let dateTimePicker: UIDatePicker = {
-    let picker = UIDatePicker()
-        picker.datePickerMode = .dateAndTime
-        picker.timeZone = NSTimeZone.local
-        picker.backgroundColor = UIColor.white
-    return picker
-}()
-
 let editButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(#imageLiteral(resourceName: "down-arrow"), for: .normal)
@@ -58,6 +50,9 @@ let moodStackView: UIStackView = {
     stackView.distribution = .fillEqually
     return stackView
 }()
+
+let blurEffect = UIBlurEffect(style: .prominent)
+let blurEffectView = UIVisualEffectView(effect: blurEffect)
 
 // MARK: - Lifecycles
 class MoodView: UIView {
@@ -87,6 +82,8 @@ fileprivate func setupLayout() {
     addSubview(moodStackView)
     moodStackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 350, paddingLeft: 20, paddingBottom: 350, paddingRight: 20)
 }
+    
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented.")

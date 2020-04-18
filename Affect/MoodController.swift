@@ -8,9 +8,9 @@
 
 import UIKit
 
-class MoodController: UIViewController, UIPopoverPresentationControllerDelegate {
-
+class MoodController: UIViewController {
     let moodView = MoodView()
+    let dateTimeController = PickerView()
       
 // MARK: - Lifecycle
     override func loadView() {
@@ -21,41 +21,40 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        actionButtons()
-        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
-        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+        actionRecognizers()
     }
     
 // MARK: - Selectors
     
     //Exits from view
-    @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
-        print("432")
-    }
-    
     @objc func closeView(sender: UIButton){
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func loadPopover(sender: UIButton) {
-        let presentingViewController = DateTimeController()
-        let popoverNavigationController = UINavigationController(rootViewController: presentingViewController)
-        popoverNavigationController.modalPresentationStyle = .popover
-        let popover = popoverNavigationController.popoverPresentationController!
-            popover.sourceRect = sender.bounds
-            popover.delegate = self
-            popover.permittedArrowDirections = .up
-            popover.sourceView = sender
-
-        presentingViewController.preferredContentSize = CGSize(width: 300, height: 200)
-        presentingViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTapped))
-        presentingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(dateChanged))
-
-        self.present(popoverNavigationController, animated: true, completion: nil)
+    @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
+        popoverView.alpha = 0
+        
+        popoverLayout()
+        addBlurEffect(view: view, style: .systemUltraThinMaterialLight)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            popoverView.alpha = 1
+            popoverView.frame.origin.y = -self.view.frame.height / 2
+        })
+    }
+    
+    fileprivate func removePopoverView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            popoverView.alpha = 0
+            popoverView.frame.origin.y = -self.view.frame.height
+        }, completion: {(value: Bool) in
+            popoverView.removeFromSuperview()
+        })
     }
     
     @objc func cancelTapped(sender: Any) {
-        dismiss(animated: true, completion: nil)
+        removePopoverView()
+        removeBlurEffect(view: view)
     }
 
     @objc func dateChanged() {
@@ -63,7 +62,8 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
             dateFormatter.locale = Locale(identifier: "en_US")
             dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
             dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
-        self.dismiss(animated: true, completion: nil)
+        removePopoverView()
+        removeBlurEffect(view: view)
     }
     
     //Show Feelings view controller
@@ -76,14 +76,46 @@ class MoodController: UIViewController, UIPopoverPresentationControllerDelegate 
 
  
 // MARK: - Helper Functions
-    func actionButtons() {
+    func actionRecognizers() {
+        //User can edit date and time by tapping on the dateTimeLabel
+        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
+        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+        
         btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
-        editButton.addTarget(self, action: #selector(self.loadPopover), for: .touchUpInside)
     }
     
-    //Delegate function to ensure adaption of presenting popup view controller
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .none
+    func popoverLayout() {
+        popoverView.addSubview(popoverStackView)
+        popoverStackView.anchor(top: popoverView.topAnchor, left: popoverView.leftAnchor, right: popoverView.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
+        
+        popoverView.addSubview(dateTimePicker)
+        dateTimePicker.anchor(top: popoverStackView.bottomAnchor, left: popoverView.leftAnchor, bottom: popoverView.bottomAnchor, right: popoverView.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
+        
+        view.addSubview(popoverView)
+        popoverView.centerX(inView: view)
+        popoverView.centerY(inView: view)
+        popoverView.anchor(width: 300, height: 200)
+        
+        cancelButton.addTarget(self, action: #selector(cancelTapped(sender:)), for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(dateChanged), for: .touchUpInside)
+    }
+    
+    func addBlurEffect(view: UIView, style: UIBlurEffect.Style) {
+        view.backgroundColor = .white
+
+        let blurEffect = UIBlurEffect(style: style)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.tag = 9
+        view.insertSubview(blurEffectView, at: 5)
+    }
+
+    func removeBlurEffect(view: UIView){
+        UIView.animate(withDuration: 0.3, animations: {
+            view.viewWithTag(9)?.alpha = 0
+            }, completion: {(value: Bool) in
+                view.viewWithTag(9)?.removeFromSuperview()
+            })
     }
 }
 
