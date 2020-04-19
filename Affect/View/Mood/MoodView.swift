@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - Properties
-let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
+//let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
 
 let moodQuestionTextView: UITextView = {
     return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
@@ -35,21 +35,24 @@ let editButton: UIButton = {
     return button
 }()
 
-func setIconButton() -> [UIButton] {
+//func setIconButton() -> [UIButton] {
     let btnAwful: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awful"))
     let btnOk: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Ok"))
     let btnMeh: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Meh"))
     let btnGreat: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Great"))
     let btnAwesome: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awesome"))
-    return [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
-}
+//    return [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
+//}
+let moodButtonArray: [UIButton] = [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
 
 let moodStackView: UIStackView = {
-    let stackView = UIStackView(arrangedSubviews: setIconButton())
-    stackView.spacing = 35
+    let stackView = UIStackView(arrangedSubviews: moodButtonArray)
+    stackView.spacing = 10
     stackView.distribution = .fillEqually
     return stackView
 }()
+
+let closeViewButton: UIButton = { return UIView().navigationBtn(text: "Cancel") }()
 
 let blurEffect = UIBlurEffect(style: .prominent)
 let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -65,8 +68,8 @@ class MoodView: UIView {
     
 // MARK:- Setup View Layout
 fileprivate func setupLayout() {
-    addSubview(btnClose)
-    btnClose.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
+//    addSubview(btnClose)
+//    btnClose.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
     
     addSubview(moodQuestionTextView)
     moodQuestionTextView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 100)
@@ -74,13 +77,16 @@ fileprivate func setupLayout() {
         
     addSubview(dateTimeLabel)
     dateTimeLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-    dateTimeLabel.anchor(top: moodQuestionTextView.bottomAnchor, paddingTop: 12)
+    dateTimeLabel.anchor(top: moodQuestionTextView.bottomAnchor, paddingTop: 12, paddingBottom: 30)
     
-    addSubview(editButton)
-    editButton.anchor(top: moodQuestionTextView.bottomAnchor, left: dateTimeLabel.rightAnchor, paddingTop: 11, paddingLeft: 5, width: 20, height: 20)
+//    addSubview(editButton)
+//    editButton.anchor(top: moodQuestionTextView.bottomAnchor, left: dateTimeLabel.rightAnchor, paddingTop: 11, paddingLeft: 5, width: 20, height: 20)
         
     addSubview(moodStackView)
-    moodStackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 350, paddingLeft: 20, paddingBottom: 350, paddingRight: 20)
+    moodStackView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 350, paddingLeft: 10,  paddingRight: 10, height: 50)
+    
+    addSubview(closeViewButton)
+    closeViewButton.anchor(top: moodStackView.bottomAnchor, left: leftAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, paddingTop: 350, paddingLeft: 10, paddingBottom: 10)
 }
     
 

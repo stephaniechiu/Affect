@@ -75,8 +75,5 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        self.navigationItem.title = "Affect"
-        self.navigationItem.setHidesBackButton(true, animated: false)
     }
 }

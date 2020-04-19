@@ -42,10 +42,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     //When the 2nd tabBarItem is selected, MoodController is presented modally over the current view, allowing user to record an entry
     internal func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController.isKind(of: EntryController.self) {
-           let vc =  MoodController()
+            let vc =  MoodController()
             vc.modalPresentationStyle = .automatic
-           self.present(vc, animated: true, completion: nil)
-           return false
+            self.present(vc, animated: true, completion: nil)
+            return false
         }
         return true
     }

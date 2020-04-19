@@ -22,15 +22,19 @@ class MoodController: UIViewController {
         view.backgroundColor = .white
 
         actionRecognizers()
+        
+        closeViewButton.addTarget(self, action: #selector(closeView(_:)), for: .touchUpInside)
+
     }
     
 // MARK: - Selectors
     
-    //Exits from view
-    @objc func closeView(sender: UIButton){
-        dismiss(animated: true, completion: nil)
+//    //Exits from view
+    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
+//        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
         popoverView.alpha = 0
         
@@ -73,10 +77,21 @@ class MoodController: UIViewController {
     
     //Show Feelings view controller
     @objc func nextViewFeelings(sender: UIButton) {
+        for i in 0..<moodButtonArray.count {
+            print("\(moodButtonArray[i]) + 1")
+        }
+
+//
         let feelingsController = FeelingsController()
+//        self.navigationController?.pushViewController(feelingsController, animated: true)
+
         let navController = UINavigationController(rootViewController: feelingsController)
-        self.present(navController, animated: false, completion: nil)
-//        self.navigationController?.pushViewController(navController, animated: true)
+//        self.present(navController, animated: false, completion: nil)
+        self.navigationController?.pushViewController(navController, animated: true)
+//        let activitiesController = ActivitiesNotesController()
+//        navigationController?.pushViewController(activitiesController, animated: true)
+        
+//        iconBtnImage.addTarget(self, action: #selector(MoodController.nextViewFeelings), for: .touchUpInside)
     }
 
  
@@ -85,8 +100,9 @@ class MoodController: UIViewController {
         //User can edit date and time by tapping on the dateTimeLabel
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
         dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+
         
-        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
+//        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
     }
     
     func popoverLayout() {
@@ -122,7 +138,7 @@ class MoodController: UIViewController {
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.tag = 9
-        view.insertSubview(blurEffectView, at: 5)
+        view.insertSubview(blurEffectView, at: 4)
     }
 
     func removeBlurEffect(view: UIView){

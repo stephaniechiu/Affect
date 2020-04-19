@@ -53,7 +53,7 @@ class FeelingsController: UIViewController {
         super.viewDidLoad()
         
         setupCollectionViewRegisters()
-        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
+//        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
     }
 
 // MARK: - Selectors
@@ -85,8 +85,8 @@ class FeelingsController: UIViewController {
     }
     
     fileprivate func setupCollectionViews() {
-        self.view.addSubview(btnClose)
-        btnClose.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
+//        self.view.addSubview(btnClose)
+//        btnClose.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
         
 //        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
         
