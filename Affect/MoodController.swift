@@ -35,20 +35,11 @@ class MoodController: UIViewController {
         popoverView.alpha = 0
         
         popoverLayout()
-        addBlurEffect(view: view, style: .systemUltraThinMaterialLight)
+        addBlurEffect(view: view, style: .systemUltraThinMaterialDark)
         
         UIView.animate(withDuration: 0.3, animations: {
             popoverView.alpha = 1
             popoverView.frame.origin.y = -self.view.frame.height / 2
-        })
-    }
-    
-    fileprivate func removePopoverView() {
-        UIView.animate(withDuration: 0.3, animations: {
-            popoverView.alpha = 0
-            popoverView.frame.origin.y = -self.view.frame.height
-        }, completion: {(value: Bool) in
-            popoverView.removeFromSuperview()
         })
     }
     
@@ -57,11 +48,25 @@ class MoodController: UIViewController {
         removeBlurEffect(view: view)
     }
 
-    @objc func dateChanged() {
+    @objc func saveTapped() {
         let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "en_US")
-            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd h:mm")
-            dateTimeLabel.text = dateFormatter.string(from: dateTimePicker.date)
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.doesRelativeDateFormatting = true
+        
+//        let dateComponents = DateComponents(calendar: .current, timeZone: .current, month: 1, day: 1, hour: 10, minute: 10)
+//        let currentCalender = Calendar.current
+//        let currentDate = currentCalender.date(from: dateComponents)
+        
+        if Calendar.current.isDateInToday(dateTimePicker.date){
+            dateTimeLabel.text = dateFormatter.string(for: dateTimePicker.date)
+        } else if Calendar.current.isDateInTomorrow(dateTimePicker.date){
+            dateFormatter.doesRelativeDateFormatting = false
+            dateTimeLabel.text = dateFormatter.string(for: dateTimePicker.date)
+        } else {
+            dateTimeLabel.text = dateFormatter.string(for: dateTimePicker.date)
+            print(dateTimePicker.date)
+        }
         removePopoverView()
         removeBlurEffect(view: view)
     }
@@ -97,9 +102,19 @@ class MoodController: UIViewController {
         popoverView.anchor(width: 300, height: 200)
         
         cancelButton.addTarget(self, action: #selector(cancelTapped(sender:)), for: .touchUpInside)
-        doneButton.addTarget(self, action: #selector(dateChanged), for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
     }
     
+    fileprivate func removePopoverView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            popoverView.alpha = 0
+            popoverView.frame.origin.y = -self.view.frame.height
+        }, completion: {(value: Bool) in
+            popoverView.removeFromSuperview()
+        })
+    }
+    
+    //Background is blurred when user clicks on dateTimeLabel and popover appears
     func addBlurEffect(view: UIView, style: UIBlurEffect.Style) {
         view.backgroundColor = .white
 

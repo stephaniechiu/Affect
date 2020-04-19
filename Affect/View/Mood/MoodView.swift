@@ -46,7 +46,7 @@ func setIconButton() -> [UIButton] {
 
 let moodStackView: UIStackView = {
     let stackView = UIStackView(arrangedSubviews: setIconButton())
-    stackView.spacing = 20
+    stackView.spacing = 35
     stackView.distribution = .fillEqually
     return stackView
 }()
