@@ -136,14 +136,6 @@ extension UINavigationController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "btn_close_b").withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
-        button.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-        
-        let closebtn = UIBarButtonItem(customView: button)
-        self.navigationItem.leftBarButtonItem = closebtn
     }
     
     @objc func closeView(sender: UIButton){
@@ -154,7 +146,7 @@ extension UINavigationController {
         let transition = CATransition()
         transition.duration = 0.5
         transition.type = CATransitionType.push
-        transition.subtype = CATransitionSubtype.fromBottom
+        transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         view.window!.layer.add(transition, forKey: kCATransition)
         pushViewController(controller, animated: false)

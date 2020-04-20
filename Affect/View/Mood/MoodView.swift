@@ -9,8 +9,6 @@
 import UIKit
 
 // MARK: - Properties
-//let btnClose: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "btn_close_b"))
-
 let moodQuestionTextView: UITextView = {
     return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
 }()
@@ -28,13 +26,6 @@ let dateTimeLabel: UILabel = {
     return label
 }()
 
-let editButton: UIButton = {
-    let button = UIButton(type: .custom)
-    button.setImage(#imageLiteral(resourceName: "down-arrow"), for: .normal)
-    button.imageView?.contentMode = .scaleAspectFit
-    return button
-}()
-
 //func setIconButton() -> [UIButton] {
     let btnAwful: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awful"))
     let btnOk: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Ok"))
@@ -44,6 +35,13 @@ let editButton: UIButton = {
 //    return [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
 //}
 let moodButtonArray: [UIButton] = [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
+
+enum Tag: Int {
+    case awful = 1, ok, meh, great, awesome
+}
+
+// let chosenMood = Tag.Awful
+// print(chosenMood.rawValue)
 
 let moodStackView: UIStackView = {
     let stackView = UIStackView(arrangedSubviews: moodButtonArray)
@@ -64,13 +62,11 @@ class MoodView: UIView {
         backgroundColor = .white
         
         setupLayout()
+        
     }
     
 // MARK:- Setup View Layout
 fileprivate func setupLayout() {
-//    addSubview(btnClose)
-//    btnClose.anchor(top: safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, paddingTop: 15, paddingLeft: 20, width: 15, height: 15)
-    
     addSubview(moodQuestionTextView)
     moodQuestionTextView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 100)
     moodQuestionTextView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -78,10 +74,7 @@ fileprivate func setupLayout() {
     addSubview(dateTimeLabel)
     dateTimeLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     dateTimeLabel.anchor(top: moodQuestionTextView.bottomAnchor, paddingTop: 12, paddingBottom: 30)
-    
-//    addSubview(editButton)
-//    editButton.anchor(top: moodQuestionTextView.bottomAnchor, left: dateTimeLabel.rightAnchor, paddingTop: 11, paddingLeft: 5, width: 20, height: 20)
-        
+
     addSubview(moodStackView)
     moodStackView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 350, paddingLeft: 10,  paddingRight: 10, height: 50)
     
@@ -89,7 +82,25 @@ fileprivate func setupLayout() {
     closeViewButton.anchor(top: moodStackView.bottomAnchor, left: leftAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, paddingTop: 350, paddingLeft: 10, paddingBottom: 10)
 }
     
-
+//    func setupMoodTags() {
+//        for buttons in moodButtonArray {
+//            if let moodButton = Tag(rawValue: buttons.tag) {
+//                switch moodButton {
+//                case .awful: print("Feeling awful")
+//                case .ok: print("Feeling ok")
+//                case .meh: print("Feeling meh")
+//                case .great: print("Feeling great")
+//                case .awesome: print("Feeling awesome")
+//                }
+//            }
+//        }
+//
+////        for i in 0..<moodButtonArray.count {
+////            moodButtonArray[i].tag = i
+////        }
+//    }
+    
+    //var moodTag = moodButtonTag.ButtonAwful
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented.")

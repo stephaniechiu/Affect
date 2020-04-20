@@ -12,13 +12,18 @@ private let reuseIdentifier = "HomeCell"
 
 class HomeController: UIViewController {
     private let tableView = UITableView()
+    let moodController = MoodController()
+    
     //private final let titleHeaderHeight: CGFloat = 150
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigationBarItems()
+//        setupNavigationBarItems()
         setupLayout()
+        
+        let navController = UINavigationController(rootViewController: moodController)
+        self.navigationController?.pushViewController(navController, animated: true)
     }
     
     func setupLayout() {
@@ -71,9 +76,9 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Selectors
     
     // MARK: - Helper Functions
-    private func setupNavigationBarItems() {
-        navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-    }
+//    private func setupNavigationBarItems() {
+//        navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//    }
 }

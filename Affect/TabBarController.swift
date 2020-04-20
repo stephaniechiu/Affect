@@ -13,6 +13,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let newEntryController = EntryController()
     let dataController = StatisticsController()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -42,9 +43,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     //When the 2nd tabBarItem is selected, MoodController is presented modally over the current view, allowing user to record an entry
     internal func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController.isKind(of: EntryController.self) {
-            let vc =  MoodController()
-            vc.modalPresentationStyle = .automatic
-            self.present(vc, animated: true, completion: nil)
+            let moodController = MoodController()
+            let navController = UINavigationController(rootViewController: moodController)
+            navController.modalPresentationStyle = .fullScreen
+            self.present(navController, animated: true, completion: nil)
+            
+            navigationController?.navigationBar.isTranslucent = true
+            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            navigationController?.navigationBar.shadowImage = UIImage()
+            
             return false
         }
         return true

@@ -88,10 +88,6 @@ class ActivitiesNotesController: UIViewController {
     }
     
     // MARK: - Selectors
-//    @objc func closeView(sender: UIButton){
-//        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//    }
-//    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {

@@ -21,6 +21,7 @@ class MoodController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
+        setupNavigationBar()
         actionRecognizers()
         
         closeViewButton.addTarget(self, action: #selector(closeView(_:)), for: .touchUpInside)
@@ -74,35 +75,41 @@ class MoodController: UIViewController {
         removePopoverView()
         removeBlurEffect(view: view)
     }
-    
+
     //Show Feelings view controller
-    @objc func nextViewFeelings(sender: UIButton) {
-        for i in 0..<moodButtonArray.count {
-            print("\(moodButtonArray[i]) + 1")
-        }
+    @objc func nextViewFeelings(sender: UIButton?) {
+//        for i in 0..<moodButtonArray.count {
+//            print("\(moodButtonArray[i])")
+//        }
 
-//
+//        for buttons in moodButtonArray {
+//            if let buttonTapped = sender! {
+//            if let moodButton = Tag(rawValue: buttons.tag) {
+//                switch moodButton {
+//                case .awful: print("Feeling awful")
+//                case .ok: print("Feeling ok")
+//                case .meh: print("Feeling meh")
+//                case .great: print("Feeling great")
+//                case .awesome: print("Feeling awesome")
+//                }
+//            }
+//        }
         let feelingsController = FeelingsController()
-//        self.navigationController?.pushViewController(feelingsController, animated: true)
-
-        let navController = UINavigationController(rootViewController: feelingsController)
-//        self.present(navController, animated: false, completion: nil)
-        self.navigationController?.pushViewController(navController, animated: true)
-//        let activitiesController = ActivitiesNotesController()
-//        navigationController?.pushViewController(activitiesController, animated: true)
-        
-//        iconBtnImage.addTarget(self, action: #selector(MoodController.nextViewFeelings), for: .touchUpInside)
+        self.navigationController?.pushViewController(feelingsController, animated: true)
     }
 
  
 // MARK: - Helper Functions
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
     func actionRecognizers() {
         //User can edit date and time by tapping on the dateTimeLabel
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
         dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
-
-        
-//        btnClose.addTarget(self, action: #selector(closeView(sender:)), for: .touchUpInside)
     }
     
     func popoverLayout() {
