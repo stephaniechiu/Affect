@@ -8,75 +8,60 @@
 
 import UIKit
 
-// MARK: - Properties
-let activitiesTextView: UITextView = {
-    return UIView().titleTextView(placeholderText: "What have you been up to?", textSize: 35)
-}()
-
-//Notes & Thoughts - User Input
-let notesThoughtsTextView: UITextView = {
-    let view = UIView().titleTextView(placeholderText: "notes & thoughts", textSize: 20)
-    //view.backgroundColor = .orange
-    //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
-    return view
-}()
-
-var userInputNotesContainerView: UIView = {
-    let view = UIView().inputContainerView(placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-    view.heightAnchor.constraint(equalToConstant: 140).isActive = true
-    return view
-}()
-
-//Gratitude - User Input
-let gratitudeTextView: UITextView = {
-    let view = UIView().titleTextView(placeholderText: "3 things I'm grateful for", textSize: 20)
-    //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
-    return view
-}()
-
-var userInputGratitudeContainerView: UIView = {
-    let view = UIView().inputContainerView(placeholder: "Gratituity is important!")
-    //view.heightAnchor.constraint(equalToConstant: 100).isActive = true
-    return view
-}()
-
-let navBtnStackView: UIStackView = {
-    let stackView = UIStackView(arrangedSubviews: setNavButtons())
-    stackView.spacing = 180
-    stackView.distribution = .fillEqually
-    return stackView
-}()
-
-//Navigation Buttons: Cancel, Save
-func setNavButtons() -> [UIButton]{
-    let nextBtn = UIView().navigationBtn(text: "Next")
-    let saveBtn = UIView().navigationBtn(text: "Done")
-    return [nextBtn, saveBtn]
-}
-
 class ActivitiesNotesController: UIViewController {
+    
     weak var activitiesCollectionView: UICollectionView!
     let activitiesCellIdentifier = "AnotherCell"
     
+    // MARK: - Properties
+    let activitiesTextView: UITextView = {
+        return UIView().titleTextView(placeholderText: "What have you been up to?", textSize: 35)
+    }()
+
+    //Notes & Thoughts - User Input
+    let notesThoughtsTextView: UITextView = {
+        let view = UIView().titleTextView(placeholderText: "notes & thoughts", textSize: 20)
+        //view.backgroundColor = .orange
+        //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        return view
+    }()
+
+    var userInputNotesContainerView: UIView = {
+        let view = UIView().inputContainerView(placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+        view.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        return view
+    }()
+
+    //Gratitude - User Input
+    let gratitudeTextView: UITextView = {
+        let view = UIView().titleTextView(placeholderText: "3 things I'm grateful for", textSize: 20)
+        //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        return view
+    }()
+
+    var userInputGratitudeContainerView: UIView = {
+        let view = UIView().inputContainerView(placeholder: "Gratituity is important!")
+        //view.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        return view
+    }()
+    
+    let nextBtn = UIView().navigationBtn(text: "Next")
+    let saveBtn = UIView().navigationBtn(text: "Done")
+
     var columnLayout = ColumnFlowLayout(cellsPerRow: 5, minimumInteritemSpacing: 2, minimumLineSpacing: 2, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     
     let activitiesImage: [UIImage] = [#imageLiteral(resourceName: "Family_b"), #imageLiteral(resourceName: "GoodMeal_b"), #imageLiteral(resourceName: "HealthyEating_b"), #imageLiteral(resourceName: "Sports_b"), #imageLiteral(resourceName: "Games_b"), #imageLiteral(resourceName: "Movies_b"), #imageLiteral(resourceName: "Travel_b"), #imageLiteral(resourceName: "Shopping_b"), #imageLiteral(resourceName: "Friends_b"), #imageLiteral(resourceName: "Gardening_b"), #imageLiteral(resourceName: "Hobby_b"), #imageLiteral(resourceName: "Exercise_b"), #imageLiteral(resourceName: "SocialMedia_b"), #imageLiteral(resourceName: "Reading_b"), #imageLiteral(resourceName: "Work_b"), #imageLiteral(resourceName: "GoodSleep_b"), #imageLiteral(resourceName: "Date_b")]
+    
 
 // MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
     
     override func loadView() {
         super.loadView()
         
         setupActivitiesLayout()
-    }
-    
-    fileprivate func pushViewUpKeyboard() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidLoad() {
@@ -143,6 +128,9 @@ class ActivitiesNotesController: UIViewController {
 //        stack.backgroundColor = .blue
 //        stack.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
 //        stack.setCustomSpacing(10, after: userInputNotesContainerView)
+        let navBtnStackView = UIStackView(arrangedSubviews: [nextBtn, saveBtn])
+        navBtnStackView.spacing = 180
+        navBtnStackView.distribution = .fillEqually
         
         self.view.addSubview(navBtnStackView)
         navBtnStackView.anchor(top: userInputGratitudeContainerView.bottomAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingTop: 20, paddingBottom: 10)
@@ -154,6 +142,11 @@ class ActivitiesNotesController: UIViewController {
         self.activitiesCollectionView.delegate = self
         self.activitiesCollectionView.register(ActivitiesCell.self, forCellWithReuseIdentifier: activitiesCellIdentifier)
         self.activitiesCollectionView.backgroundColor = .white
+    }
+    
+    fileprivate func pushViewUpKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 

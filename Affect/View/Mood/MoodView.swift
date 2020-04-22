@@ -8,61 +8,64 @@
 
 import UIKit
 
-// MARK: - Properties
-let moodQuestionTextView: UITextView = {
-    return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
-}()
-
-let dateTimeLabel: UILabel = {
-    let now = Date()
-    let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.setLocalizedDateFormatFromTemplate("h:mm")
-    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        label.attributedText = NSAttributedString(string: "Today, " + dateFormatter.string(from: now), attributes:[.underlineStyle: NSUnderlineStyle.single.rawValue])
-        label.textAlignment = .center
-        label.font = UIFont(name: "American Typewriter", size: 18)
-        label.isUserInteractionEnabled = true
-    return label
-}()
-
-//func setIconButton() -> [UIButton] {
-    let btnAwful: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awful"))
-    let btnOk: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Ok"))
-    let btnMeh: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Meh"))
-    let btnGreat: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Great"))
-    let btnAwesome: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awesome"))
-//    return [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
-//}
-let moodButtonArray: [UIButton] = [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
-
-enum Tag: Int {
-    case awful = 1, ok, meh, great, awesome
-}
-
-// let chosenMood = Tag.Awful
-// print(chosenMood.rawValue)
-
-let moodStackView: UIStackView = {
-    let stackView = UIStackView(arrangedSubviews: moodButtonArray)
-    stackView.spacing = 10
-    stackView.distribution = .fillEqually
-    return stackView
-}()
-
-let closeViewButton: UIButton = { return UIView().navigationBtn(text: "Cancel") }()
-
-let blurEffect = UIBlurEffect(style: .prominent)
-let blurEffectView = UIVisualEffectView(effect: blurEffect)
-
-// MARK: - Lifecycles
 class MoodView: UIView {
+    
+    // MARK: - Properties
+    let moodQuestionTextView: UITextView = {
+        return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
+    }()
+    
+    let dateTimeLabel: UILabel = {
+        let now = Date()
+        let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US")
+            dateFormatter.setLocalizedDateFormatFromTemplate("h:mm")
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+            label.attributedText = NSAttributedString(string: "Today, " + dateFormatter.string(from: now), attributes:[.underlineStyle: NSUnderlineStyle.single.rawValue])
+            label.textAlignment = .center
+            label.font = UIFont(name: "American Typewriter", size: 18)
+            label.isUserInteractionEnabled = true
+        return label
+    }()
+    
+    //func setIconButton() -> [UIButton] {
+        let btnAwful: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awful"))
+        let btnOk: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Ok"))
+        let btnMeh: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Meh"))
+        let btnGreat: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Great"))
+        let btnAwesome: UIButton = UIView().iconBtn(image: #imageLiteral(resourceName: "Awesome"))
+    
+    //    return [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
+    //}
+    var moodButtonArray: [UIButton]
+
+    enum Tag: Int {
+        case awful = 1, ok, meh, great, awesome
+    }
+
+    // let chosenMood = Tag.Awful
+    // print(chosenMood.rawValue)
+    
+    var moodStackView: UIStackView
+    
+    let closeViewButton: UIButton = { return UIView().navigationBtn(text: "Cancel") }()
+
+    var blurEffect = UIBlurEffect()
+    var blurEffectView = UIVisualEffectView()
+
+    // MARK: - Lifecycles
     override init(frame: CGRect) {
+        
+        self.moodButtonArray = [btnAwful, btnOk, btnMeh, btnGreat, btnAwesome]
+        self.moodStackView = UIStackView(arrangedSubviews: moodButtonArray)
+            moodStackView.spacing = 10
+            moodStackView.distribution = .fillEqually
+        self.blurEffect = UIBlurEffect(style: .prominent)
+        self.blurEffectView = UIVisualEffectView(effect: blurEffect)
+        
         super.init(frame: frame)
         backgroundColor = .white
-        
         setupLayout()
-        
     }
     
 // MARK:- Setup View Layout

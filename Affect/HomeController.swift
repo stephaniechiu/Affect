@@ -11,6 +11,16 @@ import UIKit
 private let reuseIdentifier = "HomeCell"
 
 class HomeController: UIViewController {
+    
+    let entryInput = [
+        UserEntryInput(thoughts: "abc", gratitude: "def"),
+        UserEntryInput(thoughts: "123", gratitude: "432"),
+        UserEntryInput(thoughts: "abc", gratitude: "def"),
+        UserEntryInput(thoughts: "123", gratitude: "432"),
+        UserEntryInput(thoughts: "abc", gratitude: "def")
+
+    ]
+    
     private let tableView = UITableView()
     let moodController = MoodController()
     
@@ -62,7 +72,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 2 : 5
+        return section == 0 ? entryInput.count : 1
 //        if section == 0 {
 //            return 2
 //        }
@@ -71,6 +81,10 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HomeCell
+        
+        let inputEntry = entryInput[indexPath.row]
+        cell.entryTextView.text = inputEntry.thoughts
+        
         return cell
     }
     // MARK: - Selectors

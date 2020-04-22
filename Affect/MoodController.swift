@@ -23,9 +23,6 @@ class MoodController: UIViewController {
 
         setupNavigationBar()
         actionRecognizers()
-        
-        closeViewButton.addTarget(self, action: #selector(closeView(_:)), for: .touchUpInside)
-
     }
     
 // MARK: - Selectors
@@ -37,14 +34,14 @@ class MoodController: UIViewController {
     }
 
     @objc func labelClicked(_ sender: UITapGestureRecognizer? = nil) {
-        popoverView.alpha = 0
+        dateTimeController.popoverView.alpha = 0
         
         popoverLayout()
         addBlurEffect(view: view, style: .systemUltraThinMaterialDark)
         
         UIView.animate(withDuration: 0.3, animations: {
-            popoverView.alpha = 1
-            popoverView.frame.origin.y = -self.view.frame.height / 2
+            self.dateTimeController.popoverView.alpha = 1
+            self.dateTimeController.popoverView.frame.origin.y = -self.view.frame.height / 2
         })
     }
     
@@ -59,18 +56,14 @@ class MoodController: UIViewController {
         dateFormatter.timeStyle = .short
         dateFormatter.doesRelativeDateFormatting = true
         
-//        let dateComponents = DateComponents(calendar: .current, timeZone: .current, month: 1, day: 1, hour: 10, minute: 10)
-//        let currentCalender = Calendar.current
-//        let currentDate = currentCalender.date(from: dateComponents)
-        
-        if Calendar.current.isDateInToday(dateTimePicker.date){
-            dateTimeLabel.text = dateFormatter.string(for: dateTimePicker.date)
-        } else if Calendar.current.isDateInTomorrow(dateTimePicker.date){
+        if Calendar.current.isDateInToday(dateTimeController.dateTimePicker.date){
+            moodView.dateTimeLabel.text = dateFormatter.string(for: dateTimeController.dateTimePicker.date)
+        } else if Calendar.current.isDateInTomorrow(dateTimeController.dateTimePicker.date){
             dateFormatter.doesRelativeDateFormatting = false
-            dateTimeLabel.text = dateFormatter.string(for: dateTimePicker.date)
+            moodView.dateTimeLabel.text = dateFormatter.string(for: dateTimeController.dateTimePicker.date)
         } else {
-            dateTimeLabel.text = dateFormatter.string(for: dateTimePicker.date)
-            print(dateTimePicker.date)
+            moodView.dateTimeLabel.text = dateFormatter.string(for: dateTimeController.dateTimePicker.date)
+            print(dateTimeController.dateTimePicker.date)
         }
         removePopoverView()
         removeBlurEffect(view: view)
@@ -109,31 +102,32 @@ class MoodController: UIViewController {
     func actionRecognizers() {
         //User can edit date and time by tapping on the dateTimeLabel
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
-        dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+        moodView.dateTimeLabel.addGestureRecognizer(tapGuestureRecognizer)
+        moodView.closeViewButton.addTarget(self, action: #selector(closeView(_:)), for: .touchUpInside)
     }
     
     func popoverLayout() {
-        popoverView.addSubview(popoverStackView)
-        popoverStackView.anchor(top: popoverView.topAnchor, left: popoverView.leftAnchor, right: popoverView.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
+        dateTimeController.popoverView.addSubview(dateTimeController.popoverStackView)
+        dateTimeController.popoverStackView.anchor(top: dateTimeController.popoverView.topAnchor, left: dateTimeController.popoverView.leftAnchor, right: dateTimeController.popoverView.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
         
-        popoverView.addSubview(dateTimePicker)
-        dateTimePicker.anchor(top: popoverStackView.bottomAnchor, left: popoverView.leftAnchor, bottom: popoverView.bottomAnchor, right: popoverView.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
+        dateTimeController.popoverView.addSubview(dateTimeController.dateTimePicker)
+        dateTimeController.dateTimePicker.anchor(top: dateTimeController.popoverStackView.bottomAnchor, left: dateTimeController.popoverView.leftAnchor, bottom: dateTimeController.popoverView.bottomAnchor, right: dateTimeController.popoverView.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
         
-        view.addSubview(popoverView)
-        popoverView.centerX(inView: view)
-        popoverView.centerY(inView: view)
-        popoverView.anchor(width: 300, height: 200)
+        view.addSubview(dateTimeController.popoverView)
+        dateTimeController.popoverView.centerX(inView: view)
+        dateTimeController.popoverView.centerY(inView: view)
+        dateTimeController.popoverView.anchor(width: 300, height: 200)
         
-        cancelButton.addTarget(self, action: #selector(cancelTapped(sender:)), for: .touchUpInside)
-        doneButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
+        dateTimeController.cancelButton.addTarget(self, action: #selector(cancelTapped(sender:)), for: .touchUpInside)
+        dateTimeController.doneButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
     }
     
     fileprivate func removePopoverView() {
         UIView.animate(withDuration: 0.3, animations: {
-            popoverView.alpha = 0
-            popoverView.frame.origin.y = -self.view.frame.height
+            self.dateTimeController.popoverView.alpha = 0
+            self.dateTimeController.popoverView.frame.origin.y = -self.view.frame.height
         }, completion: {(value: Bool) in
-            popoverView.removeFromSuperview()
+            self.dateTimeController.popoverView.removeFromSuperview()
         })
     }
     

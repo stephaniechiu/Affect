@@ -29,6 +29,8 @@
 		9041C0BE242118BC00225999 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9041C0BD242118BC00225999 /* Assets.xcassets */; };
 		9046DF712434300400DACEEA /* PositiveFeelingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9046DF702434300400DACEEA /* PositiveFeelingsHeader.swift */; };
 		9049E7CD242D735C00F7CBED /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049E7CC242D735C00F7CBED /* Extensions.swift */; };
+		90A4000C244E5DBB003E4604 /* UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4000B244E5DBB003E4604 /* UserInput.swift */; };
+		90E0C814244FD7E600446412 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E0C813244FD7E600446412 /* CustomButton.swift */; };
 		90F30460243681EF00DDA2FC /* ColumnFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3045F243681EF00DDA2FC /* ColumnFlowLayout.swift */; };
 		90F304642436FF8800DDA2FC /* FeelingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F304632436FF8800DDA2FC /* FeelingsView.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +60,8 @@
 		9041C0C2242118BC00225999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9046DF702434300400DACEEA /* PositiveFeelingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveFeelingsHeader.swift; sourceTree = "<group>"; };
 		9049E7CC242D735C00F7CBED /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		90A4000B244E5DBB003E4604 /* UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInput.swift; sourceTree = "<group>"; };
+		90E0C813244FD7E600446412 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		90F3045F243681EF00DDA2FC /* ColumnFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnFlowLayout.swift; sourceTree = "<group>"; };
 		90F304632436FF8800DDA2FC /* FeelingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				9014BE962432DE06008F7155 /* Entry.swift */,
+				90A4000B244E5DBB003E4604 /* UserInput.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				9049E7CC242D735C00F7CBED /* Extensions.swift */,
+				90E0C813244FD7E600446412 /* CustomButton.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -351,8 +357,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				903FC99924443CCC005D9DF4 /* PickerView.swift in Sources */,
+				90A4000C244E5DBB003E4604 /* UserInput.swift in Sources */,
 				90413927243A808C0029DBCD /* FeelingsController.swift in Sources */,
 				9014BE8F242FD483008F7155 /* HomeController.swift in Sources */,
+				90E0C814244FD7E600446412 /* CustomButton.swift in Sources */,
 				9041C0BC242118BA00225999 /* Affect.xcdatamodeld in Sources */,
 				9046DF712434300400DACEEA /* PositiveFeelingsHeader.swift in Sources */,
 				90F304642436FF8800DDA2FC /* FeelingsView.swift in Sources */,

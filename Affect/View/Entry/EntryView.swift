@@ -8,21 +8,22 @@
 
 import UIKit
 
-// MARK: - Properties
-let entryDateTimeLabel: UILabel = {
-    let now = Date()
-    let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.setLocalizedDateFormatFromTemplate("h:mm")
-    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        label.text = "Jan 01"
-        label.textAlignment = .center
-        label.font = UIFont(name: "American Typewriter", size: 35)
-        label.isUserInteractionEnabled = true
-    return label
-}()
-
 class EntryView: UIView {
+    
+    // MARK: - Properties
+    let entryDateTimeLabel: UILabel = {
+        let now = Date()
+        let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US")
+            dateFormatter.setLocalizedDateFormatFromTemplate("h:mm")
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+            label.text = "Jan 01"
+            label.textAlignment = .center
+            label.font = UIFont(name: "American Typewriter", size: 35)
+            label.isUserInteractionEnabled = true
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .lightGray

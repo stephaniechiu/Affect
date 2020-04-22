@@ -13,21 +13,20 @@ private let negativeCellID = "NegativeCell"
 private let positiveHeaderID = "PositiveHeader"
 private let negativeHeaderID = "NegativeHeader"
 
-let feelingsTextView: UITextView = {
-    return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 35)
-}()
-
-let nextBtn: UIButton = {
-    return UIView().navigationBtn(text: "Next")
-}()
-
 var positiveFeelingsLabel: [String] = ["understanding", "confident", "sympathetic", "satisfied", "kind", "great", "lucky", "fortunate", "important", "bold", "playful", "energetic", "optimistic", "free", "wonderful", "pleased", "comfortable", "calm", "relaxed", "blessed", "loving", "eager"]
 
 var negativeFeelingsLabel: [String] = ["irritated", "disappointed", "ashamed", "miserable", "upset", "indecisive", "embarrassed", "shy", "alone", "fatigued", "stressed", "tense", "resentful", "nervous", "suspicious", "offended", "nonchalant", "bored", "wronged", "dismayed", "threatened", "terrified"]
 
 class FeelingsController: UIViewController {
+    // MARK: - Properties
+    let feelingsTextView: UITextView = {
+        return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 35)
+    }()
 
-// MARK: - Properties
+    let nextBtn: UIButton = {
+        return UIView().navigationBtn(text: "Next")
+    }()
+
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let height = UIScreen.main.bounds.size.height
