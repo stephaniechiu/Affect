@@ -19,6 +19,8 @@ var negativeFeelingsLabel: [String] = ["irritated", "disappointed", "ashamed", "
 
 class FeelingsController: UIViewController {
     // MARK: - Properties
+    let customNavigationController = CustomNavigationController()
+    
     let feelingsTextView: UITextView = {
         return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 35)
     }()
@@ -43,7 +45,7 @@ class FeelingsController: UIViewController {
         view.backgroundColor = .white
     
         setupCollectionViews()
-        setupNavigationBar()
+        setupNavigationBarItem()
     }
     
     override func viewDidLoad() {
@@ -56,21 +58,16 @@ class FeelingsController: UIViewController {
     @objc func closeView(sender: UIButton){
         view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
-//    @objc func closeView(_ sender: UITapGestureRecognizer? = nil){
-//            let homeController = HomeController()
-//            navigationController?.pushViewControllerFromTop(controller: homeController)
-//    }
-     
+
     @objc func nextViewActivities() {
         let activitiesController = ActivitiesNotesController()
         navigationController?.pushViewController(activitiesController, animated: true)
     }
     
 // MARK: - Helper Functions
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+    fileprivate func setupNavigationBarItem() {
+        let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButtonItem
     }
     
     fileprivate func setupCollectionViews() {

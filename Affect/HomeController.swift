@@ -11,6 +11,9 @@ import UIKit
 private let reuseIdentifier = "HomeCell"
 
 class HomeController: UIViewController {
+//    let customNavigationController = CustomNavigationController()
+    let tableView = UITableView()
+    let moodController = MoodController()
     
     let entryInput = [
         UserEntryInput(thoughts: "abc", gratitude: "def"),
@@ -21,19 +24,11 @@ class HomeController: UIViewController {
 
     ]
     
-    private let tableView = UITableView()
-    let moodController = MoodController()
-    
-    //private final let titleHeaderHeight: CGFloat = 150
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        setupNavigationBarItems()
         setupLayout()
-        
-        let navController = UINavigationController(rootViewController: moodController)
-        self.navigationController?.pushViewController(navController, animated: true)
+//        customNavigationController.setupNavigationBar()
     }
     
     func setupLayout() {
@@ -90,9 +85,5 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Selectors
     
     // MARK: - Helper Functions
-//    private func setupNavigationBarItems() {
-//        navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//    }
+
 }

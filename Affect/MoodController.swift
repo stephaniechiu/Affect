@@ -11,6 +11,7 @@ import UIKit
 class MoodController: UIViewController {
     let moodView = MoodView()
     let dateTimeController = PickerView()
+    let customNavigationController = CustomNavigationController()
       
 // MARK: - Lifecycle
     override func loadView() {
@@ -23,6 +24,7 @@ class MoodController: UIViewController {
 
         setupNavigationBar()
         actionRecognizers()
+        setupNavigationBarItem()
     }
     
 // MARK: - Selectors
@@ -70,6 +72,11 @@ class MoodController: UIViewController {
     }
 
     //Show Feelings view controller
+    fileprivate func setupNavigationBarItem() {
+        let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButtonItem
+    }
+    
     @objc func nextViewFeelings(sender: UIButton?) {
 //        for i in 0..<moodButtonArray.count {
 //            print("\(moodButtonArray[i])")

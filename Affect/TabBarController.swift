@@ -46,11 +46,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             let moodController = MoodController()
             let navController = UINavigationController(rootViewController: moodController)
             navController.modalPresentationStyle = .fullScreen
-            self.present(navController, animated: true, completion: nil)
+            navController.navigationBar.isTranslucent = true
+            navController.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            navController.navigationBar.shadowImage = UIImage()
             
-            navigationController?.navigationBar.isTranslucent = true
-            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            navigationController?.navigationBar.shadowImage = UIImage()
+            
+            
+            self.present(navController, animated: true, completion: nil)
             
             return false
         }

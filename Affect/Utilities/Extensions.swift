@@ -131,24 +131,24 @@ extension UITextView {
 }
 
 //Dismisses Mood, Feelings, and Activities views to Home view, sliding from top to bottom
-extension UINavigationController {
-    func setupNavigationBar() {
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-    }
-    
-    @objc func closeView(sender: UIButton){
-        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    func pushViewControllerFromTop(controller: UIViewController) {
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.type = CATransitionType.push
-        transition.subtype = CATransitionSubtype.fromRight
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-        pushViewController(controller, animated: false)
-    }
-}
+//extension UINavigationController {
+//    func setupNavigationBar() {
+//        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//    }
+//
+//    @objc func closeView(sender: UIButton){
+//        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//    }
+//    
+//    func pushViewControllerFromTop(controller: UIViewController) {
+//        let transition = CATransition()
+//        transition.duration = 0.5
+//        transition.type = CATransitionType.push
+//        transition.subtype = CATransitionSubtype.fromRight
+//        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+//        view.window!.layer.add(transition, forKey: kCATransition)
+//        pushViewController(controller, animated: false)
+//    }
+//}

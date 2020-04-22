@@ -9,6 +9,7 @@
 import UIKit
 
 class ActivitiesNotesController: UIViewController {
+    let customNavigationController = CustomNavigationController()
     
     weak var activitiesCollectionView: UICollectionView!
     let activitiesCellIdentifier = "AnotherCell"
@@ -68,6 +69,7 @@ class ActivitiesNotesController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        customNavigationController.setupNavigationBar()
         setupCollectionViewRegister()
         pushViewUpKeyboard()
     }
