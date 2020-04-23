@@ -12,7 +12,7 @@ class MoodView: UIView {
     
     // MARK: - Properties
     let moodQuestionTextView: UITextView = {
-        return UIView().titleTextView(placeholderText: "How are you?", textSize: 35)
+        return UIView().titleTextView(text: "How are you?", textSize: 35)
     }()
     
     let dateTimeLabel: UILabel = {

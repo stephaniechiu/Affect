@@ -9,9 +9,9 @@
 import UIKit
 
 extension UIView {
-    func titleTextView(placeholderText: String, textSize: CGFloat) -> UITextView {
+    func titleTextView(text: String, textSize: CGFloat) -> UITextView {
         let textView = UITextView()
-        textView.text = placeholderText
+        textView.text = text
         textView.font = UIFont(name: "American Typewriter", size: textSize)
         textView.textAlignment = .center
         textView.isEditable = false
@@ -39,22 +39,25 @@ extension UIView {
         return navBtn
     }
     
-    func inputContainerView(placeholder: String) -> UIView {
+    func inputTextView(placeholder: String) -> UITextView {
+        let textView = UITextView()
+        textView.font = UIFont(name: "Gill Sans", size: 14)
+        textView.keyboardAppearance = .default
+        textView.textAlignment = .left
+        textView.isScrollEnabled = true
+        textView.textContainer.lineBreakMode = .byWordWrapping
+        textView.text = placeholder
+        textView.textColor = .darkGray
+        textView.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.0)
+        
+        return textView
+    }
+    
+    func inputContainerView(inputTextView: UITextView) -> UIView {
         let view = UIView()
         view.layer.cornerRadius = 12
         view.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.3)
-        
-        let inputTextView = UITextView()
-        inputTextView.font = UIFont(name: "Gill Sans", size: 14)
-        inputTextView.keyboardAppearance = .default
-        inputTextView.textAlignment = .left
-        inputTextView.isScrollEnabled = true
-        inputTextView.textContainer.lineBreakMode = .byWordWrapping
-        inputTextView.text = placeholder
-        inputTextView.textColor = .darkGray
-        inputTextView.backgroundColor = UIColor(red: 216/256, green: 216/256, blue: 216/256, alpha: 0.0)
-        inputTextView.isScrollEnabled = false
-        
+
         view.addSubview(inputTextView)
         inputTextView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 15, paddingRight: 15)
         

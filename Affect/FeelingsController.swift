@@ -22,7 +22,7 @@ class FeelingsController: UIViewController {
     let customNavigationController = CustomNavigationController()
     
     let feelingsTextView: UITextView = {
-        return UIView().titleTextView(placeholderText: "What describes your feelings?", textSize: 35)
+        return UIView().titleTextView(text: "What describes your feelings?", textSize: 35)
     }()
 
     let nextBtn: UIButton = {

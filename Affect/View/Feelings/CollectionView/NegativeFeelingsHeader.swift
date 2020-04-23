@@ -12,7 +12,7 @@ class NegativeFeelingsHeader: UICollectionReusableView {
 
 // MARK: - Properties
     let negativeFeelingsHeader: UITextView = {
-        return UIView().titleTextView(placeholderText: "Negative", textSize: 20)
+        return UIView().titleTextView(text: "Negative", textSize: 20)
     }()
 
 // MARK: - Lifecycle

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ActivitiesNotesController: UIViewController {
     let customNavigationController = CustomNavigationController()
@@ -16,38 +17,47 @@ class ActivitiesNotesController: UIViewController {
     
     // MARK: - Properties
     let activitiesTextView: UITextView = {
-        return UIView().titleTextView(placeholderText: "What have you been up to?", textSize: 35)
+        return UIView().titleTextView(text: "What have you been up to?", textSize: 35)
     }()
 
     //Notes & Thoughts - User Input
     let notesThoughtsTextView: UITextView = {
-        let view = UIView().titleTextView(placeholderText: "notes & thoughts", textSize: 20)
-        //view.backgroundColor = .orange
+        let view = UIView().titleTextView(text: "notes & thoughts", textSize: 20)
+        view.backgroundColor = .orange
         //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return view
     }()
 
-    var userInputNotesContainerView: UIView = {
-        let view = UIView().inputContainerView(placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-        view.heightAnchor.constraint(equalToConstant: 140).isActive = true
-        return view
+    let notesInputTextView: UITextView = {
+        let inputView = UIView().inputTextView(placeholder: "Type anything...")
+        return inputView
+    }()
+    
+    lazy var userNotesInputContainerView: UIView = {
+        let containerView = UIView().inputContainerView(inputTextView: notesInputTextView)
+        containerView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        return containerView
     }()
 
     //Gratitude - User Input
     let gratitudeTextView: UITextView = {
-        let view = UIView().titleTextView(placeholderText: "3 things I'm grateful for", textSize: 20)
-        //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        return view
-    }()
-
-    var userInputGratitudeContainerView: UIView = {
-        let view = UIView().inputContainerView(placeholder: "Gratituity is important!")
-        //view.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        let view = UIView().titleTextView(text: "3 things I'm grateful for", textSize: 20)
         return view
     }()
     
+    let gratituityInputTextView: UITextView = {
+        let inputView = UIView().inputTextView(placeholder: "Gratituity is great")
+        return inputView
+    }()
+
+    lazy var userInputGratitudeContainerView: UIView = {
+        let containerView = UIView().inputContainerView(inputTextView: gratituityInputTextView)
+        containerView.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        return containerView
+    }()
+    
     let nextBtn = UIView().navigationBtn(text: "Next")
-    let saveBtn = UIView().navigationBtn(text: "Done")
+    let saveBtn = UIView().navigationBtn(text: "Save")
 
     var columnLayout = ColumnFlowLayout(cellsPerRow: 5, minimumInteritemSpacing: 2, minimumLineSpacing: 2, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     
@@ -72,6 +82,8 @@ class ActivitiesNotesController: UIViewController {
         customNavigationController.setupNavigationBar()
         setupCollectionViewRegister()
         pushViewUpKeyboard()
+        
+        saveBtn.addTarget(self, action: #selector(saveActivitiesNotes(sender:)), for: .touchUpInside)
     }
     
     // MARK: - Selectors
@@ -92,11 +104,42 @@ class ActivitiesNotesController: UIViewController {
     @objc func tapDone(sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
+    @objc func saveActivitiesNotes(sender: UIButton) {
+        guard let enteredNotesThoughtsText = notesInputTextView.text else {
+            return
+        }
+        if enteredNotesThoughtsText.isEmpty || notesThoughtsTextView.text == "Type anything..." {
+            let alert = UIAlertController(title: "Type something", message: "Blank entry", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {
+                action in
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            guard let enteredNotesThoughtsText = notesInputTextView.text else {
+                return
+            }
+            
+            let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            let entity = NSEntityDescription.entity(forEntityName: "InputEntry", in: managedContext)!
+            let thoughts = NSManagedObject(entity: entity, insertInto: managedContext)
+//            entity.name = enteredNotesThoughtsText
+            
+            thoughts.setValue(thoughts, forKey: "thoughts")
+            
+            do {
+                try managedContext.save()
+                thoughtsEntry.append(thoughts)
+            } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+            
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    }
 
 // MARK: - Helper Functions
     fileprivate func setupActivitiesLayout() {
-//        self.navigationController?.setupNavigationBar()
-        
         self.view.addSubview(activitiesTextView)
         activitiesTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         activitiesTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -104,18 +147,18 @@ class ActivitiesNotesController: UIViewController {
         let activitiesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: columnLayout)
         activitiesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(activitiesCollectionView)
-        activitiesCollectionView.anchor(top: activitiesTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingRight: 40, height: 180)
+        activitiesCollectionView.anchor(top: activitiesTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 40, paddingRight: 40, height: 180)
         self.activitiesCollectionView = activitiesCollectionView
         
         self.view.addSubview(notesThoughtsTextView)
         notesThoughtsTextView.anchor(top: activitiesCollectionView.bottomAnchor, paddingTop: 10, height: 30)
         notesThoughtsTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        self.view.addSubview(userInputNotesContainerView)
-        userInputNotesContainerView.anchor(top: notesThoughtsTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 40, paddingRight: 40)
+        self.view.addSubview(userNotesInputContainerView)
+        userNotesInputContainerView.anchor(top: notesThoughtsTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 40, paddingRight: 40)
         
         self.view.addSubview(gratitudeTextView)
-        gratitudeTextView.anchor(top: userInputNotesContainerView.bottomAnchor, paddingTop: 10, height: 30)
+        gratitudeTextView.anchor(top: userNotesInputContainerView.bottomAnchor, paddingTop: 10, height: 30)
         gratitudeTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         self.view.addSubview(userInputGratitudeContainerView)

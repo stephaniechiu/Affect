@@ -59,7 +59,7 @@ class HomeController: UIViewController {
 // MARK: - UITableViewDelegate/DataSource
 extension HomeController: UITableViewDelegate, UITableViewDataSource {
     internal func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let monthSectionHeader = UIView().titleTextView(placeholderText: "January", textSize: 20)
+        let monthSectionHeader = UIView().titleTextView(text: "January", textSize: 20)
         return monthSectionHeader
     }
     

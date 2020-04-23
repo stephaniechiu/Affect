@@ -11,7 +11,7 @@ import UIKit
 class FeelingsView: UIView {
     // MARK: - Properties
     let feelingsTextView: UITextView = {
-        return UIView().titleTextView(placeholderText: "How do you feel?", textSize: 28)
+        return UIView().titleTextView(text: "How do you feel?", textSize: 28)
     }()
 
     let nextBtn: UIButton = {

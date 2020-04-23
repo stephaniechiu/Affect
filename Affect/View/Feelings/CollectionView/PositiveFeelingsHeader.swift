@@ -12,7 +12,7 @@ class PositiveFeelingsHeader: UICollectionReusableView {
 
 // MARK: - Properties
     let positiveFeelingsHeader: UITextView = {
-        return UIView().titleTextView(placeholderText: "Positive", textSize: 20)
+        return UIView().titleTextView(text: "Positive", textSize: 20)
     }()
 
 // MARK: - Lifecycle
