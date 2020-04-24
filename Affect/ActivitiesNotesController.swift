@@ -10,7 +10,10 @@ import UIKit
 import CoreData
 
 class ActivitiesNotesController: UIViewController {
+    let homeController = HomeController()
     let customNavigationController = CustomNavigationController()
+    
+    var thoughtsEntries: [NSManagedObject] = []
     
     weak var activitiesCollectionView: UICollectionView!
     let activitiesCellIdentifier = "AnotherCell"
@@ -67,6 +70,8 @@ class ActivitiesNotesController: UIViewController {
 // MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        fetchData()
     }
     
     override func loadView() {
@@ -83,7 +88,7 @@ class ActivitiesNotesController: UIViewController {
         setupCollectionViewRegister()
         pushViewUpKeyboard()
         
-        saveBtn.addTarget(self, action: #selector(saveActivitiesNotes(sender:)), for: .touchUpInside)
+        saveBtn.addTarget(self, action: #selector(save(sender:)), for: .touchUpInside)
     }
     
     // MARK: - Selectors
@@ -105,40 +110,51 @@ class ActivitiesNotesController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func saveActivitiesNotes(sender: UIButton) {
-        guard let enteredNotesThoughtsText = notesInputTextView.text else {
+    @objc func save(sender: UIButton) {
+//        guard let enteredNotesThoughtsText = notesInputTextView.text else {
+//            return
+//        }
+//        if enteredNotesThoughtsText.isEmpty || notesThoughtsTextView.text == "Type anything..." {
+//            let alert = UIAlertController(title: "Type something", message: "Blank entry", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {
+//                action in
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        } else {
+//            guard let enteredNotesThoughtsText = notesInputTextView.text else {
+//                return
+//            }
+        guard let textToSave = notesInputTextView.text else {
             return
         }
-        if enteredNotesThoughtsText.isEmpty || notesThoughtsTextView.text == "Type anything..." {
-            let alert = UIAlertController(title: "Type something", message: "Blank entry", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {
-                action in
-            }))
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            guard let enteredNotesThoughtsText = notesInputTextView.text else {
-                return
-            }
-            
-            let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            let entity = NSEntityDescription.entity(forEntityName: "InputEntry", in: managedContext)!
-            let thoughts = NSManagedObject(entity: entity, insertInto: managedContext)
-//            entity.name = enteredNotesThoughtsText
-            
-            thoughts.setValue(thoughts, forKey: "thoughts")
-            
-            do {
-                try managedContext.save()
-                thoughtsEntry.append(thoughts)
-            } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-            
-            dismiss(animated: true, completion: nil)
-        }
-    }
+        self.save(name: textToSave)
+        self.homeController.tableView.reloadData()
+//        }
     }
 
 // MARK: - Helper Functions
+    func save(name: String){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                        return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "EntryInput", in: managedContext)!
+        let thoughts = NSManagedObject(entity: entity, insertInto: managedContext)
+        //entity.name = enteredNotesThoughtsText
+            
+        thoughts.setValue(name, forKey: "thoughts")
+                    
+        do {
+            try managedContext.save()
+            thoughtsEntries.append(thoughts)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+                    
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    
     fileprivate func setupActivitiesLayout() {
         self.view.addSubview(activitiesTextView)
         activitiesTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
@@ -192,6 +208,20 @@ class ActivitiesNotesController: UIViewController {
     fileprivate func pushViewUpKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    fileprivate func fetchData() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EntryInput")
+        
+        do {
+            thoughtsEntries = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
 }
 
