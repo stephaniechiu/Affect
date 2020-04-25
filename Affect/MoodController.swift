@@ -48,6 +48,8 @@ class MoodController: UIViewController {
     }
     
     @objc func cancelTapped(sender: Any) {
+        view.endEditing(true)
+        
         removePopoverView()
         removeBlurEffect(view: view)
     }
@@ -67,35 +69,36 @@ class MoodController: UIViewController {
             moodView.dateTimeLabel.text = dateFormatter.string(for: dateTimeController.dateTimePicker.date)
             print(dateTimeController.dateTimePicker.date)
         }
+        view.endEditing(true)
         removePopoverView()
         removeBlurEffect(view: view)
     }
+    
+    @objc func nextViewFeelings(sender: UIButton?) {
+    //        for i in 0..<moodButtonArray.count {
+    //            print("\(moodButtonArray[i])")
+    //        }
+
+    //        for buttons in moodButtonArray {
+    //            if let buttonTapped = sender! {
+    //            if let moodButton = Tag(rawValue: buttons.tag) {
+    //                switch moodButton {
+    //                case .awful: print("Feeling awful")
+    //                case .ok: print("Feeling ok")
+    //                case .meh: print("Feeling meh")
+    //                case .great: print("Feeling great")
+    //                case .awesome: print("Feeling awesome")
+    //                }
+    //            }
+    //        }
+            let feelingsController = FeelingsController()
+            self.navigationController?.pushViewController(feelingsController, animated: true)
+        }
 
     //Show Feelings view controller
     fileprivate func setupNavigationBarItem() {
         let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButtonItem
-    }
-    
-    @objc func nextViewFeelings(sender: UIButton?) {
-//        for i in 0..<moodButtonArray.count {
-//            print("\(moodButtonArray[i])")
-//        }
-
-//        for buttons in moodButtonArray {
-//            if let buttonTapped = sender! {
-//            if let moodButton = Tag(rawValue: buttons.tag) {
-//                switch moodButton {
-//                case .awful: print("Feeling awful")
-//                case .ok: print("Feeling ok")
-//                case .meh: print("Feeling meh")
-//                case .great: print("Feeling great")
-//                case .awesome: print("Feeling awesome")
-//                }
-//            }
-//        }
-        let feelingsController = FeelingsController()
-        self.navigationController?.pushViewController(feelingsController, animated: true)
     }
 
  

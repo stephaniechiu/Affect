@@ -13,7 +13,20 @@ class ActivitiesNotesController: UIViewController {
     let homeController = HomeController()
     let customNavigationController = CustomNavigationController()
     
-    var thoughtsEntries: [NSManagedObject] = []
+    let persistenceManager: PersistenceManager
+    
+    var entryInput = [EntryInput]()
+    
+    init(persistenceManager: PersistenceManager) {
+        self.persistenceManager = persistenceManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+//    var thoughtsEntries: [NSManagedObject] = []
     
     weak var activitiesCollectionView: UICollectionView!
     let activitiesCellIdentifier = "AnotherCell"
@@ -26,7 +39,7 @@ class ActivitiesNotesController: UIViewController {
     //Notes & Thoughts - User Input
     let notesThoughtsTextView: UITextView = {
         let view = UIView().titleTextView(text: "notes & thoughts", textSize: 20)
-        view.backgroundColor = .orange
+        view.backgroundColor = .white
         //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return view
     }()
@@ -71,7 +84,7 @@ class ActivitiesNotesController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchData()
+        fetchEntry()
     }
     
     override func loadView() {
@@ -89,6 +102,37 @@ class ActivitiesNotesController: UIViewController {
         pushViewUpKeyboard()
         
         saveBtn.addTarget(self, action: #selector(save(sender:)), for: .touchUpInside)
+//        createEntry()
+        fetchEntry()
+    }
+    
+    func fetchEntry() {
+        let entry = persistenceManager.fetch(EntryInput.self)
+        self.entryInput = entry
+        printEntries()
+        
+        let deadline = DispatchTime.now() + .seconds(3)
+        DispatchQueue.main.asyncAfter(deadline: deadline, execute: deleteEntry)
+    }
+    
+    func updateEntry() {
+        let firstEntry = entryInput.first
+        firstEntry?.thoughts += " - UPDATED"
+        persistenceManager.save()
+        
+        printEntries()
+    }
+    
+    func printEntries() {
+        entryInput.forEach({print($0.thoughts)})
+    }
+    
+    func deleteEntry() {
+        guard let firstEntry = entryInput.first else { return }
+//        persistenceManager.context.delete(firstEntry)
+//        persistenceManager.save()
+        persistenceManager.delete(firstEntry)
+        printEntries()
     }
     
     // MARK: - Selectors
@@ -106,53 +150,23 @@ class ActivitiesNotesController: UIViewController {
         }
     }
 
+    //Dismisses keyboard when "Done" is tapped
     @objc func tapDone(sender: Any) {
-        dismiss(animated: true, completion: nil)
+        self.view.endEditing(true)
     }
     
     @objc func save(sender: UIButton) {
-//        guard let enteredNotesThoughtsText = notesInputTextView.text else {
-//            return
-//        }
-//        if enteredNotesThoughtsText.isEmpty || notesThoughtsTextView.text == "Type anything..." {
-//            let alert = UIAlertController(title: "Type something", message: "Blank entry", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {
-//                action in
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//        } else {
-//            guard let enteredNotesThoughtsText = notesInputTextView.text else {
-//                return
-//            }
-        guard let textToSave = notesInputTextView.text else {
-            return
-        }
-        self.save(name: textToSave)
+        let entry = EntryInput(context: persistenceManager.context)
+        entry.thoughts = notesInputTextView.text
+               
+        persistenceManager.save()
         self.homeController.tableView.reloadData()
-//        }
+               
+        dismiss(animated: true, completion: nil)
     }
 
+
 // MARK: - Helper Functions
-    func save(name: String){
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                        return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "EntryInput", in: managedContext)!
-        let thoughts = NSManagedObject(entity: entity, insertInto: managedContext)
-        //entity.name = enteredNotesThoughtsText
-            
-        thoughts.setValue(name, forKey: "thoughts")
-                    
-        do {
-            try managedContext.save()
-            thoughtsEntries.append(thoughts)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-                    
-            dismiss(animated: true, completion: nil)
-        }
-    }
     
     
     fileprivate func setupActivitiesLayout() {
@@ -180,15 +194,6 @@ class ActivitiesNotesController: UIViewController {
         self.view.addSubview(userInputGratitudeContainerView)
         userInputGratitudeContainerView.anchor(top: gratitudeTextView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 40, paddingBottom: 20, paddingRight: 40)
 
-//        let stack = UIStackView(arrangedSubviews: [notesThoughtsTextView, userInputNotesContainerView, gratitudeTextView, userInputGratitudeContainerView])
-//        stack.axis = .vertical
-//        stack.distribution = .fillEqually
-//        //stack.spacing = 15
-//
-//        view.addSubview(stack)
-//        stack.backgroundColor = .blue
-//        stack.anchor(top: activitiesCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 20, paddingRight: 20)
-//        stack.setCustomSpacing(10, after: userInputNotesContainerView)
         let navBtnStackView = UIStackView(arrangedSubviews: [nextBtn, saveBtn])
         navBtnStackView.spacing = 180
         navBtnStackView.distribution = .fillEqually
@@ -210,19 +215,6 @@ class ActivitiesNotesController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    fileprivate func fetchData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EntryInput")
-        
-        do {
-            thoughtsEntries = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-    }
 }
 
 // MARK: - UICollectionView DataSource and Delegate

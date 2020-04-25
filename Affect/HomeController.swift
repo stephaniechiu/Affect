@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 private let reuseIdentifier = "HomeCell"
 
@@ -14,16 +15,15 @@ class HomeController: UIViewController {
 //    let customNavigationController = CustomNavigationController()
     let tableView = UITableView()
     let moodController = MoodController()
-    let activitiesNotesController = ActivitiesNotesController()
     
-//    let entryInput = [
-//        UserEntryInput(thoughts: "abc", gratitude: "def"),
-//        UserEntryInput(thoughts: "123", gratitude: "432"),
-//        UserEntryInput(thoughts: "abc", gratitude: "def"),
-//        UserEntryInput(thoughts: "123", gratitude: "432"),
-//        UserEntryInput(thoughts: "abc", gratitude: "def")
-//
-//    ]
+    var entryInputList: [NSManagedObject] = []
+    let entryInput = [
+        UserEntryInput(thoughts: "abc", gratitude: "def"),
+        UserEntryInput(thoughts: "123", gratitude: "432"),
+        UserEntryInput(thoughts: "abc", gratitude: "def"),
+        UserEntryInput(thoughts: "123", gratitude: "432"),
+        UserEntryInput(thoughts: "abc", gratitude: "def")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,25 +68,22 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return section == 0 ? activitiesNotesController.thoughtsEntries.count : 1
+        return section == 0 ? entryInput.count : 1
 //        if section == 0 {
 //            return 2
 //        }
 //        return 5
-        activitiesNotesController.thoughtsEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HomeCell
-    
-        let inputEntry = activitiesNotesController.thoughtsEntries[indexPath.row]
-//        cell.entryTextView.text = inputEntry.thoughts
-        cell.entryTextView.text = inputEntry.value(forKeyPath: "thoughts") as? String
+        
+        let inputEntry = entryInput[indexPath.row]
+        cell.entryTextView.text = inputEntry.thoughts
         
         return cell
     }
     // MARK: - Selectors
     
     // MARK: - Helper Functions
-
 }
