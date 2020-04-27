@@ -60,7 +60,7 @@ class FeelingsController: UIViewController {
     }
 
     @objc func nextViewActivities() {
-        let activitiesController = ActivitiesNotesController(persistenceManager: PersistenceManager.shared)
+        let activitiesController = ActivitiesNotesController()
         navigationController?.pushViewController(activitiesController, animated: true)
     }
     

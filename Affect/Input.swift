@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UserEntryInput {
-    var thoughts: String
-    var gratitude: String
-}
+//struct UserEntryInput {
+//    var thoughts: String
+//    var gratitude: String
+//}

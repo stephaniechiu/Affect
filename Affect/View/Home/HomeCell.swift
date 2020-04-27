@@ -35,6 +35,7 @@ class HomeCell: UITableViewCell {
         let textView = UITextView()
         textView.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac erat lobortis, sagittis dui et, pretium quam. Curabitur vitae libero mauris."
         textView.font = UIFont(name: "Gill Sans", size: 14)
+        textView.backgroundColor = .clear
         textView.textAlignment = .left
         textView.isEditable = false
         textView.isScrollEnabled = false
@@ -49,7 +50,7 @@ class HomeCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        selectionStyle = .none
+//        selectionStyle = .none
         
         setupCellLayout()
     }

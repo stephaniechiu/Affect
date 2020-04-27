@@ -12,24 +12,29 @@ import CoreData
 private let reuseIdentifier = "HomeCell"
 
 class HomeController: UIViewController {
-//    let customNavigationController = CustomNavigationController()
+
     let tableView = UITableView()
     let moodController = MoodController()
     
-    var entryInputList: [NSManagedObject] = []
-    let entryInput = [
-        UserEntryInput(thoughts: "abc", gratitude: "def"),
-        UserEntryInput(thoughts: "123", gratitude: "432"),
-        UserEntryInput(thoughts: "abc", gratitude: "def"),
-        UserEntryInput(thoughts: "123", gratitude: "432"),
-        UserEntryInput(thoughts: "abc", gratitude: "def")
-    ]
+    var entryInput: [String] = []
+//    var entryInputList: [NSManagedObject] = []
+//    let entryInput = [
+//        UserEntryInput(thoughts: "abc", gratitude: "def"),
+//        UserEntryInput(thoughts: "123", gratitude: "432"),
+//        UserEntryInput(thoughts: "abc", gratitude: "def"),
+//        UserEntryInput(thoughts: "123", gratitude: "432"),
+//        UserEntryInput(thoughts: "abc", gratitude: "def")
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
-//        customNavigationController.setupNavigationBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+        tableView.reloadData()
     }
     
     func setupLayout() {
@@ -63,12 +68,13 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
         let monthSectionHeader = UIView().titleTextView(text: "January", textSize: 20)
         return monthSectionHeader
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? entryInput.count : 1
+        return entryInput.count
+//        return section == 0 ? entryInput.count : 1
 //        if section == 0 {
 //            return 2
 //        }
@@ -79,9 +85,14 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HomeCell
         
         let inputEntry = entryInput[indexPath.row]
-        cell.entryTextView.text = inputEntry.thoughts
+        cell.entryTextView.text = inputEntry
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(entryInput[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     // MARK: - Selectors
     

@@ -9,22 +9,15 @@
 import UIKit
 import CoreData
 
+
+var notesInputTextView: UITextView = {
+    let inputView = UIView().inputTextView(placeholder: "Type anything...")
+    return inputView
+}()
+
 class ActivitiesNotesController: UIViewController {
     let homeController = HomeController()
     let customNavigationController = CustomNavigationController()
-    
-    let persistenceManager: PersistenceManager
-    
-    var entryInput = [EntryInput]()
-    
-    init(persistenceManager: PersistenceManager) {
-        self.persistenceManager = persistenceManager
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
 //    var thoughtsEntries: [NSManagedObject] = []
     
@@ -42,11 +35,6 @@ class ActivitiesNotesController: UIViewController {
         view.backgroundColor = .white
         //view.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return view
-    }()
-
-    let notesInputTextView: UITextView = {
-        let inputView = UIView().inputTextView(placeholder: "Type anything...")
-        return inputView
     }()
     
     lazy var userNotesInputContainerView: UIView = {
@@ -84,7 +72,7 @@ class ActivitiesNotesController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchEntry()
+//        fetchData()
     }
     
     override func loadView() {
@@ -102,40 +90,21 @@ class ActivitiesNotesController: UIViewController {
         pushViewUpKeyboard()
         
         saveBtn.addTarget(self, action: #selector(save(sender:)), for: .touchUpInside)
-//        createEntry()
-        fetchEntry()
-    }
-    
-    func fetchEntry() {
-        let entry = persistenceManager.fetch(EntryInput.self)
-        self.entryInput = entry
-        printEntries()
-        
-        let deadline = DispatchTime.now() + .seconds(3)
-        DispatchQueue.main.asyncAfter(deadline: deadline, execute: deleteEntry)
-    }
-    
-    func updateEntry() {
-        let firstEntry = entryInput.first
-        firstEntry?.thoughts += " - UPDATED"
-        persistenceManager.save()
-        
-        printEntries()
-    }
-    
-    func printEntries() {
-        entryInput.forEach({print($0.thoughts)})
-    }
-    
-    func deleteEntry() {
-        guard let firstEntry = entryInput.first else { return }
-//        persistenceManager.context.delete(firstEntry)
-//        persistenceManager.save()
-        persistenceManager.delete(firstEntry)
-        printEntries()
+        homeController.tableView.reloadData()
     }
     
     // MARK: - Selectors
+    @objc func save(sender: UIButton) {
+        var textView = UITextView()
+        textView = notesInputTextView
+        homeController.entryInput.append(textView.text!)
+        homeController.tableView.reloadData()
+        print(notesInputTextView.text!)
+        print(homeController.entryInput)
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
@@ -154,21 +123,8 @@ class ActivitiesNotesController: UIViewController {
     @objc func tapDone(sender: Any) {
         self.view.endEditing(true)
     }
-    
-    @objc func save(sender: UIButton) {
-        let entry = EntryInput(context: persistenceManager.context)
-        entry.thoughts = notesInputTextView.text
-               
-        persistenceManager.save()
-        self.homeController.tableView.reloadData()
-               
-        dismiss(animated: true, completion: nil)
-    }
-
 
 // MARK: - Helper Functions
-    
-    
     fileprivate func setupActivitiesLayout() {
         self.view.addSubview(activitiesTextView)
         activitiesTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)

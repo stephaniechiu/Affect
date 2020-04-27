@@ -9,6 +9,7 @@
 import UIKit
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
+    let customNavigationController = CustomNavigationController()
     let homeController = HomeController()
     let newEntryController = EntryController()
     let dataController = StatisticsController()
@@ -20,6 +21,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         self.delegate = self
         
+        customNavigationController.setupNavigationBar()
         setupTabBarItems()
     }
     
