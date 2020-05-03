@@ -31,16 +31,16 @@ class HomeCell: UITableViewCell {
         return icon
     }()
     
-    let entryTextView: UITextView = {
-        let textView = UITextView()
+    let entryTextLabel: UILabel = {
+        let textView = UILabel()
         textView.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac erat lobortis, sagittis dui et, pretium quam. Curabitur vitae libero mauris."
         textView.font = UIFont(name: "Gill Sans", size: 14)
         textView.backgroundColor = .clear
         textView.textAlignment = .left
-        textView.isEditable = false
-        textView.isScrollEnabled = false
-        textView.textContainer.lineBreakMode = .byTruncatingTail
-        textView.textContainer.maximumNumberOfLines = 2
+//        textView.isEditable = false
+//        textView.isScrollEnabled = false
+//        textView.textContainer.lineBreakMode = .byTruncatingTail
+//        textView.textContainer.maximumNumberOfLines = 2
         return textView
     }()
     
@@ -61,7 +61,7 @@ class HomeCell: UITableViewCell {
         dateTimeStack.distribution = .fillEqually
         dateTimeStack.spacing = 2
         
-        let entryStack = UIStackView(arrangedSubviews: [entryTextView])
+        let entryStack = UIStackView(arrangedSubviews: [entryTextLabel])
         entryStack.axis = .vertical
         entryStack.distribution = .fillEqually
         entryStack.spacing = 2

@@ -17,7 +17,6 @@ extension EntryInput {
         return NSFetchRequest<EntryInput>(entityName: "EntryInput")
     }
 
-    @NSManaged public var gratitude: String
-    @NSManaged public var thoughts: String
+    @NSManaged public var thoughts: String?
 
 }

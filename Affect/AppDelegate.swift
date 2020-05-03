@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
         return true
     }
 
@@ -32,6 +32,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        self.save()
+    }
+    
+        // MARK: - Core Data stack
+
+        lazy var persistentContainer: NSPersistentContainer = {
+            
+            let container = NSPersistentContainer(name: "Affect")
+                container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+                    if let error = error as NSError? {
+
+                        fatalError("Unresolved error \(error), \(error.userInfo)")
+                    }
+                })
+                return container
+            }()
+
+        // MARK: - Core Data Saving support
+
+        func save() {
+            let context = persistentContainer.viewContext
+            if context.hasChanges {
+                do {
+                    try context.save()
+                } catch {
+                    let nserror = error as NSError
+                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                }
+            }
+        }
+        
+//        //Returns the object type passed in as an array
+//        func fetch<T: NSManagedObject>(_ objectType: T.Type) -> [T] {
+//            let entityName = String(describing: objectType)
+//            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+//            
+//            do {
+//                let fetchedObjects = try context.fetch(fetchRequest) as? [T]
+//                return fetchedObjects ?? [T]()
+//            } catch {
+//                print(error)
+//                return [T]() //Returns empty array
+//            }
+//        }
+//        
+//        func delete(_ object: NSManagedObject) {
+//            context.delete(object)
+//            save()
+//        }
 
 }
 

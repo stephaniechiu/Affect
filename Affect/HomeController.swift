@@ -16,35 +16,31 @@ class HomeController: UIViewController {
     let tableView = UITableView()
     let moodController = MoodController()
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+
+//    var entryInput = [EntryInput]()
     var entryInput: [String] = []
-//    var entryInputList: [NSManagedObject] = []
-//    let entryInput = [
-//        UserEntryInput(thoughts: "abc", gratitude: "def"),
-//        UserEntryInput(thoughts: "123", gratitude: "432"),
-//        UserEntryInput(thoughts: "abc", gratitude: "def"),
-//        UserEntryInput(thoughts: "123", gratitude: "432"),
-//        UserEntryInput(thoughts: "abc", gratitude: "def")
-//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-
-        tableView.reloadData()
-    }
-    
-    func setupLayout() {
-        
         setupTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
     
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+//        let newEntry = EntryInput(context: self.context)
+//        newEntry.thoughts = notesInputTextView.text!
+//
+        self.entryInput.append("hello")
+        print(entryInput)
         
     //Register tableView
         tableView.register(HomeCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -82,19 +78,13 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HomeCell
-        
-        let inputEntry = entryInput[indexPath.row]
-        cell.entryTextView.text = inputEntry
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HomeCell
+        cell.entryTextLabel.text = entryInput[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(entryInput[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    // MARK: - Selectors
-    
-    // MARK: - Helper Functions
 }

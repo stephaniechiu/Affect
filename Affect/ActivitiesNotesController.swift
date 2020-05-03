@@ -18,6 +18,8 @@ var notesInputTextView: UITextView = {
 class ActivitiesNotesController: UIViewController {
     let homeController = HomeController()
     let customNavigationController = CustomNavigationController()
+
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
 //    var thoughtsEntries: [NSManagedObject] = []
     
@@ -90,20 +92,36 @@ class ActivitiesNotesController: UIViewController {
         pushViewUpKeyboard()
         
         saveBtn.addTarget(self, action: #selector(save(sender:)), for: .touchUpInside)
-        homeController.tableView.reloadData()
     }
     
     // MARK: - Selectors
     @objc func save(sender: UIButton) {
-        var textView = UITextView()
-        textView = notesInputTextView
-        homeController.entryInput.append(textView.text!)
+//        let newEntry = EntryInput(context: self.context)
+//        newEntry.thoughts = notesInputTextView.text!
+        
+        homeController.entryInput.append("goodbye!")
         homeController.tableView.reloadData()
-        print(notesInputTextView.text!)
         print(homeController.entryInput)
         
+//        let encoder = PropertyListEncoder()
+//        
+//        
+//        do {
+//            let data = try encoder.encode(homeController.entryInput)
+//            try data.write(to: homeController.dataFilePath!)
+//        } catch {
+//            print("Error encoding item array, \(error)")
+//        }
         dismiss(animated: true, completion: nil)
     }
+    
+//    func saveItems() {
+//        do {
+//            try context.save()
+//        } catch {
+//            print("Error saving context \(error)")
+//        }
+//    }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
