@@ -20,6 +20,7 @@ var negativeFeelingsLabel: [String] = ["irritated", "disappointed", "ashamed", "
 class FeelingsController: UIViewController {
     // MARK: - Properties
     let customNavigationController = CustomNavigationController()
+    let homeController = HomeController()
     
     let feelingsTextView: UITextView = {
         return UIView().titleTextView(text: "What describes your feelings?", textSize: 35)

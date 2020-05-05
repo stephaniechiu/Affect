@@ -14,13 +14,12 @@ private let reuseIdentifier = "HomeCell"
 class HomeController: UIViewController {
 
     let tableView = UITableView()
-    let moodController = MoodController()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
 
 //    var entryInput = [EntryInput]()
-    var entryInput: [String] = []
+    var entryInput: [Entry] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +27,9 @@ class HomeController: UIViewController {
         setupTableView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadData()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        self.tableView.reloadData()
+//    }
     
     func setupTableView() {
         tableView.delegate = self
@@ -39,8 +38,7 @@ class HomeController: UIViewController {
 //        let newEntry = EntryInput(context: self.context)
 //        newEntry.thoughts = notesInputTextView.text!
 //
-        self.entryInput.append("hello")
-        print(entryInput)
+//        self.entryInput.append("hello")
         
     //Register tableView
         tableView.register(HomeCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -56,6 +54,11 @@ class HomeController: UIViewController {
         
         view.addSubview(tableView)
     }
+    
+//    func updateData() {
+//        let activitiesController = ActivitiesNotesController()
+//        activitiesController.delegate = self
+//    }
 }
 
 // MARK: - UITableViewDelegate/DataSource
@@ -79,7 +82,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HomeCell
-        cell.entryTextLabel.text = entryInput[indexPath.row]
+        cell.entryTextLabel.text = entryInput[indexPath.row].thoughts
         
         return cell
     }
@@ -88,3 +91,5 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+

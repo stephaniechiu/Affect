@@ -45,8 +45,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     //When the 2nd tabBarItem is selected, MoodController is presented modally over the current view, allowing user to record an entry
     internal func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController.isKind(of: EntryController.self) {
+            let activitiesController = ActivitiesNotesController()
+            activitiesController.delegate = self
+            
             let moodController = MoodController()
-            let navController = UINavigationController(rootViewController: moodController)
+            
+            let navController = UINavigationController(rootViewController: activitiesController)
             navController.modalPresentationStyle = .fullScreen
             navController.navigationBar.isTranslucent = true
             navController.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -59,5 +63,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             return false
         }
         return true
+    }
+}
+
+extension TabBarController: AddEntryDelegate {
+    func addEntry(entry: Entry) {
+        self.dismiss(animated: true) {
+            self.homeController.entryInput.append(entry)
+            self.homeController.tableView.reloadData()
+        }
     }
 }

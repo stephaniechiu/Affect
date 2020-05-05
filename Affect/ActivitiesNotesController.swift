@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 
+protocol AddEntryDelegate {
+    func addEntry(entry: Entry)
+}
 
 var notesInputTextView: UITextView = {
     let inputView = UIView().inputTextView(placeholder: "Type anything...")
@@ -16,7 +19,8 @@ var notesInputTextView: UITextView = {
 }()
 
 class ActivitiesNotesController: UIViewController {
-    let homeController = HomeController()
+    var delegate: AddEntryDelegate?
+//    weak var homeControllerDelegate: HomeController?
     let customNavigationController = CustomNavigationController()
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -98,10 +102,9 @@ class ActivitiesNotesController: UIViewController {
     @objc func save(sender: UIButton) {
 //        let newEntry = EntryInput(context: self.context)
 //        newEntry.thoughts = notesInputTextView.text!
-        
-        homeController.entryInput.append("goodbye!")
-        homeController.tableView.reloadData()
-        print(homeController.entryInput)
+//        homeControllerDelegate?.entryInput.append("goodbye")
+//        homeControllerDelegate?.tableView.reloadData()
+//        print(homeController?.entryInput)
         
 //        let encoder = PropertyListEncoder()
 //        
@@ -112,7 +115,11 @@ class ActivitiesNotesController: UIViewController {
 //        } catch {
 //            print("Error encoding item array, \(error)")
 //        }
-        dismiss(animated: true, completion: nil)
+        
+        let thoughtsFromInput = notesInputTextView.text!
+        let entry = Entry(thoughts: thoughtsFromInput)
+        print(entry.thoughts)
+        delegate?.addEntry(entry: entry)
     }
     
 //    func saveItems() {

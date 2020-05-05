@@ -9,6 +9,5 @@
 import UIKit
 
 struct Entry {
-    var image: UIImage
-    var dateLabel: String
+    var thoughts: String
 }
